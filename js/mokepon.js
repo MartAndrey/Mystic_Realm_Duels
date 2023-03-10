@@ -76,38 +76,53 @@ function SelectPower() {
     buttonCryo.addEventListener('click', powerCryo);
     let buttonElectro = document.getElementById('button-electro');
     buttonElectro.addEventListener('click', powerElectro);
-
-    SetPowerEnemy();
 }
 
 function powerPyro() {
     attackPlayer = Powers.Pyro;
+    SetPowerEnemy();
 }
 
 function powerHydro() {
     attackPlayer = Powers.Hydro;
+    SetPowerEnemy();
 }
 
 function powerGeo() {
     attackPlayer = Powers.Geo;
+    SetPowerEnemy();
 }
 
 function powerCryo() {
     attackPlayer = Powers.Cryo;
+    SetPowerEnemy();
 }
 
 function powerElectro() {
     attackPlayer = Powers.Electro;
+    SetPowerEnemy();
 }
 
 function SetPowerEnemy() {
-    let powerRandom = random(0, 5);
+    let powerRandom = random(1, 5);
 
     if (powerRandom == 1) attackEnemy = Powers.Pyro;
     else if (powerRandom == 2) attackEnemy = Powers.Hydro;
     else if (powerRandom == 3) attackEnemy = Powers.Geo;
     else if (powerRandom == 4) attackEnemy = Powers.Cryo;
     else if (powerRandom == 5) attackEnemy = Powers.Electro;
+
+    console.log(powerRandom);
+    createMessage();
+}
+
+function createMessage() {
+    let sectionMessages = document.getElementById('messages');
+    let paragraph = document.createElement('p');
+
+    paragraph.innerHTML = `Your pet attacked with ${attackPlayer}, the enemy pet attacked with ${attackEnemy} - TODO:`;
+
+    sectionMessages.appendChild(paragraph);
 }
 
 function random(min, max) {
