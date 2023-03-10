@@ -70,8 +70,8 @@ function SelectPower() {
     buttonPyro.addEventListener('click', powerPyro);
     let buttonHydro = document.getElementById('button-hydro');
     buttonHydro.addEventListener('click', powerHydro);
-    let buttonGeo = document.getElementById('button-geo');
-    buttonGeo.addEventListener('click', powerGeo);
+    // let buttonGeo = document.getElementById('button-geo');
+    // buttonGeo.addEventListener('click', powerGeo);
     let buttonCryo = document.getElementById('button-cryo');
     buttonCryo.addEventListener('click', powerCryo);
     let buttonElectro = document.getElementById('button-electro');
@@ -105,24 +105,46 @@ function powerElectro() {
 
 function SetPowerEnemy() {
     let powerRandom = random(1, 5);
-
+    console.log(powerRandom)
     if (powerRandom == 1) attackEnemy = Powers.Pyro;
     else if (powerRandom == 2) attackEnemy = Powers.Hydro;
-    else if (powerRandom == 3) attackEnemy = Powers.Geo;
+    else if (powerRandom == 3) attackEnemy = Powers.Pyro; // Change to GEO
     else if (powerRandom == 4) attackEnemy = Powers.Cryo;
     else if (powerRandom == 5) attackEnemy = Powers.Electro;
 
-    console.log(powerRandom);
-    createMessage();
+    combat();
 }
 
-function createMessage() {
+function createMessage(result) {
     let sectionMessages = document.getElementById('messages');
     let paragraph = document.createElement('p');
 
-    paragraph.innerHTML = `Your pet attacked with ${attackPlayer}, the enemy pet attacked with ${attackEnemy} - TODO:`;
+    paragraph.innerHTML = `Your pet attacked with ${attackPlayer}, the enemy pet attacked with ${attackEnemy} - ${result}`;
 
     sectionMessages.appendChild(paragraph);
+}
+
+function combat() {
+    let result;
+
+    if (attackPlayer == attackEnemy) {
+        result = 'TIE😠';
+    } else if (attackPlayer == Powers.Pyro && attackEnemy == Powers.Cryo) {
+        result = 'You win🎉';
+    } else if (attackPlayer == Powers.Hydro && attackEnemy == Powers.Pyro) {
+        result = 'You win🎉';
+    } else if (attackPlayer == Powers.Cryo && attackEnemy == Powers.Electro) {
+        result = 'You win🎉';
+    } else if (attackPlayer == Powers.Electro && attackEnemy == Powers.Hydro) {
+        result = 'You win🎉';
+    } else {
+        result = 'You lost🎗️';
+    }
+    // else if (attackPlayer == Powers.Geo && attackEnemy == Powers.Cryo) {
+
+    // }
+
+    createMessage(result);
 }
 
 function random(min, max) {
