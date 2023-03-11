@@ -21,6 +21,9 @@ let currentPetEnemy;
 let attackPlayer;
 let attackEnemy;
 
+let livesPlayer = 3;
+let livesEnemy = 3;
+
 function startGame() {
     let buttonPetPlayer = document.getElementById('button-pet');
     buttonPetPlayer.addEventListener('click', selectPetPlayer);
@@ -105,7 +108,7 @@ function powerElectro() {
 
 function SetPowerEnemy() {
     let powerRandom = random(1, 5);
-    console.log(powerRandom)
+
     if (powerRandom == 1) attackEnemy = Powers.Pyro;
     else if (powerRandom == 2) attackEnemy = Powers.Hydro;
     else if (powerRandom == 3) attackEnemy = Powers.Pyro; // Change to GEO
@@ -127,24 +130,53 @@ function createMessage(result) {
 function combat() {
     let result;
 
+    let spanLivesPlayer = document.getElementById('lives-player');
+    let spanLivesEnemy = document.getElementById('lives-enemy');
+
     if (attackPlayer == attackEnemy) {
         result = 'TIE😠';
     } else if (attackPlayer == Powers.Pyro && attackEnemy == Powers.Cryo) {
         result = 'You win🎉';
+        livesEnemy--;
+        spanLivesEnemy.innerHTML = livesEnemy;
     } else if (attackPlayer == Powers.Hydro && attackEnemy == Powers.Pyro) {
         result = 'You win🎉';
+        livesEnemy--;
+        spanLivesEnemy.innerHTML = livesEnemy;
     } else if (attackPlayer == Powers.Cryo && attackEnemy == Powers.Electro) {
         result = 'You win🎉';
+        livesEnemy--;
+        spanLivesEnemy.innerHTML = livesEnemy;
     } else if (attackPlayer == Powers.Electro && attackEnemy == Powers.Hydro) {
         result = 'You win🎉';
+        livesEnemy--;
+        spanLivesEnemy.innerHTML = livesEnemy;
     } else {
         result = 'You lost🎗️';
+        livesPlayer = livesPlayer - 1;
+        spanLivesPlayer.innerHTML = livesPlayer;
     }
     // else if (attackPlayer == Powers.Geo && attackEnemy == Powers.Cryo) {
 
     // }
 
     createMessage(result);
+
+    checkLives();
+}
+
+function checkLives() {
+    if (livesEnemy <= 0) createFinalMessage('Congratulation! YOU WIN😃');
+    else if (livesPlayer <= 0) createFinalMessage('Sorry! YOU LOST😔');
+}
+
+function createFinalMessage(finalResult) {
+    let sectionMessages = document.getElementById('messages');
+    let paragraph = document.createElement('p');
+
+    paragraph.innerHTML = finalResult;
+
+    sectionMessages.appendChild(paragraph);
 }
 
 function random(min, max) {
