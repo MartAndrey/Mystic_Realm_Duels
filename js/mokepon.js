@@ -25,11 +25,26 @@ let livesPlayer = 3;
 let livesEnemy = 3;
 
 function startGame() {
+    let sectionSelectPower = document.getElementById('select-power');
+    sectionSelectPower.style.display = 'none';
+
+    let sectionButtonRestart = document.getElementById('restart');
+    sectionButtonRestart.style.display = 'none';
+
     let buttonPetPlayer = document.getElementById('button-pet');
     buttonPetPlayer.addEventListener('click', selectPetPlayer);
+
+    let buttonRestart = document.getElementById('button-restart');
+    buttonRestart.addEventListener('click', restartGame);
 }
 
 function selectPetPlayer() {
+    let sectionSelectPet = document.getElementById('select-pet');
+    sectionSelectPet.style.display = 'none';
+
+    let sectionSelectPower = document.getElementById('select-power');
+    sectionSelectPower.style.display = 'block';
+
     let hipodoge = document.getElementById('hipodoge');
     let capipepo = document.getElementById('capipepo');
     let ratigueya = document.getElementById('ratigueya');
@@ -177,6 +192,29 @@ function createFinalMessage(finalResult) {
     paragraph.innerHTML = finalResult;
 
     sectionMessages.appendChild(paragraph);
+
+    disabledButtonsPower();
+
+    let sectionButtonRestart = document.getElementById('restart');
+    sectionButtonRestart.style.display = 'block';
+}
+
+function disabledButtonsPower()
+{
+    let buttonPyro = document.getElementById('button-pyro');
+    buttonPyro.disabled = true;
+    let buttonHydro = document.getElementById('button-hydro');
+    buttonHydro.disabled = true;
+    // let buttonGeo = document.getElementById('button-geo');
+    // buttonGeo.disabled = true;
+    let buttonCryo = document.getElementById('button-cryo');
+    buttonCryo.disabled = true;
+    let buttonElectro = document.getElementById('button-electro');
+    buttonElectro.disabled = true;
+}
+
+function restartGame() {
+    location.reload();
 }
 
 function random(min, max) {
