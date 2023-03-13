@@ -1,0 +1,13 @@
+.title {
+    color: hotpink;
+    width: 410px;
+    height: 50px;
+    background-color: teal;
+}
+
+#select-pet {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,4 +1,4 @@
-const Pets = {
+const PETS = {
     Hipodoge: 'Hipodoge',
     Capipepo: 'Capipepo',
     Ratigueya: 'Ratigueya',
@@ -7,7 +7,7 @@ const Pets = {
     Pydos: 'Pydos',
 };
 
-const Powers = {
+const POWERS = {
     Pyro: 'Pyro',
     Hydro: 'Hydro',
     Geo: 'Geo',
@@ -54,12 +54,12 @@ function selectPetPlayer() {
 
     let spanPetPlayer = document.getElementById('pet-player');
 
-    if (hipodoge.checked) currentPetPlayer = Pets.Hipodoge;
-    else if (capipepo.checked) currentPetPlayer = Pets.Capipepo;
-    else if (ratigueya.checked) currentPetPlayer = Pets.Ratigueya;
-    else if (langostelvis.checked) currentPetPlayer = Pets.Langostelvis;
-    else if (tucapalma.checked) currentPetPlayer = Pets.Tucapalma;
-    else if (pydos.checked) currentPetPlayer = Pets.Pydos;
+    if (hipodoge.checked) currentPetPlayer = PETS.Hipodoge;
+    else if (capipepo.checked) currentPetPlayer = PETS.Capipepo;
+    else if (ratigueya.checked) currentPetPlayer = PETS.Ratigueya;
+    else if (langostelvis.checked) currentPetPlayer = PETS.Langostelvis;
+    else if (tucapalma.checked) currentPetPlayer = PETS.Tucapalma;
+    else if (pydos.checked) currentPetPlayer = PETS.Pydos;
     else alert('You must select a pet ');
 
     spanPetPlayer.innerHTML = currentPetPlayer;
@@ -73,12 +73,12 @@ function selectPetEnemy() {
     let petRandom = random(1, 6);
     let spanPetEnemy = document.getElementById('pet-enemy');
 
-    if (petRandom == 1) currentPetEnemy = Pets.Hipodoge;
-    else if (petRandom == 2) currentPetEnemy = Pets.Capipepo;
-    else if (petRandom == 3) currentPetEnemy = Pets.Ratigueya;
-    else if (petRandom == 4) currentPetEnemy = Pets.Langostelvis;
-    else if (petRandom == 5) currentPetEnemy = Pets.Tucapalma;
-    else if (petRandom == 6) currentPetEnemy = Pets.Pydos;
+    if (petRandom == 1) currentPetEnemy = PETS.Hipodoge;
+    else if (petRandom == 2) currentPetEnemy = PETS.Capipepo;
+    else if (petRandom == 3) currentPetEnemy = PETS.Ratigueya;
+    else if (petRandom == 4) currentPetEnemy = PETS.Langostelvis;
+    else if (petRandom == 5) currentPetEnemy = PETS.Tucapalma;
+    else if (petRandom == 6) currentPetEnemy = PETS.Pydos;
 
     spanPetEnemy.innerHTML = currentPetEnemy;
 }
@@ -97,38 +97,38 @@ function SelectPower() {
 }
 
 function powerPyro() {
-    attackPlayer = Powers.Pyro;
+    attackPlayer = POWERS.Pyro;
     SetPowerEnemy();
 }
 
 function powerHydro() {
-    attackPlayer = Powers.Hydro;
+    attackPlayer = POWERS.Hydro;
     SetPowerEnemy();
 }
 
 function powerGeo() {
-    attackPlayer = Powers.Geo;
+    attackPlayer = POWERS.Geo;
     SetPowerEnemy();
 }
 
 function powerCryo() {
-    attackPlayer = Powers.Cryo;
+    attackPlayer = POWERS.Cryo;
     SetPowerEnemy();
 }
 
 function powerElectro() {
-    attackPlayer = Powers.Electro;
+    attackPlayer = POWERS.Electro;
     SetPowerEnemy();
 }
 
 function SetPowerEnemy() {
     let powerRandom = random(1, 5);
 
-    if (powerRandom == 1) attackEnemy = Powers.Pyro;
-    else if (powerRandom == 2) attackEnemy = Powers.Hydro;
-    else if (powerRandom == 3) attackEnemy = Powers.Pyro; // Change to GEO
-    else if (powerRandom == 4) attackEnemy = Powers.Cryo;
-    else if (powerRandom == 5) attackEnemy = Powers.Electro;
+    if (powerRandom == 1) attackEnemy = POWERS.Pyro;
+    else if (powerRandom == 2) attackEnemy = POWERS.Hydro;
+    else if (powerRandom == 3) attackEnemy = POWERS.Pyro; // Change to GEO
+    else if (powerRandom == 4) attackEnemy = POWERS.Cryo;
+    else if (powerRandom == 5) attackEnemy = POWERS.Electro;
 
     combat();
 }
@@ -150,19 +150,19 @@ function combat() {
 
     if (attackPlayer == attackEnemy) {
         result = 'TIE😠';
-    } else if (attackPlayer == Powers.Pyro && attackEnemy == Powers.Cryo) {
+    } else if (attackPlayer == POWERS.Pyro && attackEnemy == POWERS.Cryo) {
         result = 'You win🎉';
         livesEnemy--;
         spanLivesEnemy.innerHTML = livesEnemy;
-    } else if (attackPlayer == Powers.Hydro && attackEnemy == Powers.Pyro) {
+    } else if (attackPlayer == POWERS.Hydro && attackEnemy == POWERS.Pyro) {
         result = 'You win🎉';
         livesEnemy--;
         spanLivesEnemy.innerHTML = livesEnemy;
-    } else if (attackPlayer == Powers.Cryo && attackEnemy == Powers.Electro) {
+    } else if (attackPlayer == POWERS.Cryo && attackEnemy == POWERS.Electro) {
         result = 'You win🎉';
         livesEnemy--;
         spanLivesEnemy.innerHTML = livesEnemy;
-    } else if (attackPlayer == Powers.Electro && attackEnemy == Powers.Hydro) {
+    } else if (attackPlayer == POWERS.Electro && attackEnemy == POWERS.Hydro) {
         result = 'You win🎉';
         livesEnemy--;
         spanLivesEnemy.innerHTML = livesEnemy;
