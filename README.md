@@ -1,1 +1,1 @@
-# Mokepon Platzi Game
+# Elementix Platzi Game
