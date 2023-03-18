@@ -1,10 +1,10 @@
-const PETS = {
-    Hipodoge: 'Hipodoge',
-    Capipepo: 'Capipepo',
-    Ratigueya: 'Ratigueya',
-    Langostelvis: 'Langostelvis',
-    Tucapalma: 'Tucapalma',
-    Pydos: 'Pydos',
+const CHARACTER = {
+    InfernoFury: 'Inferno Fury',
+    Alexia: 'Alexia',
+    Zarek: 'Zarek',
+    Draven: 'Draven',
+    Crystalia: 'Crystalia',
+    Raiven: 'Raiven',
 };
 
 const POWERS = {
@@ -15,8 +15,8 @@ const POWERS = {
     Electro: 'Electro',
 };
 
-let currentPetPlayer;
-let currentPetEnemy;
+let currentCharacterPlayer;
+let currentCharacterEnemy;
 
 let attackPlayer;
 let attackEnemy;
@@ -31,56 +31,56 @@ function startGame() {
     let sectionButtonRestart = document.getElementById('restart');
     sectionButtonRestart.style.display = 'none';
 
-    let buttonPetPlayer = document.getElementById('button-pet');
-    buttonPetPlayer.addEventListener('click', selectPetPlayer);
+    let buttonCharacterPlayer = document.getElementById('button-character');
+    buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
 
     let buttonRestart = document.getElementById('button-restart');
     buttonRestart.addEventListener('click', restartGame);
 }
 
-function selectPetPlayer() {
-    let sectionSelectPet = document.getElementById('select-pet');
-    sectionSelectPet.style.display = 'none';
+function selectCharacterPlayer() {
+    let sectionSelectCharacter = document.getElementById('select-character');
+    sectionSelectCharacter.style.display = 'none';
 
     let sectionSelectPower = document.getElementById('select-power');
     sectionSelectPower.style.display = 'block';
 
-    let hipodoge = document.getElementById('hipodoge');
-    let capipepo = document.getElementById('capipepo');
-    let ratigueya = document.getElementById('ratigueya');
-    let langostelvis = document.getElementById('langostelvis');
-    let tucapalma = document.getElementById('tucapalma');
-    let pydos = document.getElementById('pydos');
+    let infernoFury = document.getElementById('inferno-fury');
+    let alexia = document.getElementById('alexia');
+    let zarek = document.getElementById('zarek');
+    let draven = document.getElementById('draven');
+    let crystalia = document.getElementById('crystalia');
+    let raiven = document.getElementById('raiven');
 
-    let spanPetPlayer = document.getElementById('pet-player');
+    let spanCharacterPlayer = document.getElementById('character-player');
 
-    if (hipodoge.checked) currentPetPlayer = PETS.Hipodoge;
-    else if (capipepo.checked) currentPetPlayer = PETS.Capipepo;
-    else if (ratigueya.checked) currentPetPlayer = PETS.Ratigueya;
-    else if (langostelvis.checked) currentPetPlayer = PETS.Langostelvis;
-    else if (tucapalma.checked) currentPetPlayer = PETS.Tucapalma;
-    else if (pydos.checked) currentPetPlayer = PETS.Pydos;
-    else alert('You must select a pet ');
+    if (infernoFury.checked) currentCharacterPlayer = CHARACTER.InfernoFury;
+    else if (alexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
+    else if (zarek.checked) currentCharacterPlayer = CHARACTER.Zarek;
+    else if (draven.checked) currentCharacterPlayer = CHARACTER.Draven;
+    else if (crystalia.checked) currentCharacterPlayer = CHARACTER.Crystalia;
+    else if (raiven.checked) currentCharacterPlayer = CHARACTER.Raiven;
+    else alert('You must select a character ');
 
-    spanPetPlayer.innerHTML = currentPetPlayer;
+    spanCharacterPlayer.innerHTML = currentCharacterPlayer;
 
-    selectPetEnemy();
+    selectCharacterEnemy();
 
     SelectPower();
 }
 
-function selectPetEnemy() {
-    let petRandom = random(1, 6);
-    let spanPetEnemy = document.getElementById('pet-enemy');
+function selectCharacterEnemy() {
+    let characterRandom = random(1, 6);
+    let spanCharacterEnemy = document.getElementById('character-enemy');
 
-    if (petRandom == 1) currentPetEnemy = PETS.Hipodoge;
-    else if (petRandom == 2) currentPetEnemy = PETS.Capipepo;
-    else if (petRandom == 3) currentPetEnemy = PETS.Ratigueya;
-    else if (petRandom == 4) currentPetEnemy = PETS.Langostelvis;
-    else if (petRandom == 5) currentPetEnemy = PETS.Tucapalma;
-    else if (petRandom == 6) currentPetEnemy = PETS.Pydos;
+    if (characterRandom == 1) currentCharacterEnemy = CHARACTER.InfernoFury;
+    else if (characterRandom == 2) currentCharacterEnemy = CHARACTER.Alexia;
+    else if (characterRandom == 3) currentCharacterEnemy = CHARACTER.Zarek;
+    else if (characterRandom == 4) currentCharacterEnemy = CHARACTER.Draven;
+    else if (characterRandom == 5) currentCharacterEnemy = CHARACTER.Crystalia;
+    else if (characterRandom == 6) currentCharacterEnemy = CHARACTER.Raiven;
 
-    spanPetEnemy.innerHTML = currentPetEnemy;
+    spanCharacterEnemy.innerHTML = currentCharacterEnemy;
 }
 
 function SelectPower() {
@@ -137,7 +137,7 @@ function createMessage(result) {
     let sectionMessages = document.getElementById('messages');
     let paragraph = document.createElement('p');
 
-    paragraph.innerHTML = `Your pet attacked with ${attackPlayer}, the enemy pet attacked with ${attackEnemy} - ${result}`;
+    paragraph.innerHTML = `Your character attacked with ${attackPlayer}, the enemy character attacked with ${attackEnemy} - ${result}`;
 
     sectionMessages.appendChild(paragraph);
 }

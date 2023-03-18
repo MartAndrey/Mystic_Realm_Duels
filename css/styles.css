@@ -1,13 +1,51 @@
-.title {
-    color: hotpink;
-    width: 410px;
-    height: 50px;
-    background-color: teal;
+@import url('https://fonts.googleapis.com/css2?family=Skranji&display=swap');
+
+body {
+    font-family: 'Skranji', cursive;
+    background-color: #171717;
 }
 
-#select-pet {
+#select-character {
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
+}
+
+.title {
+    color: white;
+    font-size: 32px;
+}
+
+.caption {
+    color: white;
+    font-size: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 10px;
+}
+
+.mired-card {
+    width: 100px;
+    height: 100px;
+    background: #444444;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+#button-character {
+    background-color: cornsilk;
+    border: 2px solid;
+    width: 80px;
+    height: 30px;
+    padding: 2px;
+    margin: 5px;
+}
+
+input {
+    display: none;
 }

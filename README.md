@@ -1,1 +1,1 @@
-# Elementix Platzi Game
+# Mystic Realm Duels Platzi Game
