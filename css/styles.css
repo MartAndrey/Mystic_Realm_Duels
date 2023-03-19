@@ -2,7 +2,11 @@
 
 body {
     font-family: 'Skranji', cursive;
-    background-color: #171717;
+    /* background-color: #171717; */
+    margin: 0;
+    background: #171717;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #171717, #DA0037, #444444);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #171717, #DA0037, #444444); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #select-character {
@@ -13,28 +17,47 @@ body {
 }
 
 .title {
-    color: white;
+    color: #ededed;
     font-size: 32px;
 }
 
 .caption {
-    color: white;
+    color: #ededed;
     font-size: 20px;
 }
 
 .cards {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
+    width: 1200px;
+    height: 500px;
 }
 
 .mired-card {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 180px;
     background: #444444;
     padding: 10px;
     box-sizing: border-box;
     margin: 10px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    color: #ededed;
+}
+
+.mired-card p {
+    font-size: 40px;
+    margin-bottom: 100px;
+}
+
+.mired-card img {
+    width: 200px;
+    height: auto;
 }
 
 #button-character {

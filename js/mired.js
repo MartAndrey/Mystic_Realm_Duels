@@ -199,8 +199,7 @@ function createFinalMessage(finalResult) {
     sectionButtonRestart.style.display = 'block';
 }
 
-function disabledButtonsPower()
-{
+function disabledButtonsPower() {
     let buttonPyro = document.getElementById('button-pyro');
     buttonPyro.disabled = true;
     let buttonHydro = document.getElementById('button-hydro');
