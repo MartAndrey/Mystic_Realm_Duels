@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Skranji&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Skranji&display=swap');
 
 body {
     font-family: 'Skranji', cursive;
-    /* background-color: #171717; */
     margin: 0;
-    background: #171717;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #171717, #DA0037, #444444);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #171717, #DA0037, #444444); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-image: url(/assets/Background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* background: #171717;  
+    background: -webkit-linear-gradient(to right, #444444, #171717);  
+    background: linear-gradient(to right, #444444, #171717);  */
 }
 
 #select-character {
@@ -17,12 +20,12 @@ body {
 }
 
 .title {
-    color: #ededed;
+    color: #171717;
     font-size: 32px;
 }
 
 .caption {
-    color: #ededed;
+    color: #171717;
     font-size: 20px;
 }
 
@@ -39,7 +42,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    list-style: none
+    list-style: none;
 }
 
 .mired-card .cards-container {
@@ -63,12 +66,12 @@ body {
     display: flex;
     width: 250px;
     height: 180px;
-    background: #444444;
+    background: #ededed;
     padding: 10px;
     box-sizing: border-box;
     margin: 10px;
     border-radius: 20px;
-    color: #ededed;
+    color: #171717;
 }
 
 .label-container-cards p {
@@ -80,12 +83,17 @@ body {
 }
 
 #button-character {
-    background-color: #ededed;
-    border: 2px solid;
-    width: 80px;
-    height: 30px;
-    padding: 2px;
-    margin: 5px;
+    background-color: #da0037;
+    border-radius: 100px;
+    width: 150px;
+    height: 50px;
+    color: #ededed;
+    border: transparent;
+    font-size: 25px;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
 }
 
 input {
