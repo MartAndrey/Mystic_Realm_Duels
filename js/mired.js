@@ -43,7 +43,7 @@ function selectCharacterPlayer() {
     sectionSelectCharacter.style.display = 'none';
 
     let sectionSelectPower = document.getElementById('select-power');
-    sectionSelectPower.style.display = 'block';
+    sectionSelectPower.style.display = 'flex';
 
     let infernoFury = document.getElementById('inferno-fury');
     let alexia = document.getElementById('alexia');
@@ -133,15 +133,6 @@ function SetPowerEnemy() {
     combat();
 }
 
-function createMessage(result) {
-    let sectionMessages = document.getElementById('messages');
-    let paragraph = document.createElement('p');
-
-    paragraph.innerHTML = `Your character attacked with ${attackPlayer}, the enemy character attacked with ${attackEnemy} - ${result}`;
-
-    sectionMessages.appendChild(paragraph);
-}
-
 function combat() {
     let result;
 
@@ -172,11 +163,11 @@ function combat() {
         spanLivesPlayer.innerHTML = livesPlayer;
     }
     // else if (attackPlayer == Powers.Geo && attackEnemy == Powers.Cryo) {
-
-    // }
-
+        
+        // }
+        
     createMessage(result);
-
+    
     checkLives();
 }
 
@@ -185,14 +176,27 @@ function checkLives() {
     else if (livesPlayer <= 0) createFinalMessage('Sorry! YOU LOST😔');
 }
 
+function createMessage(result) {
+    let sectionMessages = document.getElementById('result');
+    let pAttackPlayer = document.getElementById('attack-player');
+    let pAttackEnemy = document.getElementById('attack-enemy');
+
+    let newAttackPlayer = document.createElement('p');
+    let newAttackEnemy = document.createElement('p');
+    
+    sectionMessages.innerHTML = result;
+    newAttackPlayer.innerHTML = attackPlayer
+    newAttackEnemy.innerHTML = attackEnemy
+
+    pAttackPlayer.appendChild(newAttackPlayer);
+    pAttackEnemy.appendChild(newAttackEnemy);
+}
+
 function createFinalMessage(finalResult) {
-    let sectionMessages = document.getElementById('messages');
-    let paragraph = document.createElement('p');
-
-    paragraph.innerHTML = finalResult;
-
-    sectionMessages.appendChild(paragraph);
-
+    let sectionMessages = document.getElementById('result');
+    
+    sectionMessages.innerHTML = finalResult;
+    
     disabledButtonsPower();
 
     let sectionButtonRestart = document.getElementById('restart');

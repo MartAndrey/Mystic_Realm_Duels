@@ -10,7 +10,7 @@
     </head>
     <body>
         <section id="select-character">
-            <h1 class="title">Mystic Realm Duels!</h1>
+            <h1 class="title">Mystic Realm Duels</h1>
             <h2 class="caption">Choose your character:</h2>
 
             <div class="cards">
@@ -70,29 +70,31 @@
         </section>
 
         <section id="select-power">
-            <h1 class="title">Mystic Realm Duels!</h1>
-            <h2>Choose your power:</h2>
-            <p>
-                Your character <span id="character-player"></span> has
-                <span id="lives-player">3</span> lives
-            </p>
-            <p>
-                Enemy character <span id="character-enemy"></span> has
-                <span id="lives-enemy">3</span> lives
-            </p>
-            <p>
-                <button id="button-pyro">Pyro🔥</button>
-                <button id="button-hydro">Hydro💧</button>
-                <!-- <button id="button-geo">Geo🌱</button> -->
-                <button id="button-cryo">Cryo❄️</button>
-                <button id="button-electro">Electro⚡</button>
-            </p>
-        </section>
+            <h1 class="title">Mystic Realm Duels</h1>
+            <h2 class="caption">Choose your power:</h2>
 
-        <section id="messages"></section>
+            <div>
+                <button id="button-pyro" class="button-power">Pyro</button>
+                <button id="button-hydro" class="button-power">Hydro</button>
+                <!-- <button id="button-geo" class="button-power">Geo</button> -->
+                <button id="button-cryo" class="button-power">Cryo</button>
+                <button id="button-electro" class="button-power">Electro</button>
+            </div>
 
-        <section id="restart">
-            <button id="button-restart">Restart</button>
+            <div id="messages">
+                <p id="result">Good Luck</p>
+
+                <section id="restart">
+                    <button id="button-restart">Restart</button>
+                </section>
+            </div>
+                
+            <div>
+                <div id="attack-player"></div>
+                <div id="attack-enemy"></div>
+                <p>Enemy character <span id="character-enemy"></span> has <span id="lives-enemy">3</span> lives</p>
+                <p>Your character <span id="character-player"></span> has <span id="lives-player">3</span> lives</p>
+            </div>
         </section>
     </body>
 </html>

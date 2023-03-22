@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Skranji&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Skranji&display=swap');
 
 body {
     font-family: 'Skranji', cursive;
@@ -7,6 +7,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    min-height: 100vh;
     /* background: #171717;  
     background: -webkit-linear-gradient(to right, #444444, #171717);  
     background: linear-gradient(to right, #444444, #171717);  */
@@ -20,12 +21,12 @@ body {
 }
 
 .title {
-    color: #171717;
+    color: #ededed;
     font-size: 32px;
 }
 
 .caption {
-    color: #171717;
+    color: #ededed;
     font-size: 20px;
 }
 
@@ -93,9 +94,61 @@ body {
 }
 
 button {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Skranji', cursive;
 }
 
 input {
     display: none;
+}
+
+#select-power {
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-power {
+    box-sizing: border-box;
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    padding: 10px;
+    border: transparent;
+    color: #171717;
+    font-size: 20px;
+}
+
+#button-pyro {
+    background: linear-gradient(to bottom, #ff7900, #ff2200, #ff7900);
+}
+
+#button-hydro {
+    background: linear-gradient(to bottom, #5aa4e0, #0fdcf3, #0fdcf3, #0fdcf3);
+}
+
+#button-geo {
+    background: linear-gradient(to bottom, #c1a57b, #d9c9a4, #f1e8cd);
+}
+
+#button-cryo {
+    background: linear-gradient(to bottom, #b3e8f4, #d1eef2, #ffffff);
+}
+
+#button-electro {
+    background: linear-gradient(to bottom, #bb56f1, #9425e4, #bb56f1);
+}
+
+#messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 250px;
+    height: 80px;
+    background: #EDEDED;
+    border-radius: 20px;
+}
+
+#button-restart {
+    border: none;
+    color: #444444;
 }
