@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Mystic Realm Duels!</title>
         <script src="js/mired.js"></script>
         <link rel="stylesheet" href="css/styles.css" />
@@ -13,53 +13,55 @@
             <h1 class="title">Mystic Realm Duels</h1>
             <h2 class="caption">Choose your character:</h2>
 
-            <div class="cards">
+            <div id="cards">
                 <ul class="mired-card">
                     <li class="cards-container">
-                        <img src="assets/Inferno Fury.png" alt="Inferno Fury">
                         <label class="label-container-cards" for="inferno-fury">
-                            <p>Inferno Fury</p>
+                            <p class="square">Inferno Fury</p>
+                            <img
+                                src="assets/Inferno Fury.png"
+                                alt="Inferno Fury"
+                            />
                         </label>
                         <input type="radio" name="pets" id="inferno-fury" />
                     </li>
-                    
+
                     <li class="cards-container">
-                        <img src="assets/Alexia.png" alt="Alexia">
                         <label class="label-container-cards" for="alexia">
-                            <p>Alexia</p>
+                            <p class="square">Alexia</p>
+                            <img src="assets/Alexia.png" alt="Alexia" />
                         </label>
                         <input type="radio" name="pets" id="alexia" />
                     </li>
-                    
+
                     <li class="cards-container">
-                        <img src="assets/Zarek.png" alt="Zarek">
-                        <label class="label-container-cards" for="zarek" >
-                            <p>Zarek</p>
+                        <label class="label-container-cards" for="zarek">
+                            <p class="square">Zarek</p>
+                            <img src="assets/Zarek.png" alt="Zarek" />
                         </label>
                         <input type="radio" name="pets" id="zarek" />
-    
                     </li>
-    
+
                     <li class="cards-container">
-                        <img src="assets/Draven.png" alt="Draven">
                         <label class="label-container-cards" for="draven">
-                            <p>Draven</p>
+                            <p class="square">Draven</p>
+                            <img src="assets/Draven.png" alt="Draven" />
                         </label>
-                        <input type="radio" name="pets" id="draven">
+                        <input type="radio" name="pets" id="draven" />
                     </li>
-    
+
                     <li class="cards-container">
-                        <img src="assets/Crystalia.png" alt="Crystalia">
                         <label class="label-container-cards" for="crystalia">
-                            <p>Crystalia</p>
+                            <p class="square">Crystalia</p>
+                            <img src="assets/Crystalia.png" alt="Crystalia" />
                         </label>
                         <input type="radio" name="pets" id="crystalia" />
                     </li>
-    
+
                     <li class="cards-container">
-                        <img src="assets/Raiven.png" alt="Raiven">
                         <label class="label-container-cards" for="raiven">
-                            <p>Raiven</p>
+                            <p class="square">Raiven</p>
+                            <img src="assets/Raiven.png" alt="Raiven" />
                         </label>
                         <input type="radio" name="pets" id="raiven" />
                     </li>
@@ -73,12 +75,14 @@
             <h1 class="title">Mystic Realm Duels</h1>
             <h2 class="caption">Choose your power:</h2>
 
-            <div>
+            <div class="button-powers">
                 <button id="button-pyro" class="button-power">Pyro</button>
                 <button id="button-hydro" class="button-power">Hydro</button>
                 <!-- <button id="button-geo" class="button-power">Geo</button> -->
                 <button id="button-cryo" class="button-power">Cryo</button>
-                <button id="button-electro" class="button-power">Electro</button>
+                <button id="button-electro" class="button-power">
+                    Electro
+                </button>
             </div>
 
             <div id="messages">
@@ -88,12 +92,18 @@
                     <button id="button-restart">Restart</button>
                 </section>
             </div>
-                
-            <div>
-                <div id="attack-player"></div>
-                <div id="attack-enemy"></div>
-                <p>Enemy character <span id="character-enemy"></span> has <span id="lives-enemy">3</span> lives</p>
-                <p>Your character <span id="character-player"></span> has <span id="lives-player">3</span> lives</p>
+
+            <div class="messages-attacks">
+                <div>
+                    <p id="lives-player">3</p>
+                    <p id="character-player"></p>
+                    <div id="attack-player"></div>
+                </div>
+                <div>
+                    <p id="lives-enemy">3</p>
+                    <p id="character-enemy"></p>
+                    <div id="attack-enemy"></div>
+                </div>
             </div>
         </section>
     </body>
@@ -104,4 +114,4 @@ Raiven -> Electro
 Alexia -> Pyro
 Crystalia -> Cryo - Hydro
 Inferno Fury -> Pyro
-Draven -> Pyro
+Draven -> Pyro  -->

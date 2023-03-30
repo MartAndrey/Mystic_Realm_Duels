@@ -225,3 +225,14 @@ function random(min, max) {
 }
 
 window.addEventListener('load', startGame);
+
+
+// const cardContainer = document.getElementById("card-container");
+// const scrollStep = 200; // la cantidad de píxeles para desplazarse
+// window.addEventListener("keydown", (event) => {
+//   if (event.keyCode === 39) { // tecla derecha
+//     cardContainer.scrollLeft += scrollStep;
+//   } else if (event.keyCode === 37) { // tecla izquierda
+//     cardContainer.scrollLeft -= scrollStep;
+//   }
+// });
