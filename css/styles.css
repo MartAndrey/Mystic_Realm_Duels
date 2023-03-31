@@ -13,6 +13,10 @@ body {
     background: linear-gradient(to right, #444444, #171717);  */
 }
 
+button {
+    font-family: 'Skranji', cursive;
+}
+
 #select-character {
     display: flex;
     flex-flow: column;
@@ -36,14 +40,18 @@ body {
     white-space: nowrap;
 }
 
+#cards::-webkit-scrollbar {
+    display: none;
+}
+
 .mired-card {
     display: flex;
     list-style: none;
 }
 
 .mired-card .cards-container {
-    width: 280px;
-    height: 500px;
+    width: 200px;
+    height: 400px;
     margin: 0 15px;
 }
 
@@ -51,26 +59,48 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column-reverse;
+    opacity: 0.8;
 }
 
-.square {
+.mired-card p {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 250px;
-    height: 180px;
+    width: 200px;
+    height: 140px;
     background: #ededed;
     box-sizing: border-box;
     border-radius: 20px;
-    font-size: 40px;
+    font-size: 2em;
     margin: 0;
 }
 
 .mired-card img {
     width: auto;
-    height: 300px;
+    height: 200px;
     position: relative;
     transform: translateY(26%);
+}
+
+input {
+    display: none;
+}
+
+input:checked + label > p {
+    background-color: #da0037;
+}
+
+input:checked + .label-container-cards {
+    opacity: 1;
+}
+
+.mired-card .label-container-cards:hover {
+    opacity: 1;
+    transform: scale(1.2) translate(10%, -8%);
+    margin: 0 100px;
+    transition: transform 0.2s ease-in-out;
+    filter: contrast(120%);
+    cursor: grab;
 }
 
 #button-character {
@@ -83,15 +113,7 @@ body {
     font-size: 25px;
 }
 
-button {
-    font-family: 'Skranji', cursive;
-}
-
-input {
-    display: none;
-}
-
-#select-power {
+#select-power + {
     flex-direction: column;
     align-items: center;
 }
@@ -148,8 +170,26 @@ input {
     grid-template-columns: 100px 100px;
 }
 
-@media (max-width: 400) {
+#lives-player,
+#lives-enemy {
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+.attacks-enemy,
+.attacks-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 400px) {
     .mired-card {
         flex-direction: column;
+    }
+    .button-power {
+        display: flex;
+        flex-direction: column;
+        margin: 15px;
     }
 }

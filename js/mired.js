@@ -163,11 +163,11 @@ function combat() {
         spanLivesPlayer.innerHTML = livesPlayer;
     }
     // else if (attackPlayer == Powers.Geo && attackEnemy == Powers.Cryo) {
-        
-        // }
-        
+
+    // }
+
     createMessage(result);
-    
+
     checkLives();
 }
 
@@ -183,10 +183,10 @@ function createMessage(result) {
 
     let newAttackPlayer = document.createElement('p');
     let newAttackEnemy = document.createElement('p');
-    
+
     sectionMessages.innerHTML = result;
-    newAttackPlayer.innerHTML = attackPlayer
-    newAttackEnemy.innerHTML = attackEnemy
+    newAttackPlayer.innerHTML = attackPlayer;
+    newAttackEnemy.innerHTML = attackEnemy;
 
     pAttackPlayer.appendChild(newAttackPlayer);
     pAttackEnemy.appendChild(newAttackEnemy);
@@ -194,9 +194,9 @@ function createMessage(result) {
 
 function createFinalMessage(finalResult) {
     let sectionMessages = document.getElementById('result');
-    
+
     sectionMessages.innerHTML = finalResult;
-    
+
     disabledButtonsPower();
 
     let sectionButtonRestart = document.getElementById('restart');
@@ -225,7 +225,6 @@ function random(min, max) {
 }
 
 window.addEventListener('load', startGame);
-
 
 // const cardContainer = document.getElementById("card-container");
 // const scrollStep = 200; // la cantidad de píxeles para desplazarse
