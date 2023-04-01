@@ -15,6 +15,34 @@ const POWERS = {
     Electro: 'Electro',
 };
 
+const sectionSelectCharacter = document.getElementById('select-character');
+const sectionSelectPower = document.getElementById('select-power');
+const buttonCharacterPlayer = document.getElementById('button-character');
+const sectionButtonRestart = document.getElementById('restart');
+const buttonRestart = document.getElementById('button-restart');
+
+const infernoFury = document.getElementById('inferno-fury');
+const alexia = document.getElementById('alexia');
+const zarek = document.getElementById('zarek');
+const draven = document.getElementById('draven');
+const crystalia = document.getElementById('crystalia');
+const raiven = document.getElementById('raiven');
+
+const buttonPyro = document.getElementById('button-pyro');
+const buttonHydro = document.getElementById('button-hydro');
+const buttonGeo = document.getElementById('button-geo');
+const buttonCryo = document.getElementById('button-cryo');
+const buttonElectro = document.getElementById('button-electro');
+
+const spanLivesPlayer = document.getElementById('lives-player');
+const spanLivesEnemy = document.getElementById('lives-enemy');
+const spanCharacterPlayer = document.getElementById('character-player');
+const spanCharacterEnemy = document.getElementById('character-enemy');
+
+const sectionMessages = document.getElementById('result');
+const pAttackPlayer = document.getElementById('attack-player');
+const pAttackEnemy = document.getElementById('attack-enemy');
+
 let currentCharacterPlayer;
 let currentCharacterEnemy;
 
@@ -25,34 +53,16 @@ let livesPlayer = 3;
 let livesEnemy = 3;
 
 function startGame() {
-    let sectionSelectPower = document.getElementById('select-power');
     sectionSelectPower.style.display = 'none';
-
-    let sectionButtonRestart = document.getElementById('restart');
     sectionButtonRestart.style.display = 'none';
 
-    let buttonCharacterPlayer = document.getElementById('button-character');
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
-
-    let buttonRestart = document.getElementById('button-restart');
     buttonRestart.addEventListener('click', restartGame);
 }
 
 function selectCharacterPlayer() {
-    let sectionSelectCharacter = document.getElementById('select-character');
     sectionSelectCharacter.style.display = 'none';
-
-    let sectionSelectPower = document.getElementById('select-power');
     sectionSelectPower.style.display = 'flex';
-
-    let infernoFury = document.getElementById('inferno-fury');
-    let alexia = document.getElementById('alexia');
-    let zarek = document.getElementById('zarek');
-    let draven = document.getElementById('draven');
-    let crystalia = document.getElementById('crystalia');
-    let raiven = document.getElementById('raiven');
-
-    let spanCharacterPlayer = document.getElementById('character-player');
 
     if (infernoFury.checked) currentCharacterPlayer = CHARACTER.InfernoFury;
     else if (alexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
@@ -71,7 +81,6 @@ function selectCharacterPlayer() {
 
 function selectCharacterEnemy() {
     let characterRandom = random(1, 6);
-    let spanCharacterEnemy = document.getElementById('character-enemy');
 
     if (characterRandom == 1) currentCharacterEnemy = CHARACTER.InfernoFury;
     else if (characterRandom == 2) currentCharacterEnemy = CHARACTER.Alexia;
@@ -84,15 +93,10 @@ function selectCharacterEnemy() {
 }
 
 function SelectPower() {
-    let buttonPyro = document.getElementById('button-pyro');
     buttonPyro.addEventListener('click', powerPyro);
-    let buttonHydro = document.getElementById('button-hydro');
     buttonHydro.addEventListener('click', powerHydro);
-    // let buttonGeo = document.getElementById('button-geo');
     // buttonGeo.addEventListener('click', powerGeo);
-    let buttonCryo = document.getElementById('button-cryo');
     buttonCryo.addEventListener('click', powerCryo);
-    let buttonElectro = document.getElementById('button-electro');
     buttonElectro.addEventListener('click', powerElectro);
 }
 
@@ -136,9 +140,6 @@ function SetPowerEnemy() {
 function combat() {
     let result;
 
-    let spanLivesPlayer = document.getElementById('lives-player');
-    let spanLivesEnemy = document.getElementById('lives-enemy');
-
     if (attackPlayer == attackEnemy) {
         result = 'TIE😠';
     } else if (attackPlayer == POWERS.Pyro && attackEnemy == POWERS.Cryo) {
@@ -177,10 +178,6 @@ function checkLives() {
 }
 
 function createMessage(result) {
-    let sectionMessages = document.getElementById('result');
-    let pAttackPlayer = document.getElementById('attack-player');
-    let pAttackEnemy = document.getElementById('attack-enemy');
-
     let newAttackPlayer = document.createElement('p');
     let newAttackEnemy = document.createElement('p');
 
@@ -193,26 +190,18 @@ function createMessage(result) {
 }
 
 function createFinalMessage(finalResult) {
-    let sectionMessages = document.getElementById('result');
-
     sectionMessages.innerHTML = finalResult;
 
     disabledButtonsPower();
 
-    let sectionButtonRestart = document.getElementById('restart');
     sectionButtonRestart.style.display = 'block';
 }
 
 function disabledButtonsPower() {
-    let buttonPyro = document.getElementById('button-pyro');
     buttonPyro.disabled = true;
-    let buttonHydro = document.getElementById('button-hydro');
     buttonHydro.disabled = true;
-    // let buttonGeo = document.getElementById('button-geo');
     // buttonGeo.disabled = true;
-    let buttonCryo = document.getElementById('button-cryo');
     buttonCryo.disabled = true;
-    let buttonElectro = document.getElementById('button-electro');
     buttonElectro.disabled = true;
 }
 
