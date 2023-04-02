@@ -1,3 +1,5 @@
+import { Character } from "./character.js";
+
 const CHARACTER = {
     InfernoFury: 'Inferno Fury',
     Alexia: 'Alexia',
@@ -21,12 +23,12 @@ const buttonCharacterPlayer = document.getElementById('button-character');
 const sectionButtonRestart = document.getElementById('restart');
 const buttonRestart = document.getElementById('button-restart');
 
-const infernoFury = document.getElementById('inferno-fury');
-const alexia = document.getElementById('alexia');
-const zarek = document.getElementById('zarek');
-const draven = document.getElementById('draven');
-const crystalia = document.getElementById('crystalia');
-const raiven = document.getElementById('raiven');
+const inputInfernoFury = document.getElementById('inferno-fury');
+const inputAlexia = document.getElementById('alexia');
+const inputZarek = document.getElementById('zarek');
+const inputDraven = document.getElementById('draven');
+const inputCrystalia = document.getElementById('crystalia');
+const inputRaiven = document.getElementById('raiven');
 
 const buttonPyro = document.getElementById('button-pyro');
 const buttonHydro = document.getElementById('button-hydro');
@@ -52,6 +54,13 @@ let attackEnemy;
 let livesPlayer = 3;
 let livesEnemy = 3;
 
+let infernoFury = new Character('Inferno Fury', 'assets/Inferno Fury.png', 5);
+let alexia = new Character('Alexia', 'assets/Alexia.png', 5);
+let zarek = new Character('Zarek', 'assets/Zarek.png', 5);
+let draven = new Character('Draven', 'assets/Draven.png', 5);
+let crystalia = new Character('Crystalia', 'assets/Crystalia.png', 5);
+let raiven = new Character('Raiven', 'assets/Raiven.png', 5);
+
 function startGame() {
     sectionSelectPower.style.display = 'none';
     sectionButtonRestart.style.display = 'none';
@@ -64,12 +73,12 @@ function selectCharacterPlayer() {
     sectionSelectCharacter.style.display = 'none';
     sectionSelectPower.style.display = 'flex';
 
-    if (infernoFury.checked) currentCharacterPlayer = CHARACTER.InfernoFury;
-    else if (alexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
-    else if (zarek.checked) currentCharacterPlayer = CHARACTER.Zarek;
-    else if (draven.checked) currentCharacterPlayer = CHARACTER.Draven;
-    else if (crystalia.checked) currentCharacterPlayer = CHARACTER.Crystalia;
-    else if (raiven.checked) currentCharacterPlayer = CHARACTER.Raiven;
+    if (inputInfernoFury.checked) currentCharacterPlayer = CHARACTER.InfernoFury;
+    else if (inputAlexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
+    else if (inputZarek.checked) currentCharacterPlayer = CHARACTER.Zarek;
+    else if (inputDraven.checked) currentCharacterPlayer = CHARACTER.Draven;
+    else if (inputCrystalia.checked) currentCharacterPlayer = CHARACTER.Crystalia;
+    else if (inputRaiven.checked) currentCharacterPlayer = CHARACTER.Raiven;
     else alert('You must select a character ');
 
     spanCharacterPlayer.innerHTML = currentCharacterPlayer;
