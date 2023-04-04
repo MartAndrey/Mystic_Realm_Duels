@@ -44,8 +44,11 @@ const spanCharacterEnemy = document.getElementById('character-enemy');
 const sectionMessages = document.getElementById('result');
 const pAttackPlayer = document.getElementById('attack-player');
 const pAttackEnemy = document.getElementById('attack-enemy');
+const containerCards = document.getElementById('container-cards');
 
 let characters = [];
+
+let optionCharacter;
 
 let currentCharacterPlayer;
 let currentCharacterEnemy;
@@ -56,14 +59,12 @@ let attackEnemy;
 let livesPlayer = 3;
 let livesEnemy = 3;
 
-let infernoFury = new Character('Inferno Fury', 'assets/Inferno Fury.png', 5);
+let infernoFury = new Character('Inferno Fury', 'assets/InfernoFury.png', 5);
 let alexia = new Character('Alexia', 'assets/Alexia.png', 5);
 let zarek = new Character('Zarek', 'assets/Zarek.png', 5);
 let draven = new Character('Draven', 'assets/Draven.png', 5);
 let crystalia = new Character('Crystalia', 'assets/Crystalia.png', 5);
 let raiven = new Character('Raiven', 'assets/Raiven.png', 5);
-
-characters.push(infernoFury, alexia, zarek, draven, crystalia, raiven);
 
 infernoFury.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -107,9 +108,27 @@ raiven.powers.push(
     { name: POWERS.Electro, id: 'button-electro' }
 );
 
+characters.push(infernoFury, alexia, zarek, draven, crystalia, raiven);
+
 function startGame() {
     sectionSelectPower.style.display = 'none';
     sectionButtonRestart.style.display = 'none';
+
+    characters.forEach((characters) => {
+        optionCharacter = `
+        <li  class="cards-container">
+        <input type="radio" name="pets" id=${characters.name} />
+        <label class="label-container-cards" for=${characters.name}>
+            <p>${characters.name}</p>
+            <img
+                src=${characters.photo}
+                alt=${characters.name}
+            />
+        </label>
+        </li>
+        `;
+        containerCards.innerHTML += optionCharacter;
+    });
 
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
     buttonRestart.addEventListener('click', restartGame);
@@ -152,7 +171,7 @@ function selectCharacterEnemy() {
 function SelectPower() {
     buttonPyro.addEventListener('click', powerPyro);
     buttonHydro.addEventListener('click', powerHydro);
-    // buttonGeo.addEventListener('click', powerGeo);
+    buttonGeo.addEventListener('click', powerGeo);
     buttonCryo.addEventListener('click', powerCryo);
     buttonElectro.addEventListener('click', powerElectro);
 }
@@ -187,7 +206,7 @@ function SetPowerEnemy() {
 
     if (powerRandom == 1) attackEnemy = POWERS.Pyro;
     else if (powerRandom == 2) attackEnemy = POWERS.Hydro;
-    else if (powerRandom == 3) attackEnemy = POWERS.Pyro; // Change to GEO
+    else if (powerRandom == 3) attackEnemy = POWERS.Geo;
     else if (powerRandom == 4) attackEnemy = POWERS.Cryo;
     else if (powerRandom == 5) attackEnemy = POWERS.Electro;
 
@@ -207,6 +226,10 @@ function combat() {
         result = 'You win🎉';
         livesEnemy--;
         spanLivesEnemy.innerHTML = livesEnemy;
+    } else if (attackPlayer == POWERS.Geo && attackEnemy == POWERS.Pyro) {
+        result = 'You win🎉';
+        livesEnemy--;
+        spanLivesEnemy.innerHTML = livesEnemy;
     } else if (attackPlayer == POWERS.Cryo && attackEnemy == POWERS.Electro) {
         result = 'You win🎉';
         livesEnemy--;
@@ -220,9 +243,6 @@ function combat() {
         livesPlayer = livesPlayer - 1;
         spanLivesPlayer.innerHTML = livesPlayer;
     }
-    // else if (attackPlayer == Powers.Geo && attackEnemy == Powers.Cryo) {
-
-    // }
 
     createMessage(result);
 
@@ -257,7 +277,7 @@ function createFinalMessage(finalResult) {
 function disabledButtonsPower() {
     buttonPyro.disabled = true;
     buttonHydro.disabled = true;
-    // buttonGeo.disabled = true;
+    buttonGeo.disabled = true;
     buttonCryo.disabled = true;
     buttonElectro.disabled = true;
 }
