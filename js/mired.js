@@ -23,12 +23,6 @@ const buttonCharacterPlayer = document.getElementById('button-character');
 const sectionButtonRestart = document.getElementById('restart');
 const buttonRestart = document.getElementById('button-restart');
 
-const buttonPyro = document.getElementById('button-pyro');
-const buttonHydro = document.getElementById('button-hydro');
-const buttonGeo = document.getElementById('button-geo');
-const buttonCryo = document.getElementById('button-cryo');
-const buttonElectro = document.getElementById('button-electro');
-
 const spanLivesPlayer = document.getElementById('lives-player');
 const spanLivesEnemy = document.getElementById('lives-enemy');
 const spanCharacterPlayer = document.getElementById('character-player');
@@ -38,6 +32,7 @@ const sectionMessages = document.getElementById('result');
 const pAttackPlayer = document.getElementById('attack-player');
 const pAttackEnemy = document.getElementById('attack-enemy');
 const containerCards = document.getElementById('container-cards');
+const containerPowers = document.getElementById('powers-container');
 
 let inputBlaze;
 let inputAlexia;
@@ -46,9 +41,16 @@ let inputDraven;
 let inputCrystalia;
 let inputRaiven;
 
+let buttonPyro;
+let buttonHydro;
+let buttonGeo;
+let buttonCryo;
+let buttonElectro;
+
 let characters = [];
 
 let optionCharacter;
+let powersCharacter;
 
 let currentCharacterPlayer;
 let currentCharacterEnemy;
@@ -157,29 +159,50 @@ function selectCharacterPlayer() {
     spanCharacterPlayer.innerHTML = currentCharacterPlayer;
 
     selectCharacterEnemy();
+    getPowers(currentCharacterPlayer);
+}
 
-    SelectPower();
+function getPowers(currentCharacterPlayer) {
+    let powers;
+
+    for (let i = 0; i < characters.length; i++) {
+        if (currentCharacterPlayer === characters[i].name) {
+            powers = characters[i].powers;
+        }
+    }
+
+    showPowers(powers);
+}
+
+function showPowers(powers) {
+    powers.forEach((power) => {
+        powersCharacter = `<button id=${power.id} class="button-power">${power.name} </button>`;
+        containerPowers.innerHTML += powersCharacter;
+    });
+
+    selectPower();
 }
 
 function selectCharacterEnemy() {
-    let characterRandom = random(1, 6);
+    let characterRandom = random(0, characters.length - 1);
 
-    if (characterRandom == 1) currentCharacterEnemy = CHARACTER.Blaze;
-    else if (characterRandom == 2) currentCharacterEnemy = CHARACTER.Alexia;
-    else if (characterRandom == 3) currentCharacterEnemy = CHARACTER.Zarek;
-    else if (characterRandom == 4) currentCharacterEnemy = CHARACTER.Draven;
-    else if (characterRandom == 5) currentCharacterEnemy = CHARACTER.Crystalia;
-    else if (characterRandom == 6) currentCharacterEnemy = CHARACTER.Raiven;
+    currentCharacterEnemy = characters[characterRandom];
 
-    spanCharacterEnemy.innerHTML = currentCharacterEnemy;
+    spanCharacterEnemy.innerHTML = currentCharacterEnemy.name;
 }
 
-function SelectPower() {
-    buttonPyro.addEventListener('click', powerPyro);
-    buttonHydro.addEventListener('click', powerHydro);
-    buttonGeo.addEventListener('click', powerGeo);
-    buttonCryo.addEventListener('click', powerCryo);
-    buttonElectro.addEventListener('click', powerElectro);
+function selectPower() {
+    // buttonPyro = document.getElementById('button-pyro');
+    // buttonHydro = document.getElementById('button-hydro');
+    // buttonGeo = document.getElementById('button-geo');
+    // buttonCryo = document.getElementById('button-cryo');
+    // buttonElectro = document.getElementById('button-electro');
+
+    // buttonPyro.addEventListener('click', powerPyro);
+    // buttonHydro.addEventListener('click', powerHydro);
+    // buttonGeo.addEventListener('click', powerGeo);
+    // buttonCryo.addEventListener('click', powerCryo);
+    // buttonElectro.addEventListener('click', powerElectro);
 }
 
 function powerPyro() {
