@@ -47,6 +47,7 @@ let buttonGeo;
 let buttonCryo;
 let buttonElectro;
 
+let buttons = [];
 let characters = [];
 
 let optionCharacter;
@@ -90,10 +91,10 @@ zarek.powers.push(
 );
 
 draven.powers.push(
-    { name: POWERS.Geo, id: 'button-pyro' },
-    { name: POWERS.Pyro, id: 'button-geo' },
-    { name: POWERS.Gep, id: 'button-pyro' },
-    { name: POWERS.Pyro, id: 'button-geo' }
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Pyro, id: 'button-pyro' }
 );
 
 crystalia.powers.push(
@@ -180,7 +181,29 @@ function showPowers(powers) {
         containerPowers.innerHTML += powersCharacter;
     });
 
+    buttons = document.querySelectorAll('.button-power');
+
     selectPower();
+    attackSequence();
+}
+
+function attackSequence() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            let text = e.target.textContent.trim();
+            if (text === POWERS.Pyro) {
+
+            } else if (text === POWERS.Hydro) {
+
+            }else if (text === POWERS.Geo) {
+                
+            }else if (text === POWERS.Cryo) {
+                
+            }else if (text === POWERS.Electro) {
+                
+            }
+        });
+    });
 }
 
 function selectCharacterEnemy() {
@@ -197,12 +220,6 @@ function selectPower() {
     // buttonGeo = document.getElementById('button-geo');
     // buttonCryo = document.getElementById('button-cryo');
     // buttonElectro = document.getElementById('button-electro');
-
-    // buttonPyro.addEventListener('click', powerPyro);
-    // buttonHydro.addEventListener('click', powerHydro);
-    // buttonGeo.addEventListener('click', powerGeo);
-    // buttonCryo.addEventListener('click', powerCryo);
-    // buttonElectro.addEventListener('click', powerElectro);
 }
 
 function powerPyro() {
