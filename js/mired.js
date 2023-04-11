@@ -34,6 +34,22 @@ const pAttackEnemy = document.getElementById('attack-enemy');
 const containerCards = document.getElementById('container-cards');
 const containerPowers = document.getElementById('powers-container');
 
+const buttonMoveUp = document.getElementById('button-move-up');
+const buttonMoveLeft = document.getElementById('button-move-left');
+const buttonMoveDown = document.getElementById('button-move-down');
+const buttonMoveRight = document.getElementById('button-move-right');
+buttonMoveUp.addEventListener('mousedown', moveUp);
+buttonMoveLeft.addEventListener('mousedown', moveLeft);
+buttonMoveDown.addEventListener('mousedown', moveDown);
+buttonMoveRight.addEventListener('mousedown', moveRight);
+buttonMoveUp.addEventListener('mouseup', stopMovement);
+buttonMoveLeft.addEventListener('mouseup', stopMovement);
+buttonMoveDown.addEventListener('mouseup', stopMovement);
+buttonMoveRight.addEventListener('mouseup', stopMovement);
+
+const sectionSeeMap = document.getElementById('see-map');
+const map = document.getElementById('map');
+
 let inputBlaze;
 let inputAlexia;
 let inputZarek;
@@ -61,6 +77,10 @@ let attackEnemy;
 
 let livesPlayer = 3;
 let livesEnemy = 3;
+
+let canvas = map.getContext('2d');
+
+let interval;
 
 let blaze = new Character('Blaze', 'assets/Blaze.png', 5);
 let alexia = new Character('Alexia', 'assets/Alexia.png', 5);
@@ -116,6 +136,7 @@ characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 function startGame() {
     sectionSelectPower.style.display = 'none';
     sectionButtonRestart.style.display = 'none';
+    sectionSeeMap.style.display = 'none';
 
     characters.forEach((character) => {
         optionCharacter = `
@@ -146,7 +167,10 @@ function startGame() {
 
 function selectCharacterPlayer() {
     sectionSelectCharacter.style.display = 'none';
-    sectionSelectPower.style.display = 'flex';
+    sectionSelectPower.style.display = 'none';
+    sectionSeeMap.style.display = 'flex';
+
+    interval = setInterval(drawCharacter, 50);
 
     if (inputBlaze.checked) currentCharacterPlayer = CHARACTER.Blaze;
     else if (inputAlexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
@@ -183,7 +207,6 @@ function showPowers(powers) {
 
     buttons = document.querySelectorAll('.button-power');
 
-    selectPower();
     attackSequence();
 }
 
@@ -192,15 +215,10 @@ function attackSequence() {
         button.addEventListener('click', (e) => {
             let text = e.target.textContent.trim();
             if (text === POWERS.Pyro) {
-
             } else if (text === POWERS.Hydro) {
-
-            }else if (text === POWERS.Geo) {
-                
-            }else if (text === POWERS.Cryo) {
-                
-            }else if (text === POWERS.Electro) {
-                
+            } else if (text === POWERS.Geo) {
+            } else if (text === POWERS.Cryo) {
+            } else if (text === POWERS.Electro) {
             }
         });
     });
@@ -212,14 +230,6 @@ function selectCharacterEnemy() {
     currentCharacterEnemy = characters[characterRandom];
 
     spanCharacterEnemy.innerHTML = currentCharacterEnemy.name;
-}
-
-function selectPower() {
-    // buttonPyro = document.getElementById('button-pyro');
-    // buttonHydro = document.getElementById('button-hydro');
-    // buttonGeo = document.getElementById('button-geo');
-    // buttonCryo = document.getElementById('button-cryo');
-    // buttonElectro = document.getElementById('button-electro');
 }
 
 function powerPyro() {
@@ -248,7 +258,7 @@ function powerElectro() {
 }
 
 function SetPowerEnemy() {
-    let powerRandom = random(1, 5);
+    let powerRandom = random(0, currentCharacterEnemy.powers.length - 1);
 
     if (powerRandom == 1) attackEnemy = POWERS.Pyro;
     else if (powerRandom == 2) attackEnemy = POWERS.Hydro;
@@ -315,17 +325,7 @@ function createMessage(result) {
 function createFinalMessage(finalResult) {
     sectionMessages.innerHTML = finalResult;
 
-    disabledButtonsPower();
-
     sectionButtonRestart.style.display = 'block';
-}
-
-function disabledButtonsPower() {
-    buttonPyro.disabled = true;
-    buttonHydro.disabled = true;
-    buttonGeo.disabled = true;
-    buttonCryo.disabled = true;
-    buttonElectro.disabled = true;
 }
 
 function restartGame() {
@@ -336,14 +336,64 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-window.addEventListener('load', startGame);
+function drawCharacter() {
+    let character = characters.find(
+        (character) => character.name === currentCharacterPlayer
+    );
 
-// const cardContainer = document.getElementById("card-container");
-// const scrollStep = 200; // la cantidad de píxeles para desplazarse
-// window.addEventListener("keydown", (event) => {
-//   if (event.keyCode === 39) { // tecla derecha
-//     cardContainer.scrollLeft += scrollStep;
-//   } else if (event.keyCode === 37) { // tecla izquierda
-//     cardContainer.scrollLeft -= scrollStep;
-//   }
-// });
+    character.x += character.speedX;
+    character.y += character.speedY;
+
+    canvas.clearRect(0, 0, map.width, map.height);
+
+    canvas.drawImage(
+        character.mapPhoto,
+        character.x,
+        character.y,
+        character.width,
+        character.height
+    );
+}
+
+function moveUp() {
+    let character = characters.find(
+        (character) => character.name === currentCharacterPlayer
+    );
+
+    character.speedY = -5;
+}
+
+function moveLeft() {
+    let character = characters.find(
+        (character) => character.name === currentCharacterPlayer
+    );
+
+    character.speedX = -5;
+}
+
+function moveDown() {
+    let character = characters.find(
+        (character) => character.name === currentCharacterPlayer
+    );
+
+    character.speedY = 5;
+}
+
+function moveRight() {
+    let character = characters.find(
+        (character) => character.name === currentCharacterPlayer
+    );
+
+    character.speedX = 5;
+}
+
+function stopMovement(){
+    let character = characters.find(
+        (character) => character.name === currentCharacterPlayer
+    );
+
+    character.speedX = 0;
+    character.speedY = 0;
+}
+
+window.addEventListener('load', startGame);

@@ -190,11 +190,21 @@ input:checked + .label-container-cards {
     border-radius: 20px;
 }
 
+#see-map {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#map {
+    border: 2px solid white ;
+}
+
 @media (max-width: 420px) {
     #cards {
         max-width: 400px;
     }
-    
+
     .button-power {
         display: flex;
         flex-direction: column;
