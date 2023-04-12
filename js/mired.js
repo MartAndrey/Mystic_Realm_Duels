@@ -38,10 +38,12 @@ const buttonMoveUp = document.getElementById('button-move-up');
 const buttonMoveLeft = document.getElementById('button-move-left');
 const buttonMoveDown = document.getElementById('button-move-down');
 const buttonMoveRight = document.getElementById('button-move-right');
+
 buttonMoveUp.addEventListener('mousedown', moveUp);
 buttonMoveLeft.addEventListener('mousedown', moveLeft);
 buttonMoveDown.addEventListener('mousedown', moveDown);
 buttonMoveRight.addEventListener('mousedown', moveRight);
+
 buttonMoveUp.addEventListener('mouseup', stopMovement);
 buttonMoveLeft.addEventListener('mouseup', stopMovement);
 buttonMoveDown.addEventListener('mouseup', stopMovement);
@@ -69,6 +71,7 @@ let characters = [];
 let optionCharacter;
 let powersCharacter;
 
+let objectCurrentCharacterPlayer;
 let currentCharacterPlayer;
 let currentCharacterEnemy;
 
@@ -82,12 +85,22 @@ let canvas = map.getContext('2d');
 
 let interval;
 
-let blaze = new Character('Blaze', 'assets/Blaze.png', 5);
-let alexia = new Character('Alexia', 'assets/Alexia.png', 5);
-let zarek = new Character('Zarek', 'assets/Zarek.png', 5);
-let draven = new Character('Draven', 'assets/Draven.png', 5);
-let crystalia = new Character('Crystalia', 'assets/Crystalia.png', 5);
-let raiven = new Character('Raiven', 'assets/Raiven.png', 5);
+let mapBackground = new Image();
+mapBackground.src = '/assets/map.png';
+
+let blaze = new Character('Blaze', 'assets/Blaze.png', 5, 'assets/BlazeFace.png');
+let alexia = new Character('Alexia', 'assets/Alexia.png', 5, 'assets/AlexiaFace.png');
+let zarek = new Character('Zarek', 'assets/Zarek.png', 5, 'assets/ZarekFace.png');
+let draven = new Character('Draven', 'assets/Draven.png', 5, 'assets/DravenFace.png');
+let crystalia = new Character('Crystalia', 'assets/Crystalia.png', 5, 'assets/CrystaliaFace.png');
+let raiven = new Character('Raiven', 'assets/Raiven.png', 5, 'assets/RaivenFace.png');
+
+let blazeEnemy = new Character('Blaze', 'assets/Blaze.png', 5, 'assets/BlazeFace.png', 90, 120);
+let alexiaEnemy = new Character('Alexia', 'assets/Alexia.png', 5, 'assets/AlexiaFace.png', 200, 10);
+let zarekEnemy = new Character('Zarek', 'assets/Zarek.png', 5, 'assets/ZarekFace.png', 286, 236);
+let dravenEnemy = new Character('Draven', 'assets/Draven.png', 5, 'assets/DravenFace.png', 296, 63);
+let crystaliaEnemy = new Character('Crystalia', 'assets/Crystalia.png', 5, 'assets/CrystaliaFace.png', 13 ,119);
+let raivenEnemy = new Character('Raiven', 'assets/Raiven.png', 5, 'assets/RaivenFace.png', 380, 300);
 
 blaze.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -170,8 +183,6 @@ function selectCharacterPlayer() {
     sectionSelectPower.style.display = 'none';
     sectionSeeMap.style.display = 'flex';
 
-    interval = setInterval(drawCharacter, 50);
-
     if (inputBlaze.checked) currentCharacterPlayer = CHARACTER.Blaze;
     else if (inputAlexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
     else if (inputZarek.checked) currentCharacterPlayer = CHARACTER.Zarek;
@@ -183,6 +194,7 @@ function selectCharacterPlayer() {
 
     spanCharacterPlayer.innerHTML = currentCharacterPlayer;
 
+    startMap();
     selectCharacterEnemy();
     getPowers(currentCharacterPlayer);
 }
@@ -336,64 +348,88 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function drawCharacter() {
+function startMap() {
+    map.width = 400;
+    map.height = 300;
+
+    objectCurrentCharacterPlayer = findCurrentCharacter();
+
+    interval = setInterval(drawCanvas, 50);
+
+    window.addEventListener('keydown', keyPressed);
+    window.addEventListener('keyup', stopMovement);
+}
+
+function findCurrentCharacter() {
     let character = characters.find(
         (character) => character.name === currentCharacterPlayer
     );
 
-    character.x += character.speedX;
-    character.y += character.speedY;
+    return character;
+}
+
+function drawCanvas() {
+    objectCurrentCharacterPlayer.x += objectCurrentCharacterPlayer.speedX;
+    objectCurrentCharacterPlayer.y += objectCurrentCharacterPlayer.speedY;
 
     canvas.clearRect(0, 0, map.width, map.height);
 
-    canvas.drawImage(
-        character.mapPhoto,
-        character.x,
-        character.y,
-        character.width,
-        character.height
-    );
+    canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
+
+    objectCurrentCharacterPlayer.drawCharacter(canvas);
+
+    blazeEnemy.drawCharacter(canvas)
+    alexiaEnemy.drawCharacter(canvas)
+    zarekEnemy.drawCharacter(canvas)
+    dravenEnemy.drawCharacter(canvas)
+    crystaliaEnemy.drawCharacter(canvas)
+    raivenEnemy.drawCharacter(canvas)
 }
 
 function moveUp() {
-    let character = characters.find(
-        (character) => character.name === currentCharacterPlayer
-    );
-
-    character.speedY = -5;
+    objectCurrentCharacterPlayer.speedY = -5;
 }
 
 function moveLeft() {
-    let character = characters.find(
-        (character) => character.name === currentCharacterPlayer
-    );
-
-    character.speedX = -5;
+    objectCurrentCharacterPlayer.speedX = -5;
 }
 
 function moveDown() {
-    let character = characters.find(
-        (character) => character.name === currentCharacterPlayer
-    );
-
-    character.speedY = 5;
+    objectCurrentCharacterPlayer.speedY = 5;
 }
 
 function moveRight() {
-    let character = characters.find(
-        (character) => character.name === currentCharacterPlayer
-    );
-
-    character.speedX = 5;
+    objectCurrentCharacterPlayer.speedX = 5;
 }
 
-function stopMovement(){
-    let character = characters.find(
-        (character) => character.name === currentCharacterPlayer
-    );
+function stopMovement() {
+    objectCurrentCharacterPlayer.speedX = 0;
+    objectCurrentCharacterPlayer.speedY = 0;
+}
 
-    character.speedX = 0;
-    character.speedY = 0;
+function keyPressed(event) {
+    switch (event.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'W':
+            moveUp();
+            break;
+        case 'ArrowLeft':
+        case 'a':
+        case 'A':
+            moveLeft();
+            break;
+        case 'ArrowDown':
+        case 's':
+        case 'S':
+            moveDown();
+            break;
+        case 'ArrowRight':
+        case 'd':
+        case 'D':
+            moveRight();
+            break;
+    }
 }
 
 window.addEventListener('load', startGame);

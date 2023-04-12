@@ -197,7 +197,7 @@ input:checked + .label-container-cards {
 }
 
 #map {
-    border: 2px solid white ;
+    border: 2px solid white;
 }
 
 @media (max-width: 420px) {
