@@ -371,7 +371,7 @@ function findCurrentCharacter() {
 function drawCanvas() {
     objectCurrentCharacterPlayer.x += objectCurrentCharacterPlayer.speedX;
     objectCurrentCharacterPlayer.y += objectCurrentCharacterPlayer.speedY;
-
+    
     canvas.clearRect(0, 0, map.width, map.height);
 
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
@@ -384,6 +384,17 @@ function drawCanvas() {
     dravenEnemy.drawCharacter(canvas)
     crystaliaEnemy.drawCharacter(canvas)
     raivenEnemy.drawCharacter(canvas)
+
+    if(objectCurrentCharacterPlayer.speedX !== 0 ||
+       objectCurrentCharacterPlayer.speedY !== 0)
+    {
+        checkCollision(blazeEnemy);
+        checkCollision(alexiaEnemy);
+        checkCollision(zarekEnemy);
+        checkCollision(dravenEnemy);
+        checkCollision(crystaliaEnemy);
+        checkCollision(raivenEnemy);
+    }
 }
 
 function moveUp() {
@@ -430,6 +441,28 @@ function keyPressed(event) {
             moveRight();
             break;
     }
+}
+
+function checkCollision(enemy) {
+    const upEnemy = enemy.y;
+    const downEnemy = enemy.y + enemy.height;
+    const rightEnemy = enemy.x + enemy.width;
+    const leftEnemy = enemy.x;
+
+    const upCharacter = objectCurrentCharacterPlayer.y;
+    const downCharacter = objectCurrentCharacterPlayer.y + objectCurrentCharacterPlayer.height;
+    const rightCharacter = objectCurrentCharacterPlayer.x + objectCurrentCharacterPlayer.width;
+    const leftCharacter = objectCurrentCharacterPlayer.x;
+
+    if(downCharacter < upEnemy ||
+       upCharacter > downEnemy || 
+       rightCharacter < leftEnemy || 
+       leftCharacter > rightEnemy)
+    {
+        return;
+    }
+    stopMovement();
+    alert("There is collision " + enemy.name)
 }
 
 window.addEventListener('load', startGame);
