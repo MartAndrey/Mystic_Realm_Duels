@@ -1,5 +1,5 @@
 export class Character {
-    constructor(name, photo, life, photoMap, x = 10, y = 10) {
+    constructor(name, photo, life, photoMap, x = 5, y = 210) {
         this.name = name;
         this.photo = photo;
         this.life = life;

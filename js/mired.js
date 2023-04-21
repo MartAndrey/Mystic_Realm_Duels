@@ -20,7 +20,6 @@ const POWERS = {
 const sectionSelectCharacter = document.getElementById('select-character');
 const sectionSelectPower = document.getElementById('select-power');
 const buttonCharacterPlayer = document.getElementById('button-character');
-const sectionButtonRestart = document.getElementById('restart');
 const buttonRestart = document.getElementById('button-restart');
 
 const spanLivesPlayer = document.getElementById('lives-player');
@@ -28,9 +27,9 @@ const spanLivesEnemy = document.getElementById('lives-enemy');
 const spanCharacterPlayer = document.getElementById('character-player');
 const spanCharacterEnemy = document.getElementById('character-enemy');
 
-const sectionMessages = document.getElementById('result');
-const pAttackPlayer = document.getElementById('attack-player');
-const pAttackEnemy = document.getElementById('attack-enemy');
+// const sectionMessages = document.getElementById('result');
+// const pAttackPlayer = document.getElementById('attack-player');
+// const pAttackEnemy = document.getElementById('attack-enemy');
 const containerCards = document.getElementById('container-cards');
 const containerPowers = document.getElementById('powers-container');
 
@@ -88,19 +87,91 @@ let interval;
 let mapBackground = new Image();
 mapBackground.src = '/assets/map.png';
 
-let blaze = new Character('Blaze', 'assets/Blaze.png', 5, 'assets/BlazeFace.png');
-let alexia = new Character('Alexia', 'assets/Alexia.png', 5, 'assets/AlexiaFace.png');
-let zarek = new Character('Zarek', 'assets/Zarek.png', 5, 'assets/ZarekFace.png');
-let draven = new Character('Draven', 'assets/Draven.png', 5, 'assets/DravenFace.png');
-let crystalia = new Character('Crystalia', 'assets/Crystalia.png', 5, 'assets/CrystaliaFace.png');
-let raiven = new Character('Raiven', 'assets/Raiven.png', 5, 'assets/RaivenFace.png');
+let blaze = new Character(
+    'Blaze',
+    'assets/Blaze.png',
+    5,
+    'assets/BlazeFace.png'
+);
+let alexia = new Character(
+    'Alexia',
+    'assets/Alexia.png',
+    5,
+    'assets/AlexiaFace.png'
+);
+let zarek = new Character(
+    'Zarek',
+    'assets/Zarek.png',
+    5,
+    'assets/ZarekFace.png'
+);
+let draven = new Character(
+    'Draven',
+    'assets/Draven.png',
+    5,
+    'assets/DravenFace.png'
+);
+let crystalia = new Character(
+    'Crystalia',
+    'assets/Crystalia.png',
+    5,
+    'assets/CrystaliaFace.png'
+);
+let raiven = new Character(
+    'Raiven',
+    'assets/Raiven.png',
+    5,
+    'assets/RaivenFace.png'
+);
 
-let blazeEnemy = new Character('Blaze', 'assets/Blaze.png', 5, 'assets/BlazeFace.png', 90, 120);
-let alexiaEnemy = new Character('Alexia', 'assets/Alexia.png', 5, 'assets/AlexiaFace.png', 200, 10);
-let zarekEnemy = new Character('Zarek', 'assets/Zarek.png', 5, 'assets/ZarekFace.png', 286, 236);
-let dravenEnemy = new Character('Draven', 'assets/Draven.png', 5, 'assets/DravenFace.png', 296, 63);
-let crystaliaEnemy = new Character('Crystalia', 'assets/Crystalia.png', 5, 'assets/CrystaliaFace.png', 13 ,119);
-let raivenEnemy = new Character('Raiven', 'assets/Raiven.png', 5, 'assets/RaivenFace.png', 380, 300);
+let blazeEnemy = new Character(
+    'Blaze',
+    'assets/Blaze.png',
+    5,
+    'assets/BlazeFace.png',
+    55,
+    155
+);
+let alexiaEnemy = new Character(
+    'Alexia',
+    'assets/Alexia.png',
+    5,
+    'assets/AlexiaFace.png',
+    210,
+    250
+);
+let zarekEnemy = new Character(
+    'Zarek',
+    'assets/Zarek.png',
+    5,
+    'assets/ZarekFace.png',
+    180,
+    65
+);
+let dravenEnemy = new Character(
+    'Draven',
+    'assets/Draven.png',
+    5,
+    'assets/DravenFace.png',
+    45,
+    255
+);
+let crystaliaEnemy = new Character(
+    'Crystalia',
+    'assets/Crystalia.png',
+    5,
+    'assets/CrystaliaFace.png',
+    295,
+    5
+);
+let raivenEnemy = new Character(
+    'Raiven',
+    'assets/Raiven.png',
+    5,
+    'assets/RaivenFace.png',
+    320,
+    165
+);
 
 blaze.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -144,11 +215,53 @@ raiven.powers.push(
     { name: POWERS.Electro, id: 'button-electro' }
 );
 
+blazeEnemy.powers.push(
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Pyro, id: 'button-pyro' }
+);
+
+alexiaEnemy.powers.push(
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Electro, id: 'button-electro' },
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Electro, id: 'button-electro' }
+);
+
+zarekEnemy.powers.push(
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Geo, id: 'button-geo' }
+);
+
+dravenEnemy.powers.push(
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Pyro, id: 'button-pyro' }
+);
+
+crystaliaEnemy.powers.push(
+    { name: POWERS.Hydro, id: 'button-hydro' },
+    { name: POWERS.Cryo, id: 'button-cryo' },
+    { name: POWERS.Hydro, id: 'button-hydro' },
+    { name: POWERS.Cryo, id: 'button-cryo' }
+);
+
+raivenEnemy.powers.push(
+    { name: POWERS.Electro, id: 'button-electro' },
+    { name: POWERS.Electro, id: 'button-electro' },
+    { name: POWERS.Electro, id: 'button-electro' },
+    { name: POWERS.Electro, id: 'button-electro' }
+);
+
 characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 
 function startGame() {
-    sectionSelectPower.style.display = 'none';
-    sectionButtonRestart.style.display = 'none';
+    sectionSelectCharacter.style.display = 'none';
+    sectionSelectPower.style.display = 'grid';
     sectionSeeMap.style.display = 'none';
 
     characters.forEach((character) => {
@@ -190,13 +303,19 @@ function selectCharacterPlayer() {
     else if (inputCrystalia.checked)
         currentCharacterPlayer = CHARACTER.Crystalia;
     else if (inputRaiven.checked) currentCharacterPlayer = CHARACTER.Raiven;
-    else alert('You must select a character ');
+    else {
+        currentCharacterPlayer = null;
+        alert('You must select a character ');
+    }
+
+    if (currentCharacterPlayer == null) {
+        startGame();
+        return;
+    }
 
     spanCharacterPlayer.innerHTML = currentCharacterPlayer;
 
     startMap();
-    selectCharacterEnemy();
-    getPowers(currentCharacterPlayer);
 }
 
 function getPowers(currentCharacterPlayer) {
@@ -236,12 +355,9 @@ function attackSequence() {
     });
 }
 
-function selectCharacterEnemy() {
-    let characterRandom = random(0, characters.length - 1);
+function selectCharacterEnemy(enemy) {
 
-    currentCharacterEnemy = characters[characterRandom];
-
-    spanCharacterEnemy.innerHTML = currentCharacterEnemy.name;
+    spanCharacterEnemy.innerHTML = enemy.name;
 }
 
 function powerPyro() {
@@ -312,33 +428,31 @@ function combat() {
         spanLivesPlayer.innerHTML = livesPlayer;
     }
 
-    createMessage(result);
+    // createMessage(result);
 
     checkLives();
 }
 
-function checkLives() {
-    if (livesEnemy <= 0) createFinalMessage('Congratulation! YOU WIN😃');
-    else if (livesPlayer <= 0) createFinalMessage('Sorry! YOU LOST😔');
-}
+// function checkLives() {
+//     if (livesEnemy <= 0) createFinalMessage('Congratulation! YOU WIN😃');
+//     else if (livesPlayer <= 0) createFinalMessage('Sorry! YOU LOST😔');
+// }
 
-function createMessage(result) {
-    let newAttackPlayer = document.createElement('p');
-    let newAttackEnemy = document.createElement('p');
+// function createMessage(result) {
+//     let newAttackPlayer = document.createElement('p');
+//     let newAttackEnemy = document.createElement('p');
 
-    sectionMessages.innerHTML = result;
-    newAttackPlayer.innerHTML = attackPlayer;
-    newAttackEnemy.innerHTML = attackEnemy;
+//     sectionMessages.innerHTML = result;
+//     newAttackPlayer.innerHTML = attackPlayer;
+//     newAttackEnemy.innerHTML = attackEnemy;
 
-    pAttackPlayer.appendChild(newAttackPlayer);
-    pAttackEnemy.appendChild(newAttackEnemy);
-}
+//     pAttackPlayer.appendChild(newAttackPlayer);
+//     pAttackEnemy.appendChild(newAttackEnemy);
+// }
 
-function createFinalMessage(finalResult) {
-    sectionMessages.innerHTML = finalResult;
-
-    sectionButtonRestart.style.display = 'block';
-}
+// function createFinalMessage(finalResult) {
+//     sectionMessages.innerHTML = finalResult;
+// }
 
 function restartGame() {
     location.reload();
@@ -371,23 +485,24 @@ function findCurrentCharacter() {
 function drawCanvas() {
     objectCurrentCharacterPlayer.x += objectCurrentCharacterPlayer.speedX;
     objectCurrentCharacterPlayer.y += objectCurrentCharacterPlayer.speedY;
-    
+
     canvas.clearRect(0, 0, map.width, map.height);
 
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
+    
+    blazeEnemy.drawCharacter(canvas);
+    alexiaEnemy.drawCharacter(canvas);
+    zarekEnemy.drawCharacter(canvas);
+    dravenEnemy.drawCharacter(canvas);
+    crystaliaEnemy.drawCharacter(canvas);
+    raivenEnemy.drawCharacter(canvas);
 
-    blazeEnemy.drawCharacter(canvas)
-    alexiaEnemy.drawCharacter(canvas)
-    zarekEnemy.drawCharacter(canvas)
-    dravenEnemy.drawCharacter(canvas)
-    crystaliaEnemy.drawCharacter(canvas)
-    raivenEnemy.drawCharacter(canvas)
-
-    if(objectCurrentCharacterPlayer.speedX !== 0 ||
-       objectCurrentCharacterPlayer.speedY !== 0)
-    {
+    if (
+        objectCurrentCharacterPlayer.speedX !== 0 ||
+        objectCurrentCharacterPlayer.speedY !== 0
+    ) {
         checkCollision(blazeEnemy);
         checkCollision(alexiaEnemy);
         checkCollision(zarekEnemy);
@@ -450,19 +565,27 @@ function checkCollision(enemy) {
     const leftEnemy = enemy.x;
 
     const upCharacter = objectCurrentCharacterPlayer.y;
-    const downCharacter = objectCurrentCharacterPlayer.y + objectCurrentCharacterPlayer.height;
-    const rightCharacter = objectCurrentCharacterPlayer.x + objectCurrentCharacterPlayer.width;
+    const downCharacter =
+        objectCurrentCharacterPlayer.y + objectCurrentCharacterPlayer.height;
+    const rightCharacter =
+        objectCurrentCharacterPlayer.x + objectCurrentCharacterPlayer.width;
     const leftCharacter = objectCurrentCharacterPlayer.x;
 
-    if(downCharacter < upEnemy ||
-       upCharacter > downEnemy || 
-       rightCharacter < leftEnemy || 
-       leftCharacter > rightEnemy)
-    {
+    if (
+        downCharacter < upEnemy ||
+        upCharacter > downEnemy ||
+        rightCharacter < leftEnemy ||
+        leftCharacter > rightEnemy
+    ) {
         return;
     }
     stopMovement();
-    alert("There is collision " + enemy.name)
+    clearInterval(interval);
+    sectionSelectPower.style.display = 'grid';
+    sectionSeeMap.style.display = 'none';
+
+    selectCharacterEnemy(enemy);
+    getPowers(currentCharacterPlayer);
 }
 
 window.addEventListener('load', startGame);

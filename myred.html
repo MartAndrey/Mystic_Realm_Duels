@@ -29,33 +29,48 @@
         </section>
 
         <section id="select-power">
-            <h1 class="title">Mystic Realm Duels</h1>
-            <h2 class="caption">Choose your power:</h2>
+            <div id="character-info">
+                <label id="label-character-player" class="label-character">
+                    <div class="character-photo">
+                        <img class="frame" src="assets/Frame.png" alt="Frame" />
+                        <img class="character-img"  src="assets/AlexiaFace.png" alt="Character" />
+                    </div>
+                    <div class="character-name">
+                        <p>Alexia
+                            <label>
+                                <img src="assets/IconPowerPyro.png" alt="Icon Power" />
+                                <img src="assets/IconPowerElectro.png" alt="Icon Power" />
+                            </label>
+                        </p>
+                        <div class="bar-container">
+                            <div class="fill-life"></div>
+                        </div>
+                    </div>
+                </label>
+                <button id="button-restart">Restart</button>
+                <label id="label-character-player" class="label-character">
+                    <div class="character-photo">
+                        <img class="frame" src="assets/Frame.png" alt="Frame" />
+                        <img class="character-img"  src="assets/AlexiaFace.png" alt="Character" />
+                    </div>
+                    <div class="character-name">
+                        <p>Alexia
+                            <label>
+                                <img src="assets/IconPowerPyro.png" alt="Icon Power" />
+                                <img src="assets/IconPowerElectro.png" alt="Icon Power" />
+                            </label>
+                        </p>
+                        <div class="bar-container">
+                            <div class="fill-life"></div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <div id="character-display"></div>
 
             <div id="powers-container" class="button-powers"></div>
-
-            <div id="messages">
-                <p id="result">Good Luck</p>
-
-                <section id="restart">
-                    <button id="button-restart">Restart</button>
-                </section>
-            </div>
-
-            <div class="messages-attacks">
-                <div class="attacks-player">
-                    <p id="lives-player">3</p>
-                    <p id="character-player"></p>
-                    <div id="attack-player"></div>
-                </div>
-                <div class="attacks-enemy">
-                    <p id="lives-enemy">3</p>
-                    <p id="character-enemy"></p>
-                    <div id="attack-enemy"></div>
-                </div>
-            </div>
         </section>
-
         <script type="module" src="js/mired.js"></script>
         <script type="module" src="/js/character.js"></script>
     </body>
