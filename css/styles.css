@@ -232,13 +232,32 @@ input:checked + .label-container-cards {
 }
 
 #character-display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    place-items: center;
     grid-area: 2;
-    /* background-color: #9425e4; */
+    width: 100%;
+    height: 100%;
+}
+
+#character-display > img {
+    width: 40%;
+    height: auto;
+}
+
+#character-display-player {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+#character-display-enemy {
+    grid-area: 1 / 2 / 2 / 3;
 }
 
 #powers-container {
     grid-area: 3;
-    /* background-color: #b3e8f4; */
+    width: 100%;
+    height: 100%;
 }
 
 .button-power {
