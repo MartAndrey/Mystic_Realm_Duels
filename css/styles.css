@@ -256,6 +256,7 @@ input:checked + .label-container-cards {
 
 #powers-container {
     grid-area: 3;
+    place-items: center;
     width: 100%;
     height: 100%;
 }
@@ -299,6 +300,45 @@ input:checked + .label-container-cards {
 
 #map {
     border: 2px solid white;
+}
+
+#move-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 4px;
+    width: 180px;
+    height: 100px;
+}
+
+#move-buttons  button {
+    width: 100%;
+    height: auto;
+    background-color: #171717;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0;
+    border: 0;
+}
+
+#button-move-up {
+    grid-area: 1 / 2;
+    background-image: url('/assets/buttonUp.png');
+}
+
+#button-move-left {
+    grid-area: 2 / 1;
+    background-image: url('/assets/buttonLeft.png');
+}
+
+#button-move-down {
+    grid-area: 2 / 2;
+    background-image: url('/assets/buttonDown.png');
+}
+
+#button-move-right {
+    grid-area: 2 / 3;
+    background-image: url('/assets/buttonRight.png');
 }
 
 @media (max-width: 420px) {

@@ -24,12 +24,8 @@ const buttonRestart = document.getElementById('button-restart');
 
 const spanLivesPlayer = document.getElementById('lives-player');
 const spanLivesEnemy = document.getElementById('lives-enemy');
-const spanCharacterPlayer = document.getElementById('character-player');
 const spanCharacterEnemy = document.getElementById('character-enemy');
 
-// const sectionMessages = document.getElementById('result');
-// const pAttackPlayer = document.getElementById('attack-player');
-// const pAttackEnemy = document.getElementById('attack-enemy');
 const containerCards = document.getElementById('container-cards');
 const containerPowers = document.getElementById('powers-container');
 
@@ -58,12 +54,6 @@ let inputDraven;
 let inputCrystalia;
 let inputRaiven;
 
-let buttonPyro;
-let buttonHydro;
-let buttonGeo;
-let buttonCryo;
-let buttonElectro;
-
 let buttons = [];
 let characters = [];
 
@@ -87,91 +77,19 @@ let interval;
 let mapBackground = new Image();
 mapBackground.src = '/assets/map.png';
 
-let blaze = new Character(
-    'Blaze',
-    'assets/Blaze.png',
-    5,
-    'assets/BlazeFace.png'
-);
-let alexia = new Character(
-    'Alexia',
-    'assets/Alexia.png',
-    5,
-    'assets/AlexiaFace.png'
-);
-let zarek = new Character(
-    'Zarek',
-    'assets/Zarek.png',
-    5,
-    'assets/ZarekFace.png'
-);
-let draven = new Character(
-    'Draven',
-    'assets/Draven.png',
-    5,
-    'assets/DravenFace.png'
-);
-let crystalia = new Character(
-    'Crystalia',
-    'assets/Crystalia.png',
-    5,
-    'assets/CrystaliaFace.png'
-);
-let raiven = new Character(
-    'Raiven',
-    'assets/Raiven.png',
-    5,
-    'assets/RaivenFace.png'
-);
+let blaze = new Character('Blaze', 'assets/Blaze.png',5,'assets/BlazeFace.png');
+let alexia = new Character('Alexia','assets/Alexia.png',5,'assets/AlexiaFace.png');
+let zarek = new Character('Zarek','assets/Zarek.png',5,'assets/ZarekFace.png');
+let draven = new Character('Draven','assets/Draven.png',5,'assets/DravenFace.png');
+let crystalia = new Character('Crystalia','assets/Crystalia.png',5,'assets/CrystaliaFace.png');
+let raiven = new Character( 'Raiven', 'assets/Raiven.png', 5,'assets/RaivenFace.png');
 
-let blazeEnemy = new Character(
-    'Blaze',
-    'assets/Blaze.png',
-    5,
-    'assets/BlazeFace.png',
-    55,
-    155
-);
-let alexiaEnemy = new Character(
-    'Alexia',
-    'assets/Alexia.png',
-    5,
-    'assets/AlexiaFace.png',
-    210,
-    250
-);
-let zarekEnemy = new Character(
-    'Zarek',
-    'assets/Zarek.png',
-    5,
-    'assets/ZarekFace.png',
-    180,
-    65
-);
-let dravenEnemy = new Character(
-    'Draven',
-    'assets/Draven.png',
-    5,
-    'assets/DravenFace.png',
-    45,
-    255
-);
-let crystaliaEnemy = new Character(
-    'Crystalia',
-    'assets/Crystalia.png',
-    5,
-    'assets/CrystaliaFace.png',
-    295,
-    5
-);
-let raivenEnemy = new Character(
-    'Raiven',
-    'assets/Raiven.png',
-    5,
-    'assets/RaivenFace.png',
-    320,
-    165
-);
+let blazeEnemy = new Character('Blaze', 'assets/Blaze.png',5,'assets/BlazeFace.png', 40, 210);
+let alexiaEnemy = new Character( 'Alexia', 'assets/Alexia.png', 5, 'assets/AlexiaFace.png', 330, 345);
+let zarekEnemy = new Character('Zarek','assets/Zarek.png',5,'assets/ZarekFace.png',220,115);
+let dravenEnemy = new Character('Draven', 'assets/Draven.png', 5,'assets/DravenFace.png',65,350);
+let crystaliaEnemy = new Character('Crystalia','assets/Crystalia.png',5,'assets/CrystaliaFace.png',495, 30);
+let raivenEnemy = new Character('Raiven','assets/Raiven.png',5,'assets/RaivenFace.png',495, 230);
 
 blaze.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -260,9 +178,9 @@ raivenEnemy.powers.push(
 characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 
 function startGame() {
-    sectionSelectCharacter.style.display = 'none';
-    sectionSelectPower.style.display = 'grid';
+    sectionSelectCharacter.style.display = 'flex';
     sectionSeeMap.style.display = 'none';
+    sectionSelectPower.style.display = 'none';
 
     characters.forEach((character) => {
         optionCharacter = `
@@ -313,8 +231,6 @@ function selectCharacterPlayer() {
         return;
     }
 
-    spanCharacterPlayer.innerHTML = currentCharacterPlayer;
-
     startMap();
 }
 
@@ -356,7 +272,6 @@ function attackSequence() {
 }
 
 function selectCharacterEnemy(enemy) {
-
     spanCharacterEnemy.innerHTML = enemy.name;
 }
 
@@ -463,8 +378,8 @@ function random(min, max) {
 }
 
 function startMap() {
-    map.width = 400;
-    map.height = 300;
+    map.width = 600;
+    map.height = 400;
 
     objectCurrentCharacterPlayer = findCurrentCharacter();
 
@@ -485,13 +400,13 @@ function findCurrentCharacter() {
 function drawCanvas() {
     objectCurrentCharacterPlayer.x += objectCurrentCharacterPlayer.speedX;
     objectCurrentCharacterPlayer.y += objectCurrentCharacterPlayer.speedY;
-
+    
     canvas.clearRect(0, 0, map.width, map.height);
 
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
-    
+
     blazeEnemy.drawCharacter(canvas);
     alexiaEnemy.drawCharacter(canvas);
     zarekEnemy.drawCharacter(canvas);
