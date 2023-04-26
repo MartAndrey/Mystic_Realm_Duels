@@ -24,9 +24,11 @@ const buttonRestart = document.getElementById('button-restart');
 
 const spanLivesPlayer = document.getElementById('lives-player');
 const spanLivesEnemy = document.getElementById('lives-enemy');
-const spanCharacterEnemy = document.getElementById('character-enemy');
+
+const frameCharacter = '/assets/Frame.png';
 
 const containerCards = document.getElementById('container-cards');
+const containerCharacterInfo = document.getElementById('character-info');
 const containerPowers = document.getElementById('powers-container');
 
 const buttonMoveUp = document.getElementById('button-move-up');
@@ -61,6 +63,7 @@ let optionCharacter;
 let powersCharacter;
 
 let objectCurrentCharacterPlayer;
+let objectCurrentCharacterEnemy;
 let currentCharacterPlayer;
 let currentCharacterEnemy;
 
@@ -77,19 +80,91 @@ let interval;
 let mapBackground = new Image();
 mapBackground.src = '/assets/map.png';
 
-let blaze = new Character('Blaze', 'assets/Blaze.png',5,'assets/BlazeFace.png');
-let alexia = new Character('Alexia','assets/Alexia.png',5,'assets/AlexiaFace.png');
-let zarek = new Character('Zarek','assets/Zarek.png',5,'assets/ZarekFace.png');
-let draven = new Character('Draven','assets/Draven.png',5,'assets/DravenFace.png');
-let crystalia = new Character('Crystalia','assets/Crystalia.png',5,'assets/CrystaliaFace.png');
-let raiven = new Character( 'Raiven', 'assets/Raiven.png', 5,'assets/RaivenFace.png');
+let blaze = new Character(
+    'Blaze',
+    'assets/Blaze.png',
+    5,
+    'assets/BlazeFace.png'
+);
+let alexia = new Character(
+    'Alexia',
+    'assets/Alexia.png',
+    5,
+    'assets/AlexiaFace.png'
+);
+let zarek = new Character(
+    'Zarek',
+    'assets/Zarek.png',
+    5,
+    'assets/ZarekFace.png'
+);
+let draven = new Character(
+    'Draven',
+    'assets/Draven.png',
+    5,
+    'assets/DravenFace.png'
+);
+let crystalia = new Character(
+    'Crystalia',
+    'assets/Crystalia.png',
+    5,
+    'assets/CrystaliaFace.png'
+);
+let raiven = new Character(
+    'Raiven',
+    'assets/Raiven.png',
+    5,
+    'assets/RaivenFace.png'
+);
 
-let blazeEnemy = new Character('Blaze', 'assets/Blaze.png',5,'assets/BlazeFace.png', 40, 210);
-let alexiaEnemy = new Character( 'Alexia', 'assets/Alexia.png', 5, 'assets/AlexiaFace.png', 330, 345);
-let zarekEnemy = new Character('Zarek','assets/Zarek.png',5,'assets/ZarekFace.png',220,115);
-let dravenEnemy = new Character('Draven', 'assets/Draven.png', 5,'assets/DravenFace.png',65,350);
-let crystaliaEnemy = new Character('Crystalia','assets/Crystalia.png',5,'assets/CrystaliaFace.png',495, 30);
-let raivenEnemy = new Character('Raiven','assets/Raiven.png',5,'assets/RaivenFace.png',495, 230);
+let blazeEnemy = new Character(
+    'Blaze',
+    'assets/Blaze.png',
+    5,
+    'assets/BlazeFace.png',
+    40,
+    210
+);
+let alexiaEnemy = new Character(
+    'Alexia',
+    'assets/Alexia.png',
+    5,
+    'assets/AlexiaFace.png',
+    330,
+    345
+);
+let zarekEnemy = new Character(
+    'Zarek',
+    'assets/Zarek.png',
+    5,
+    'assets/ZarekFace.png',
+    220,
+    115
+);
+let dravenEnemy = new Character(
+    'Draven',
+    'assets/Draven.png',
+    5,
+    'assets/DravenFace.png',
+    65,
+    350
+);
+let crystaliaEnemy = new Character(
+    'Crystalia',
+    'assets/Crystalia.png',
+    5,
+    'assets/CrystaliaFace.png',
+    495,
+    30
+);
+let raivenEnemy = new Character(
+    'Raiven',
+    'assets/Raiven.png',
+    5,
+    'assets/RaivenFace.png',
+    495,
+    230
+);
 
 blaze.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -97,6 +172,7 @@ blaze.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Pyro, id: 'button-pyro' }
 );
+blaze.icons.push({ icon: '/assets/IconPowerPyro.png' });
 
 alexia.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -104,19 +180,28 @@ alexia.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Electro, id: 'button-electro' }
 );
-
-zarek.powers.push(
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Geo, id: 'button-geo' }
+alexia.icons.push(
+    { icon: '/assets/IconPowerPyro.png' },
+    { icon: '/assets/IconPowerElectro.png' }
 );
 
+zarek.powers.push(
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' }
+);
+zarek.icons.push({ icon: '/assets/IconPowerGeo.png' });
+
 draven.powers.push(
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Pyro, id: 'button-pyro' }
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' }
+);
+draven.icons.push(
+    { icon: '/assets/IconPowerGeo.png' },
+    { icon: '/assets/IconPowerPyro.png' }
 );
 
 crystalia.powers.push(
@@ -125,6 +210,10 @@ crystalia.powers.push(
     { name: POWERS.Hydro, id: 'button-hydro' },
     { name: POWERS.Cryo, id: 'button-cryo' }
 );
+crystalia.icons.push(
+    { icon: '/assets/IconPowerHydro.png' },
+    { icon: '/assets/IconPowerCryo.png' }
+);
 
 raiven.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
@@ -132,6 +221,7 @@ raiven.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Electro, id: 'button-electro' }
 );
+raiven.icons.push({ icon: '/assets/IconPowerElectro.png' });
 
 blazeEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -139,6 +229,7 @@ blazeEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Pyro, id: 'button-pyro' }
 );
+blazeEnemy.icons.push({ icon: '/assets/IconPowerPyro.png' });
 
 alexiaEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -146,19 +237,28 @@ alexiaEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Electro, id: 'button-electro' }
 );
-
-zarekEnemy.powers.push(
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Geo, id: 'button-geo' }
+alexiaEnemy.icons.push(
+    { icon: '/assets/IconPowerPyro.png' },
+    { icon: '/assets/IconPowerElectro.png' }
 );
 
+zarekEnemy.powers.push(
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' }
+);
+zarekEnemy.icons.push({ icon: '/assets/IconPowerGeo.png' });
+
 dravenEnemy.powers.push(
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Pyro, id: 'button-pyro' }
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' },
+    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
+    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' }
+);
+dravenEnemy.icons.push(
+    { icon: '/assets/IconPowerGeo.png' },
+    { icon: '/assets/IconPowerPyro.png' }
 );
 
 crystaliaEnemy.powers.push(
@@ -167,6 +267,10 @@ crystaliaEnemy.powers.push(
     { name: POWERS.Hydro, id: 'button-hydro' },
     { name: POWERS.Cryo, id: 'button-cryo' }
 );
+crystaliaEnemy.icons.push(
+    { icon: '/assets/IconPowerHydro.png' },
+    { icon: '/assets/IconPowerCryo.png' }
+);
 
 raivenEnemy.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
@@ -174,6 +278,7 @@ raivenEnemy.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Electro, id: 'button-electro' }
 );
+raivenEnemy.icons.push({ icon: '/assets/IconPowerElectro.png' });
 
 characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 
@@ -236,20 +341,60 @@ function selectCharacterPlayer() {
 
 function getPowers(currentCharacterPlayer) {
     let powers;
+    let icons;
 
     for (let i = 0; i < characters.length; i++) {
         if (currentCharacterPlayer === characters[i].name) {
             powers = characters[i].powers;
+            icons = characters[i].icons;
         }
     }
 
-    showPowers(powers);
+    showDisplaySelectPower(powers, icons);
 }
 
-function showPowers(powers) {
+function showDisplaySelectPower(powers) {
+    let charactersToPlay = [];
+    charactersToPlay.push(objectCurrentCharacterPlayer);
+    charactersToPlay.push(objectCurrentCharacterEnemy);
+
     powers.forEach((power) => {
         powersCharacter = `<button id=${power.id} class="button-power">${power.name} </button>`;
         containerPowers.innerHTML += powersCharacter;
+    });
+
+    charactersToPlay.forEach((character) => {
+        let nameCharacter =
+            character == objectCurrentCharacterPlayer ? 'player' : 'enemy';
+        let labelCharacterInfo = `
+        <label id="label-character-${nameCharacter}" class="label-character">
+        <div class="character-photo">
+                        <img class="frame" src=${frameCharacter} alt="Frame" />
+                        <img class="character-img"  src=${character.face} alt="Character" />
+                        </div>
+                        <div id="character-name-${nameCharacter}" class="character-name">
+                        <p>${character.name}
+                        <label id="label-powers-${nameCharacter}" ></label>
+                        </p>
+                        <div class="bar-container">
+                        <div class="fill-life"></div>
+                        </div>
+                        </div>
+                        </label>
+                        `;
+        containerCharacterInfo.innerHTML += labelCharacterInfo;
+
+        let nameLabelPowers =
+            nameCharacter == 'player'
+                ? 'label-powers-player'
+                : 'label-powers-enemy';
+
+        let containerLabelPowers = document.getElementById(nameLabelPowers);
+
+        character.icons.forEach((icon) => {
+            let labelPower = `<img src=${icon.icon} alt="Icon Power" />`;
+            containerLabelPowers.innerHTML += labelPower;
+        });
     });
 
     buttons = document.querySelectorAll('.button-power');
@@ -272,7 +417,7 @@ function attackSequence() {
 }
 
 function selectCharacterEnemy(enemy) {
-    spanCharacterEnemy.innerHTML = enemy.name;
+    objectCurrentCharacterEnemy = enemy;
 }
 
 function powerPyro() {
@@ -400,7 +545,7 @@ function findCurrentCharacter() {
 function drawCanvas() {
     objectCurrentCharacterPlayer.x += objectCurrentCharacterPlayer.speedX;
     objectCurrentCharacterPlayer.y += objectCurrentCharacterPlayer.speedY;
-    
+
     canvas.clearRect(0, 0, map.width, map.height);
 
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);

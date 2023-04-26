@@ -209,6 +209,11 @@ input:checked + .label-container-cards {
     font-size: 30px;
 }
 
+.character-name label {
+   display: flex;
+   gap: 10px;
+}
+
 .character-name label img {
     width: 18px;
 }
