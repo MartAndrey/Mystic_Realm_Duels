@@ -20,7 +20,6 @@ const POWERS = {
 const sectionSelectCharacter = document.getElementById('select-character');
 const sectionSelectPower = document.getElementById('select-power');
 const buttonCharacterPlayer = document.getElementById('button-character');
-const buttonRestart = document.getElementById('button-restart');
 
 const spanLivesPlayer = document.getElementById('lives-player');
 const spanLivesEnemy = document.getElementById('lives-enemy');
@@ -29,6 +28,7 @@ const frameCharacter = '/assets/Frame.png';
 
 const containerCards = document.getElementById('container-cards');
 const containerCharacterInfo = document.getElementById('character-info');
+const containerCharacterDisplay = document.getElementById('character-display');
 const containerPowers = document.getElementById('powers-container');
 
 const buttonMoveUp = document.getElementById('button-move-up');
@@ -48,6 +48,8 @@ buttonMoveRight.addEventListener('mouseup', stopMovement);
 
 const sectionSeeMap = document.getElementById('see-map');
 const map = document.getElementById('map');
+
+let buttonRestart;
 
 let inputBlaze;
 let inputAlexia;
@@ -311,7 +313,6 @@ function startGame() {
     inputRaiven = document.getElementById('Raiven');
 
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
-    buttonRestart.addEventListener('click', restartGame);
 }
 
 function selectCharacterPlayer() {
@@ -395,9 +396,15 @@ function showDisplaySelectPower(powers) {
             let labelPower = `<img src=${icon.icon} alt="Icon Power" />`;
             containerLabelPowers.innerHTML += labelPower;
         });
+
+        let characterDisplay = `<img id="character-display-${nameCharacter}" src=${character.photo} alt="Character">`;
+        containerCharacterDisplay.innerHTML += characterDisplay;
     });
 
     buttons = document.querySelectorAll('.button-power');
+
+    buttonRestart = document.getElementById('button-restart');
+    buttonRestart.addEventListener('click', restartGame);
 
     attackSequence();
 }
@@ -515,6 +522,7 @@ function combat() {
 // }
 
 function restartGame() {
+    console.log('Reload');
     location.reload();
 }
 

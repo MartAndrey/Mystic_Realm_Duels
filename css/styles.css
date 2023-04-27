@@ -210,8 +210,8 @@ input:checked + .label-container-cards {
 }
 
 .character-name label {
-   display: flex;
-   gap: 10px;
+    display: flex;
+    gap: 10px;
 }
 
 .character-name label img {
@@ -266,15 +266,23 @@ input:checked + .label-container-cards {
     height: 100%;
 }
 
+.button-powers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .button-power {
     box-sizing: border-box;
-    width: 100px;
-    height: 40px;
-    border-radius: 25px;
-    padding: 10px;
+    width: 15%;
+    height: 40%;
+    padding: 0px;
+    border-radius: 20px;
     border: transparent;
     color: #171717;
     font-size: 20px;
+    text-align: center;
 }
 
 #button-pyro {
@@ -316,7 +324,7 @@ input:checked + .label-container-cards {
     height: 100px;
 }
 
-#move-buttons  button {
+#move-buttons button {
     width: 100%;
     height: auto;
     background-color: #171717;
@@ -346,14 +354,8 @@ input:checked + .label-container-cards {
     background-image: url('/assets/buttonRight.png');
 }
 
-@media (max-width: 420px) {
+/* @media (max-width: 420px) {
     #cards {
         max-width: 400px;
     }
-
-    .button-power {
-        display: flex;
-        flex-direction: column;
-        margin: 15px;
-    }
-}
+} */
