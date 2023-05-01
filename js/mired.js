@@ -17,6 +17,12 @@ const POWERS = {
     Electro: 'Electro',
 };
 
+const DAMAGE_TYPE = {
+    2: 'X2',
+    0.5: 'X1/2',
+    0: 'X0',
+};
+
 const sectionSelectCharacter = document.getElementById('select-character');
 const sectionSelectPower = document.getElementById('select-power');
 const buttonCharacterPlayer = document.getElementById('button-character');
@@ -60,6 +66,8 @@ let inputRaiven;
 
 let buttons = [];
 let characters = [];
+let charactersEnemies = [];
+let allCharacters = [];
 
 let optionCharacter;
 let powersCharacter;
@@ -72,9 +80,6 @@ let currentCharacterEnemy;
 let attackPlayer;
 let attackEnemy;
 
-let livesPlayer = 3;
-let livesEnemy = 3;
-
 let canvas = map.getContext('2d');
 
 let interval;
@@ -84,85 +89,109 @@ mapBackground.src = '/assets/map.png';
 
 let blaze = new Character(
     'Blaze',
+    200,
+    50,
+    30,
     'assets/Blaze.png',
-    5,
     'assets/BlazeFace.png'
 );
 let alexia = new Character(
     'Alexia',
+    250,
+    45,
+    40,
     'assets/Alexia.png',
-    5,
     'assets/AlexiaFace.png'
 );
 let zarek = new Character(
     'Zarek',
+    225,
+    40,
+    35,
     'assets/Zarek.png',
-    5,
     'assets/ZarekFace.png'
 );
 let draven = new Character(
     'Draven',
+    300,
+    35,
+    50,
     'assets/Draven.png',
-    5,
     'assets/DravenFace.png'
 );
 let crystalia = new Character(
     'Crystalia',
+    150,
+    60,
+    30,
     'assets/Crystalia.png',
-    5,
     'assets/CrystaliaFace.png'
 );
 let raiven = new Character(
     'Raiven',
+    200,
+    55,
+    25,
     'assets/Raiven.png',
-    5,
     'assets/RaivenFace.png'
 );
 
 let blazeEnemy = new Character(
     'Blaze',
+    200,
+    50,
+    30,
     'assets/Blaze.png',
-    5,
     'assets/BlazeFace.png',
     40,
     210
 );
 let alexiaEnemy = new Character(
     'Alexia',
+    250,
+    45,
+    40,
     'assets/Alexia.png',
-    5,
     'assets/AlexiaFace.png',
     330,
     345
 );
 let zarekEnemy = new Character(
     'Zarek',
+    225,
+    40,
+    35,
     'assets/Zarek.png',
-    5,
     'assets/ZarekFace.png',
     220,
     115
 );
 let dravenEnemy = new Character(
     'Draven',
+    300,
+    35,
+    50,
     'assets/Draven.png',
-    5,
     'assets/DravenFace.png',
     65,
     350
 );
 let crystaliaEnemy = new Character(
     'Crystalia',
+    150,
+    60,
+    30,
     'assets/Crystalia.png',
-    5,
     'assets/CrystaliaFace.png',
     495,
     30
 );
 let raivenEnemy = new Character(
     'Raiven',
+    200,
+    55,
+    25,
     'assets/Raiven.png',
-    5,
     'assets/RaivenFace.png',
     495,
     230
@@ -174,7 +203,7 @@ blaze.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Pyro, id: 'button-pyro' }
 );
-blaze.icons.push({ icon: '/assets/IconPowerPyro.png' });
+blaze.icons.push({ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro });
 
 alexia.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -183,8 +212,8 @@ alexia.powers.push(
     { name: POWERS.Electro, id: 'button-electro' }
 );
 alexia.icons.push(
-    { icon: '/assets/IconPowerPyro.png' },
-    { icon: '/assets/IconPowerElectro.png' }
+    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
+    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro }
 );
 
 zarek.powers.push(
@@ -193,7 +222,7 @@ zarek.powers.push(
     { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
     { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' }
 );
-zarek.icons.push({ icon: '/assets/IconPowerGeo.png' });
+zarek.icons.push({ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo });
 
 draven.powers.push(
     { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
@@ -202,8 +231,8 @@ draven.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' }
 );
 draven.icons.push(
-    { icon: '/assets/IconPowerGeo.png' },
-    { icon: '/assets/IconPowerPyro.png' }
+    { icon: '/assets/IconPowerGeo.png', name: POWERS.Geo },
+    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro }
 );
 
 crystalia.powers.push(
@@ -213,8 +242,8 @@ crystalia.powers.push(
     { name: POWERS.Cryo, id: 'button-cryo' }
 );
 crystalia.icons.push(
-    { icon: '/assets/IconPowerHydro.png' },
-    { icon: '/assets/IconPowerCryo.png' }
+    { icon: '/assets/IconPowerHydro.png', name: POWERS.Hydro },
+    { icon: '/assets/IconPowerCryo.png', name: POWERS.Cryo }
 );
 
 raiven.powers.push(
@@ -223,7 +252,12 @@ raiven.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Electro, id: 'button-electro' }
 );
-raiven.icons.push({ icon: '/assets/IconPowerElectro.png' });
+raiven.icons.push({
+    icon: '/assets/IconPowerElectro.png',
+    name: POWERS.Electro,
+});
+
+characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 
 blazeEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -231,7 +265,8 @@ blazeEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Pyro, id: 'button-pyro' }
 );
-blazeEnemy.icons.push({ icon: '/assets/IconPowerPyro.png' });
+blazeEnemy.icons.push({ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro });
+blaze.strength.set(DAMAGE_TYPE[2], [], DAMAGE_TYPE['0.5'], [], DAMAGE_TYPE[0]);
 
 alexiaEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -240,8 +275,8 @@ alexiaEnemy.powers.push(
     { name: POWERS.Electro, id: 'button-electro' }
 );
 alexiaEnemy.icons.push(
-    { icon: '/assets/IconPowerPyro.png' },
-    { icon: '/assets/IconPowerElectro.png' }
+    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
+    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro }
 );
 
 zarekEnemy.powers.push(
@@ -250,7 +285,7 @@ zarekEnemy.powers.push(
     { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
     { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' }
 );
-zarekEnemy.icons.push({ icon: '/assets/IconPowerGeo.png' });
+zarekEnemy.icons.push({ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo });
 
 dravenEnemy.powers.push(
     { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
@@ -259,8 +294,8 @@ dravenEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' }
 );
 dravenEnemy.icons.push(
-    { icon: '/assets/IconPowerGeo.png' },
-    { icon: '/assets/IconPowerPyro.png' }
+    { icon: '/assets/IconPowerGeo.png', name: POWERS.Geo },
+    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro }
 );
 
 crystaliaEnemy.powers.push(
@@ -270,8 +305,8 @@ crystaliaEnemy.powers.push(
     { name: POWERS.Cryo, id: 'button-cryo' }
 );
 crystaliaEnemy.icons.push(
-    { icon: '/assets/IconPowerHydro.png' },
-    { icon: '/assets/IconPowerCryo.png' }
+    { icon: '/assets/IconPowerHydro.png', name: POWERS.Hydro },
+    { icon: '/assets/IconPowerCryo.png', name: POWERS.Cryo }
 );
 
 raivenEnemy.powers.push(
@@ -280,9 +315,103 @@ raivenEnemy.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Electro, id: 'button-electro' }
 );
-raivenEnemy.icons.push({ icon: '/assets/IconPowerElectro.png' });
+raivenEnemy.icons.push({
+    icon: '/assets/IconPowerElectro.png',
+    name: POWERS.Electro,
+});
 
-characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
+charactersEnemies.push(
+    blazeEnemy,
+    alexiaEnemy,
+    zarekEnemy,
+    dravenEnemy,
+    crystaliaEnemy,
+    raivenEnemy
+);
+
+function setStrengthEachCharacter(characters) {
+    characters.forEach((character) => {
+        character.strength.set(DAMAGE_TYPE[2], []);
+        character.strength.set(DAMAGE_TYPE['0.5'], []);
+        character.strength.set(DAMAGE_TYPE[0], []);
+        setStrength(character);
+    });
+}
+
+function setStrength(character) {
+    character.icons.forEach((power) => {
+        switch (power.name) {
+            case POWERS.Pyro:
+                setStrengthPyro(character);
+                break;
+            case POWERS.Hydro:
+                setStrengthHydro(character);
+                break;
+            case POWERS.Geo:
+                setStrengthGeo(character);
+                break;
+            case POWERS.Cryo:
+                setStrengthCryo(character);
+                break;
+            case POWERS.Electro:
+                setStrengthElectro(character);
+                break;
+        }
+    });
+}
+
+function setStrengthPyro(character) {
+    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Cryo))
+        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Cryo);
+
+    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Hydro))
+        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Hydro);
+    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Geo))
+        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Geo);
+
+    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Pyro))
+        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Pyro);
+}
+
+function setStrengthHydro(character) {
+    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Pyro))
+        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
+
+    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Electro))
+        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Electro);
+
+    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Hydro))
+        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Hydro);
+}
+
+function setStrengthGeo(character) {
+    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Pyro))
+        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
+    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Electro))
+        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Electro);
+
+    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Geo))
+        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Geo);
+}
+
+function setStrengthCryo(character) {
+    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Pyro))
+        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Pyro);
+
+    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Cryo))
+        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Cryo);
+}
+
+function setStrengthElectro(character) {
+    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Hydro))
+        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Hydro);
+
+    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Geo))
+        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Geo);
+
+    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Electro))
+        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Electro);
+}
 
 function startGame() {
     sectionSelectCharacter.style.display = 'flex';
@@ -313,6 +442,9 @@ function startGame() {
     inputRaiven = document.getElementById('Raiven');
 
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
+
+    allCharacters = characters.concat(charactersEnemies);
+    setStrengthEachCharacter(allCharacters);
 }
 
 function selectCharacterPlayer() {
@@ -342,184 +474,82 @@ function selectCharacterPlayer() {
 
 function getPowers(currentCharacterPlayer) {
     let powers;
-    let icons;
 
     for (let i = 0; i < characters.length; i++) {
         if (currentCharacterPlayer === characters[i].name) {
             powers = characters[i].powers;
-            icons = characters[i].icons;
         }
     }
 
-    showDisplaySelectPower(powers, icons);
+    showDisplayBattle(powers);
 }
 
-function showDisplaySelectPower(powers) {
+function showDisplayBattle(powers) {
     let charactersToPlay = [];
     charactersToPlay.push(objectCurrentCharacterPlayer);
     charactersToPlay.push(objectCurrentCharacterEnemy);
 
+    charactersToPlay.forEach((character) => {
+        let nameCharacter =
+            character == objectCurrentCharacterPlayer ? 'player' : 'enemy';
+
+        showCharacterInfo(character, nameCharacter);
+        showDisplayCharacter(character, nameCharacter);
+    });
+
+    showPowers(powers);
+
+    buttonRestart = document.getElementById('button-restart');
+    buttonRestart.addEventListener('click', restartGame);
+
+    startBattle();
+}
+
+function showCharacterInfo(character, nameCharacter) {
+    let labelCharacterInfo = `
+    <label id="label-character-${nameCharacter}" class="label-character">
+    <div class="character-photo">
+                    <img class="frame" src=${frameCharacter} alt="Frame" />
+                    <img class="character-img"  src=${character.face} alt="Character" />
+                    </div>
+                    <div id="character-name-${nameCharacter}" class="character-name">
+                    <p>${character.name}
+                    <label id="label-powers-${nameCharacter}" ></label>
+                    </p>
+                    <div class="bar-container">
+                    <div class="fill-life"></div>
+                    </div>
+                    </div>
+                    </label>
+                    `;
+    containerCharacterInfo.innerHTML += labelCharacterInfo;
+
+    let nameLabelPowers =
+        nameCharacter == 'player'
+            ? 'label-powers-player'
+            : 'label-powers-enemy';
+
+    let containerLabelPowers = document.getElementById(nameLabelPowers);
+
+    character.icons.forEach((icon) => {
+        let labelPower = `<img src=${icon.icon} alt="Icon Power" />`;
+        containerLabelPowers.innerHTML += labelPower;
+    });
+}
+
+function showDisplayCharacter(character, nameCharacter) {
+    let characterDisplay = `<img id="character-display-${nameCharacter}" src=${character.photo} alt="Character">`;
+    containerCharacterDisplay.innerHTML += characterDisplay;
+}
+
+function showPowers(powers) {
     powers.forEach((power) => {
         powersCharacter = `<button id=${power.id} class="button-power">${power.name} </button>`;
         containerPowers.innerHTML += powersCharacter;
     });
 
-    charactersToPlay.forEach((character) => {
-        let nameCharacter =
-            character == objectCurrentCharacterPlayer ? 'player' : 'enemy';
-        let labelCharacterInfo = `
-        <label id="label-character-${nameCharacter}" class="label-character">
-        <div class="character-photo">
-                        <img class="frame" src=${frameCharacter} alt="Frame" />
-                        <img class="character-img"  src=${character.face} alt="Character" />
-                        </div>
-                        <div id="character-name-${nameCharacter}" class="character-name">
-                        <p>${character.name}
-                        <label id="label-powers-${nameCharacter}" ></label>
-                        </p>
-                        <div class="bar-container">
-                        <div class="fill-life"></div>
-                        </div>
-                        </div>
-                        </label>
-                        `;
-        containerCharacterInfo.innerHTML += labelCharacterInfo;
-
-        let nameLabelPowers =
-            nameCharacter == 'player'
-                ? 'label-powers-player'
-                : 'label-powers-enemy';
-
-        let containerLabelPowers = document.getElementById(nameLabelPowers);
-
-        character.icons.forEach((icon) => {
-            let labelPower = `<img src=${icon.icon} alt="Icon Power" />`;
-            containerLabelPowers.innerHTML += labelPower;
-        });
-
-        let characterDisplay = `<img id="character-display-${nameCharacter}" src=${character.photo} alt="Character">`;
-        containerCharacterDisplay.innerHTML += characterDisplay;
-    });
-
     buttons = document.querySelectorAll('.button-power');
-
-    buttonRestart = document.getElementById('button-restart');
-    buttonRestart.addEventListener('click', restartGame);
-
-    attackSequence();
 }
-
-function attackSequence() {
-    buttons.forEach((button) => {
-        button.addEventListener('click', (e) => {
-            let text = e.target.textContent.trim();
-            if (text === POWERS.Pyro) {
-            } else if (text === POWERS.Hydro) {
-            } else if (text === POWERS.Geo) {
-            } else if (text === POWERS.Cryo) {
-            } else if (text === POWERS.Electro) {
-            }
-        });
-    });
-}
-
-function selectCharacterEnemy(enemy) {
-    objectCurrentCharacterEnemy = enemy;
-}
-
-function powerPyro() {
-    attackPlayer = POWERS.Pyro;
-    SetPowerEnemy();
-}
-
-function powerHydro() {
-    attackPlayer = POWERS.Hydro;
-    SetPowerEnemy();
-}
-
-function powerGeo() {
-    attackPlayer = POWERS.Geo;
-    SetPowerEnemy();
-}
-
-function powerCryo() {
-    attackPlayer = POWERS.Cryo;
-    SetPowerEnemy();
-}
-
-function powerElectro() {
-    attackPlayer = POWERS.Electro;
-    SetPowerEnemy();
-}
-
-function SetPowerEnemy() {
-    let powerRandom = random(0, currentCharacterEnemy.powers.length - 1);
-
-    if (powerRandom == 1) attackEnemy = POWERS.Pyro;
-    else if (powerRandom == 2) attackEnemy = POWERS.Hydro;
-    else if (powerRandom == 3) attackEnemy = POWERS.Geo;
-    else if (powerRandom == 4) attackEnemy = POWERS.Cryo;
-    else if (powerRandom == 5) attackEnemy = POWERS.Electro;
-
-    combat();
-}
-
-function combat() {
-    let result;
-
-    if (attackPlayer == attackEnemy) {
-        result = 'TIE😠';
-    } else if (attackPlayer == POWERS.Pyro && attackEnemy == POWERS.Cryo) {
-        result = 'You win🎉';
-        livesEnemy--;
-        spanLivesEnemy.innerHTML = livesEnemy;
-    } else if (attackPlayer == POWERS.Hydro && attackEnemy == POWERS.Pyro) {
-        result = 'You win🎉';
-        livesEnemy--;
-        spanLivesEnemy.innerHTML = livesEnemy;
-    } else if (attackPlayer == POWERS.Geo && attackEnemy == POWERS.Pyro) {
-        result = 'You win🎉';
-        livesEnemy--;
-        spanLivesEnemy.innerHTML = livesEnemy;
-    } else if (attackPlayer == POWERS.Cryo && attackEnemy == POWERS.Electro) {
-        result = 'You win🎉';
-        livesEnemy--;
-        spanLivesEnemy.innerHTML = livesEnemy;
-    } else if (attackPlayer == POWERS.Electro && attackEnemy == POWERS.Hydro) {
-        result = 'You win🎉';
-        livesEnemy--;
-        spanLivesEnemy.innerHTML = livesEnemy;
-    } else {
-        result = 'You lost🎗️';
-        livesPlayer = livesPlayer - 1;
-        spanLivesPlayer.innerHTML = livesPlayer;
-    }
-
-    // createMessage(result);
-
-    checkLives();
-}
-
-// function checkLives() {
-//     if (livesEnemy <= 0) createFinalMessage('Congratulation! YOU WIN😃');
-//     else if (livesPlayer <= 0) createFinalMessage('Sorry! YOU LOST😔');
-// }
-
-// function createMessage(result) {
-//     let newAttackPlayer = document.createElement('p');
-//     let newAttackEnemy = document.createElement('p');
-
-//     sectionMessages.innerHTML = result;
-//     newAttackPlayer.innerHTML = attackPlayer;
-//     newAttackEnemy.innerHTML = attackEnemy;
-
-//     pAttackPlayer.appendChild(newAttackPlayer);
-//     pAttackEnemy.appendChild(newAttackEnemy);
-// }
-
-// function createFinalMessage(finalResult) {
-//     sectionMessages.innerHTML = finalResult;
-// }
 
 function restartGame() {
     console.log('Reload');
@@ -654,6 +684,57 @@ function checkCollision(enemy) {
 
     selectCharacterEnemy(enemy);
     getPowers(currentCharacterPlayer);
+}
+
+function startBattle() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            let text = e.target.textContent.trim();
+            if (text === POWERS.Pyro) {
+            } else if (text === POWERS.Hydro) {
+            } else if (text === POWERS.Geo) {
+            } else if (text === POWERS.Cryo) {
+            } else if (text === POWERS.Electro) {
+            }
+        });
+    });
+}
+
+function selectCharacterEnemy(enemy) {
+    objectCurrentCharacterEnemy = enemy;
+}
+
+function powerPyro() {
+    attackPlayer = POWERS.Pyro;
+    SetPowerEnemy();
+}
+
+function powerHydro() {
+    attackPlayer = POWERS.Hydro;
+    SetPowerEnemy();
+}
+
+function powerGeo() {
+    attackPlayer = POWERS.Geo;
+    SetPowerEnemy();
+}
+
+function powerCryo() {
+    attackPlayer = POWERS.Cryo;
+    SetPowerEnemy();
+}
+
+function powerElectro() {
+    attackPlayer = POWERS.Electro;
+    SetPowerEnemy();
+}
+
+function SetPowerEnemy() {
+    combat();
+}
+
+function combat() {
+    checkLives();
 }
 
 window.addEventListener('load', startGame);
