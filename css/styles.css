@@ -305,6 +305,14 @@ input:checked + .label-container-cards {
     background: linear-gradient(to bottom, #bb56f1, #9425e4, #bb56f1);
 }
 
+#button-melee {
+    background: linear-gradient(to bottom, #b3b3b3, #ffffff, #b3b3b3);
+}
+
+#button-defense {
+    background: linear-gradient(to bottom, #babd00, #eca200, #babd00);
+}
+
 #see-map {
     flex-direction: column;
     align-items: center;

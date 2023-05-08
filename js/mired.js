@@ -1,5 +1,5 @@
 import { Character } from './character.js';
-
+import { Element } from './elements.js';
 const CHARACTER = {
     Blaze: 'Blaze',
     Alexia: 'Alexia',
@@ -15,20 +15,19 @@ const POWERS = {
     Geo: 'Geo',
     Cryo: 'Cryo',
     Electro: 'Electro',
+    Melee: 'Melee',
+    Defense: 'Defense',
 };
 
 const DAMAGE_TYPE = {
-    2: 'X2',
-    0.5: 'X1/2',
-    0: 'X0',
+    2: 2,
+    1.5: 1.5,
+    0.5: 0.5,
 };
 
 const sectionSelectCharacter = document.getElementById('select-character');
 const sectionSelectPower = document.getElementById('select-power');
 const buttonCharacterPlayer = document.getElementById('button-character');
-
-const spanLivesPlayer = document.getElementById('lives-player');
-const spanLivesEnemy = document.getElementById('lives-enemy');
 
 const frameCharacter = '/assets/Frame.png';
 
@@ -67,7 +66,6 @@ let inputRaiven;
 let buttons = [];
 let characters = [];
 let charactersEnemies = [];
-let allCharacters = [];
 
 let optionCharacter;
 let powersCharacter;
@@ -76,6 +74,7 @@ let objectCurrentCharacterPlayer;
 let objectCurrentCharacterEnemy;
 let currentCharacterPlayer;
 let currentCharacterEnemy;
+let currentElement;
 
 let attackPlayer;
 let attackEnemy;
@@ -199,9 +198,9 @@ let raivenEnemy = new Character(
 
 blaze.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Defense, id: 'button-defense' },
     { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Pyro, id: 'button-pyro' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 blaze.icons.push({ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro });
 
@@ -209,7 +208,7 @@ alexia.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Electro, id: 'button-electro' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 alexia.icons.push(
     { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
@@ -217,18 +216,18 @@ alexia.icons.push(
 );
 
 zarek.powers.push(
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' }
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Defense, id: 'button-defense' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 zarek.icons.push({ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo });
 
 draven.powers.push(
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' }
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 draven.icons.push(
     { icon: '/assets/IconPowerGeo.png', name: POWERS.Geo },
@@ -239,7 +238,7 @@ crystalia.powers.push(
     { name: POWERS.Hydro, id: 'button-hydro' },
     { name: POWERS.Cryo, id: 'button-cryo' },
     { name: POWERS.Hydro, id: 'button-hydro' },
-    { name: POWERS.Cryo, id: 'button-cryo' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 crystalia.icons.push(
     { icon: '/assets/IconPowerHydro.png', name: POWERS.Hydro },
@@ -248,9 +247,9 @@ crystalia.icons.push(
 
 raiven.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
+    { name: POWERS.Defense, id: 'button-defense' },
     { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Electro, id: 'button-electro' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 raiven.icons.push({
     icon: '/assets/IconPowerElectro.png',
@@ -261,18 +260,17 @@ characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 
 blazeEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Defense, id: 'button-defense' },
     { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Pyro, id: 'button-pyro' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 blazeEnemy.icons.push({ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro });
-blaze.strength.set(DAMAGE_TYPE[2], [], DAMAGE_TYPE['0.5'], [], DAMAGE_TYPE[0]);
 
 alexiaEnemy.powers.push(
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Electro, id: 'button-electro' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 alexiaEnemy.icons.push(
     { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
@@ -280,18 +278,18 @@ alexiaEnemy.icons.push(
 );
 
 zarekEnemy.powers.push(
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' }
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Defense, id: 'button-defense' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 zarekEnemy.icons.push({ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo });
 
 dravenEnemy.powers.push(
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' },
-    { name: POWERS.Geo, id: 'button-geo', icon: '/assets/IconPowerGeo.png' },
-    { name: POWERS.Pyro, id: 'button-pyro', icon: '/assets/IconPowerPyro.png' }
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Pyro, id: 'button-pyro' },
+    { name: POWERS.Geo, id: 'button-geo' },
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 dravenEnemy.icons.push(
     { icon: '/assets/IconPowerGeo.png', name: POWERS.Geo },
@@ -302,7 +300,7 @@ crystaliaEnemy.powers.push(
     { name: POWERS.Hydro, id: 'button-hydro' },
     { name: POWERS.Cryo, id: 'button-cryo' },
     { name: POWERS.Hydro, id: 'button-hydro' },
-    { name: POWERS.Cryo, id: 'button-cryo' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 crystaliaEnemy.icons.push(
     { icon: '/assets/IconPowerHydro.png', name: POWERS.Hydro },
@@ -311,9 +309,9 @@ crystaliaEnemy.icons.push(
 
 raivenEnemy.powers.push(
     { name: POWERS.Electro, id: 'button-electro' },
+    { name: POWERS.Defense, id: 'button-defense' },
     { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Electro, id: 'button-electro' }
+    { name: POWERS.Melee, id: 'button-melee' }
 );
 raivenEnemy.icons.push({
     icon: '/assets/IconPowerElectro.png',
@@ -329,89 +327,51 @@ charactersEnemies.push(
     raivenEnemy
 );
 
-function setStrengthEachCharacter(characters) {
-    characters.forEach((character) => {
-        character.strength.set(DAMAGE_TYPE[2], []);
-        character.strength.set(DAMAGE_TYPE['0.5'], []);
-        character.strength.set(DAMAGE_TYPE[0], []);
-        setStrength(character);
-    });
-}
+const ELEMENT_PYRO = new Element([
+    DAMAGE_TYPE[2],
+    DAMAGE_TYPE['1.5'],
+    DAMAGE_TYPE['0.5'],
+]);
+const ELEMENT_HYDRO = new Element([
+    DAMAGE_TYPE[2],
+    DAMAGE_TYPE['1.5'],
+    DAMAGE_TYPE['0.5'],
+]);
+const ELEMENT_GEO = new Element([
+    DAMAGE_TYPE[2],
+    DAMAGE_TYPE['1.5'],
+    DAMAGE_TYPE['0.5'],
+]);
+const ELEMENT_CRYO = new Element([
+    DAMAGE_TYPE[2],
+    DAMAGE_TYPE['1.5'],
+    DAMAGE_TYPE['0.5'],
+]);
+const ELEMENT_ELECTRO = new Element([
+    DAMAGE_TYPE[2],
+    DAMAGE_TYPE['1.5'],
+    DAMAGE_TYPE['0.5'],
+]);
 
-function setStrength(character) {
-    character.icons.forEach((power) => {
-        switch (power.name) {
-            case POWERS.Pyro:
-                setStrengthPyro(character);
-                break;
-            case POWERS.Hydro:
-                setStrengthHydro(character);
-                break;
-            case POWERS.Geo:
-                setStrengthGeo(character);
-                break;
-            case POWERS.Cryo:
-                setStrengthCryo(character);
-                break;
-            case POWERS.Electro:
-                setStrengthElectro(character);
-                break;
-        }
-    });
-}
+ELEMENT_PYRO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Cryo);
+ELEMENT_PYRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Hydro);
+ELEMENT_PYRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Geo);
+ELEMENT_PYRO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
 
-function setStrengthPyro(character) {
-    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Cryo))
-        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Cryo);
+ELEMENT_HYDRO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
+ELEMENT_HYDRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Electro);
+ELEMENT_HYDRO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
 
-    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Hydro))
-        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Hydro);
-    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Geo))
-        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Geo);
+ELEMENT_GEO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
+ELEMENT_GEO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Electro);
+ELEMENT_GEO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
 
-    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Pyro))
-        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Pyro);
-}
+ELEMENT_CRYO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Pyro);
+ELEMENT_CRYO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
 
-function setStrengthHydro(character) {
-    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Pyro))
-        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
-
-    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Electro))
-        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Electro);
-
-    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Hydro))
-        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Hydro);
-}
-
-function setStrengthGeo(character) {
-    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Pyro))
-        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
-    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Electro))
-        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Electro);
-
-    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Geo))
-        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Geo);
-}
-
-function setStrengthCryo(character) {
-    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Pyro))
-        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Pyro);
-
-    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Cryo))
-        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Cryo);
-}
-
-function setStrengthElectro(character) {
-    if (!character.strength.get(DAMAGE_TYPE[2]).includes(POWERS.Hydro))
-        character.strength.get(DAMAGE_TYPE[2]).push(POWERS.Hydro);
-
-    if (!character.strength.get(DAMAGE_TYPE['0.5']).includes(POWERS.Geo))
-        character.strength.get(DAMAGE_TYPE['0.5']).push(POWERS.Geo);
-
-    if (!character.strength.get(DAMAGE_TYPE[0]).includes(POWERS.Electro))
-        character.strength.get(DAMAGE_TYPE[0]).push(POWERS.Electro);
-}
+ELEMENT_ELECTRO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Hydro);
+ELEMENT_ELECTRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Geo);
+ELEMENT_ELECTRO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
 
 function startGame() {
     sectionSelectCharacter.style.display = 'flex';
@@ -442,9 +402,6 @@ function startGame() {
     inputRaiven = document.getElementById('Raiven');
 
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
-
-    allCharacters = characters.concat(charactersEnemies);
-    setStrengthEachCharacter(allCharacters);
 }
 
 function selectCharacterPlayer() {
@@ -552,7 +509,6 @@ function showPowers(powers) {
 }
 
 function restartGame() {
-    console.log('Reload');
     location.reload();
 }
 
@@ -691,11 +647,21 @@ function startBattle() {
         button.addEventListener('click', (e) => {
             let text = e.target.textContent.trim();
             if (text === POWERS.Pyro) {
+                powerPyro();
             } else if (text === POWERS.Hydro) {
+                powerHydro();
             } else if (text === POWERS.Geo) {
+                powerGeo();
             } else if (text === POWERS.Cryo) {
+                powerCryo();
             } else if (text === POWERS.Electro) {
+                powerElectro();
+            } else if (text === POWERS.Melee) {
+                powerMelee();
+            } else if (text === POWERS.Defense) {
+                powerDefense();
             }
+            combat();
         });
     });
 }
@@ -706,35 +672,80 @@ function selectCharacterEnemy(enemy) {
 
 function powerPyro() {
     attackPlayer = POWERS.Pyro;
-    SetPowerEnemy();
+    currentElement = ELEMENT_PYRO;
 }
 
 function powerHydro() {
     attackPlayer = POWERS.Hydro;
-    SetPowerEnemy();
+    currentElement = ELEMENT_HYDRO;
 }
 
 function powerGeo() {
     attackPlayer = POWERS.Geo;
-    SetPowerEnemy();
+    currentElement = ELEMENT_GEO;
 }
 
 function powerCryo() {
     attackPlayer = POWERS.Cryo;
-    SetPowerEnemy();
+    currentElement = ELEMENT_CRYO;
 }
 
 function powerElectro() {
     attackPlayer = POWERS.Electro;
-    SetPowerEnemy();
+    currentElement = ELEMENT_ELECTRO;
 }
 
-function SetPowerEnemy() {
-    combat();
+function powerMelee() {
+    attackPlayer = POWERS.Melee;
 }
+
+function powerDefense() {
+    attackPlayer = POWERS.Defense;
+}
+
+function SetPowerEnemy() {}
 
 function combat() {
+    let weaknessEnemy = objectCurrentCharacterEnemy.powers[0].name;
+    let multiplier = getMultiplierFactor(weaknessEnemy);
+    console.log(multiplier);
+    objectCurrentCharacterEnemy.changeLife(getNetDamage(multiplier));
+
     checkLives();
+}
+
+function getMultiplierFactor(weaknessEnemy) {
+    let entries = currentElement.strengths.entries();
+    let entriesArray = Array.from(entries);
+
+    let result = entriesArray.find(([key, value]) =>
+        value.includes(weaknessEnemy)
+    );
+
+    if (result === undefined) return 1;
+
+    let [key, value] = result;
+
+    return key;
+}
+
+function getNetDamage(multiplier) {
+    let getNetDamage =
+        objectCurrentCharacterPlayer.damage * multiplier -
+        objectCurrentCharacterEnemy.defense;
+
+    if (getNetDamage < 0) getNetDamage = 0;
+
+    return getNetDamage;
+}
+
+function checkLives() {
+    if (
+        objectCurrentCharacterPlayer.life <= 0 ||
+        objectCurrentCharacterEnemy.life <= 0
+    ) {
+        alert('GameOver');
+    }
 }
 
 window.addEventListener('load', startGame);
