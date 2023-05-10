@@ -209,6 +209,11 @@ input:checked + .label-container-cards {
     font-size: 30px;
 }
 
+#p-enemy {
+    align-items: flex-end;
+    padding-right: 15px;
+}
+
 .character-name label {
     display: flex;
     gap: 10px;
@@ -234,6 +239,14 @@ input:checked + .label-container-cards {
     border-radius: 20px;
     margin: 3px;
     background-color: #da0037;
+}
+
+#bar-life-player {
+    transform-origin: left;
+}
+
+#bar-life-enemy {
+    transform-origin: right;
 }
 
 #character-display {

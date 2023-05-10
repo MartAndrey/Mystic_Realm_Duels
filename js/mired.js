@@ -1,5 +1,6 @@
 import { Character } from './character.js';
 import { Element } from './elements.js';
+
 const CHARACTER = {
     Blaze: 'Blaze',
     Alexia: 'Alexia',
@@ -23,6 +24,11 @@ const DAMAGE_TYPE = {
     2: 2,
     1.5: 1.5,
     0.5: 0.5,
+};
+
+const TURN = {
+    Player: 'Player',
+    Enemy: 'Enemy',
 };
 
 const sectionSelectCharacter = document.getElementById('select-character');
@@ -75,9 +81,12 @@ let objectCurrentCharacterEnemy;
 let currentCharacterPlayer;
 let currentCharacterEnemy;
 let currentElement;
+let currentAttack;
 
-let attackPlayer;
-let attackEnemy;
+let barLifePlayer;
+let barLifeEnemy;
+
+let currentTurn;
 
 let canvas = map.getContext('2d');
 
@@ -470,11 +479,11 @@ function showCharacterInfo(character, nameCharacter) {
                     <img class="character-img"  src=${character.face} alt="Character" />
                     </div>
                     <div id="character-name-${nameCharacter}" class="character-name">
-                    <p>${character.name}
+                    <p id="p-${nameCharacter}" >${character.name}
                     <label id="label-powers-${nameCharacter}" ></label>
                     </p>
                     <div class="bar-container">
-                    <div class="fill-life"></div>
+                    <div id="bar-life-${nameCharacter}" class="fill-life"></div>
                     </div>
                     </div>
                     </label>
@@ -643,27 +652,55 @@ function checkCollision(enemy) {
 }
 
 function startBattle() {
+    barLifePlayer = document.getElementById('bar-life-player');
+    barLifeEnemy = document.getElementById('bar-life-enemy');
+
     buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
-            let text = e.target.textContent.trim();
-            if (text === POWERS.Pyro) {
-                powerPyro();
-            } else if (text === POWERS.Hydro) {
-                powerHydro();
-            } else if (text === POWERS.Geo) {
-                powerGeo();
-            } else if (text === POWERS.Cryo) {
-                powerCryo();
-            } else if (text === POWERS.Electro) {
-                powerElectro();
-            } else if (text === POWERS.Melee) {
-                powerMelee();
-            } else if (text === POWERS.Defense) {
-                powerDefense();
-            }
-            combat();
+            let power = e.target.textContent.trim();
+            checkTurn(power);
         });
     });
+
+    setTimeout(() => {
+        getTurnRandom();
+    }, 1300);
+}
+
+function getTurnRandom() {
+    let turnRandom = random(1, Object.keys(TURN).length);
+
+    currentTurn = turnRandom == 1 ? TURN.Player : TURN.Enemy;
+
+    if (currentTurn == TURN.Enemy) setPowerEnemy();
+}
+
+function checkTurn(power) {
+    if (currentTurn == TURN.Player) getPowerToCharacter(power);
+}
+
+function getPowerToCharacter(power) {
+    if (power === POWERS.Pyro) {
+        powerPyro();
+    } else if (power === POWERS.Hydro) {
+        powerHydro();
+    } else if (power === POWERS.Geo) {
+        powerGeo();
+    } else if (power === POWERS.Cryo) {
+        powerCryo();
+    } else if (power === POWERS.Electro) {
+        powerElectro();
+    } else if (power === POWERS.Melee) {
+        powerMelee();
+    } else if (power === POWERS.Defense) {
+        powerDefense();
+    }
+    let characterEnemy =
+        currentTurn == TURN.Player
+            ? objectCurrentCharacterEnemy
+            : objectCurrentCharacterPlayer;
+
+    combat(characterEnemy);
 }
 
 function selectCharacterEnemy(enemy) {
@@ -671,47 +708,60 @@ function selectCharacterEnemy(enemy) {
 }
 
 function powerPyro() {
-    attackPlayer = POWERS.Pyro;
+    currentAttack = POWERS.Pyro;
     currentElement = ELEMENT_PYRO;
 }
 
 function powerHydro() {
-    attackPlayer = POWERS.Hydro;
+    currentAttack = POWERS.Hydro;
     currentElement = ELEMENT_HYDRO;
 }
 
 function powerGeo() {
-    attackPlayer = POWERS.Geo;
+    currentAttack = POWERS.Geo;
     currentElement = ELEMENT_GEO;
 }
 
 function powerCryo() {
-    attackPlayer = POWERS.Cryo;
+    currentAttack = POWERS.Cryo;
     currentElement = ELEMENT_CRYO;
 }
 
 function powerElectro() {
-    attackPlayer = POWERS.Electro;
+    currentAttack = POWERS.Electro;
     currentElement = ELEMENT_ELECTRO;
 }
 
 function powerMelee() {
-    attackPlayer = POWERS.Melee;
+    currentAttack = POWERS.Melee;
 }
 
 function powerDefense() {
-    attackPlayer = POWERS.Defense;
+    currentAttack = POWERS.Defense;
 }
 
-function SetPowerEnemy() {}
+function setPowerEnemy() {
+    let powerRandom = random(0, objectCurrentCharacterEnemy.powers.length - 1);
 
-function combat() {
-    let weaknessEnemy = objectCurrentCharacterEnemy.powers[0].name;
+    let attackEnemy = objectCurrentCharacterEnemy.powers[powerRandom].name;
+
+    getPowerToCharacter(attackEnemy);
+}
+
+function combat(characterEnemy) {
+    let weaknessEnemy = characterEnemy.powers[0].name;
+
     let multiplier = getMultiplierFactor(weaknessEnemy);
-    console.log(multiplier);
-    objectCurrentCharacterEnemy.changeLife(getNetDamage(multiplier));
+
+    characterEnemy.changeLife(getNetDamage(characterEnemy, multiplier));
+
+    ChangeLifeUI(characterEnemy);
 
     checkLives();
+
+    currentTurn = currentTurn == TURN.Player ? TURN.Enemy : TURN.Player;
+
+    if (currentTurn == TURN.Enemy) setPowerEnemy();
 }
 
 function getMultiplierFactor(weaknessEnemy) {
@@ -729,10 +779,13 @@ function getMultiplierFactor(weaknessEnemy) {
     return key;
 }
 
-function getNetDamage(multiplier) {
-    let getNetDamage =
-        objectCurrentCharacterPlayer.damage * multiplier -
-        objectCurrentCharacterEnemy.defense;
+function getNetDamage(characterEnemy, multiplier) {
+    let character =
+        currentTurn == TURN.Player
+            ? objectCurrentCharacterPlayer
+            : objectCurrentCharacterEnemy;
+
+    let getNetDamage = character.damage * multiplier - characterEnemy.defense;
 
     if (getNetDamage < 0) getNetDamage = 0;
 
@@ -746,6 +799,14 @@ function checkLives() {
     ) {
         alert('GameOver');
     }
+}
+
+function ChangeLifeUI(character) {
+    let barLife = currentTurn == TURN.Player ? barLifeEnemy : barLifePlayer;
+
+    let scale = character.life / character.maxLife;
+
+    barLife.style.transform = `scaleX(${scale})`;
 }
 
 window.addEventListener('load', startGame);

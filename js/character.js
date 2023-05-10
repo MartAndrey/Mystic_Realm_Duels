@@ -1,7 +1,8 @@
 export class Character {
     constructor(name, life, damage, defense, photo, face, x = 5, y = 295) {
         this.name = name;
-        this.life = life;
+        this.maxLife = life;
+        this.life = this.maxLife;
         this.damage = damage;
         this.defense = defense;
         this.photo = photo;
