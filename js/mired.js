@@ -24,6 +24,7 @@ const DAMAGE_TYPE = {
     2: 2,
     1.5: 1.5,
     0.5: 0.5,
+    0: 0,
 };
 
 const TURN = {
@@ -86,7 +87,13 @@ let currentAttack;
 let barLifePlayer;
 let barLifeEnemy;
 
+let labelPlayer;
+let labelEnemy;
+
 let currentTurn;
+
+let colorTurn = '#bdc2be';
+let colorNormal = '#444444';
 
 let canvas = map.getContext('2d');
 
@@ -340,47 +347,59 @@ const ELEMENT_PYRO = new Element([
     DAMAGE_TYPE[2],
     DAMAGE_TYPE['1.5'],
     DAMAGE_TYPE['0.5'],
+    DAMAGE_TYPE[0],
 ]);
 const ELEMENT_HYDRO = new Element([
     DAMAGE_TYPE[2],
     DAMAGE_TYPE['1.5'],
     DAMAGE_TYPE['0.5'],
+    DAMAGE_TYPE[0],
 ]);
 const ELEMENT_GEO = new Element([
     DAMAGE_TYPE[2],
     DAMAGE_TYPE['1.5'],
     DAMAGE_TYPE['0.5'],
+    DAMAGE_TYPE[0],
 ]);
 const ELEMENT_CRYO = new Element([
     DAMAGE_TYPE[2],
     DAMAGE_TYPE['1.5'],
     DAMAGE_TYPE['0.5'],
+    DAMAGE_TYPE[0],
 ]);
 const ELEMENT_ELECTRO = new Element([
     DAMAGE_TYPE[2],
     DAMAGE_TYPE['1.5'],
     DAMAGE_TYPE['0.5'],
+    DAMAGE_TYPE[0],
 ]);
+const ELEMENT_MELEE = new Element([DAMAGE_TYPE['0.5']]);
 
 ELEMENT_PYRO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Cryo);
 ELEMENT_PYRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Hydro);
 ELEMENT_PYRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Geo);
-ELEMENT_PYRO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
+ELEMENT_PYRO.strengths.get(DAMAGE_TYPE[0]).push(POWERS.Pyro);
 
 ELEMENT_HYDRO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
 ELEMENT_HYDRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Electro);
-ELEMENT_HYDRO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
+ELEMENT_HYDRO.strengths.get(DAMAGE_TYPE[0]).push(POWERS.Hydro);
 
 ELEMENT_GEO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Pyro);
 ELEMENT_GEO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Electro);
-ELEMENT_GEO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
+ELEMENT_GEO.strengths.get(DAMAGE_TYPE[0]).push(POWERS.Geo);
 
 ELEMENT_CRYO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Pyro);
-ELEMENT_CRYO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
+ELEMENT_CRYO.strengths.get(DAMAGE_TYPE[0]).push(POWERS.Cryo);
 
 ELEMENT_ELECTRO.strengths.get(DAMAGE_TYPE[2]).push(POWERS.Hydro);
 ELEMENT_ELECTRO.strengths.get(DAMAGE_TYPE['1.5']).push(POWERS.Geo);
-ELEMENT_ELECTRO.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Melee);
+ELEMENT_ELECTRO.strengths.get(DAMAGE_TYPE[0]).push(POWERS.Electro);
+
+ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Pyro);
+ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Hydro);
+ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Geo);
+ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Cryo);
+ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Electro);
 
 function startGame() {
     sectionSelectCharacter.style.display = 'flex';
@@ -655,6 +674,9 @@ function startBattle() {
     barLifePlayer = document.getElementById('bar-life-player');
     barLifeEnemy = document.getElementById('bar-life-enemy');
 
+    labelPlayer = document.getElementById('p-player');
+    labelEnemy = document.getElementById('p-enemy');
+
     buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
             let power = e.target.textContent.trim();
@@ -664,7 +686,7 @@ function startBattle() {
 
     setTimeout(() => {
         getTurnRandom();
-    }, 1300);
+    }, 1100);
 }
 
 function getTurnRandom() {
@@ -672,7 +694,10 @@ function getTurnRandom() {
 
     currentTurn = turnRandom == 1 ? TURN.Player : TURN.Enemy;
 
-    if (currentTurn == TURN.Enemy) setPowerEnemy();
+    if (currentTurn == TURN.Enemy) {
+        colorEnemyTurn();
+        setPowerEnemy();
+    } else colorPlayerTurn();
 }
 
 function checkTurn(power) {
@@ -734,6 +759,7 @@ function powerElectro() {
 
 function powerMelee() {
     currentAttack = POWERS.Melee;
+    currentElement = ELEMENT_MELEE;
 }
 
 function powerDefense() {
@@ -759,9 +785,7 @@ function combat(characterEnemy) {
 
     checkLives();
 
-    currentTurn = currentTurn == TURN.Player ? TURN.Enemy : TURN.Player;
-
-    if (currentTurn == TURN.Enemy) setPowerEnemy();
+    changeTurn();
 }
 
 function getMultiplierFactor(weaknessEnemy) {
@@ -785,7 +809,12 @@ function getNetDamage(characterEnemy, multiplier) {
             ? objectCurrentCharacterPlayer
             : objectCurrentCharacterEnemy;
 
-    let getNetDamage = character.damage * multiplier - characterEnemy.defense;
+    let getNetDamage;
+
+    if (currentElement == ELEMENT_MELEE)
+        getNetDamage =
+            character.damage * multiplier - characterEnemy.defense / 2;
+    else getNetDamage = character.damage * multiplier - characterEnemy.defense;
 
     if (getNetDamage < 0) getNetDamage = 0;
 
@@ -807,6 +836,28 @@ function ChangeLifeUI(character) {
     let scale = character.life / character.maxLife;
 
     barLife.style.transform = `scaleX(${scale})`;
+}
+
+function changeTurn() {
+    currentTurn = currentTurn == TURN.Player ? TURN.Enemy : TURN.Player;
+
+    if (currentTurn == TURN.Enemy) {
+        colorEnemyTurn();
+
+        setTimeout(setPowerEnemy, 1000);
+    } else colorPlayerTurn();
+}
+
+function colorPlayerTurn() {
+    labelPlayer.style.backgroundColor = colorTurn;
+    labelEnemy.style.backgroundColor = colorNormal;
+    containerPowers.style.display = 'flex';
+}
+
+function colorEnemyTurn() {
+    labelPlayer.style.backgroundColor = colorNormal;
+    labelEnemy.style.backgroundColor = colorTurn;
+    containerPowers.style.display = 'none';
 }
 
 window.addEventListener('load', startGame);
