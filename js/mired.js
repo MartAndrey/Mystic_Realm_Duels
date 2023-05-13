@@ -80,9 +80,7 @@ let powersCharacter;
 let objectCurrentCharacterPlayer;
 let objectCurrentCharacterEnemy;
 let currentCharacterPlayer;
-let currentCharacterEnemy;
 let currentElement;
-let currentAttack;
 
 let barLifePlayer;
 let barLifeEnemy;
@@ -696,7 +694,10 @@ function getTurnRandom() {
 
     if (currentTurn == TURN.Enemy) {
         colorEnemyTurn();
-        setPowerEnemy();
+
+        setTimeout(() => {
+            setPowerEnemy();
+        }, 500);
     } else colorPlayerTurn();
 }
 
@@ -733,37 +734,31 @@ function selectCharacterEnemy(enemy) {
 }
 
 function powerPyro() {
-    currentAttack = POWERS.Pyro;
     currentElement = ELEMENT_PYRO;
 }
 
 function powerHydro() {
-    currentAttack = POWERS.Hydro;
     currentElement = ELEMENT_HYDRO;
 }
 
 function powerGeo() {
-    currentAttack = POWERS.Geo;
     currentElement = ELEMENT_GEO;
 }
 
 function powerCryo() {
-    currentAttack = POWERS.Cryo;
     currentElement = ELEMENT_CRYO;
 }
 
 function powerElectro() {
-    currentAttack = POWERS.Electro;
     currentElement = ELEMENT_ELECTRO;
 }
 
 function powerMelee() {
-    currentAttack = POWERS.Melee;
     currentElement = ELEMENT_MELEE;
 }
 
 function powerDefense() {
-    currentAttack = POWERS.Defense;
+    currentElement = POWERS.Defense;
 }
 
 function setPowerEnemy() {
@@ -775,13 +770,23 @@ function setPowerEnemy() {
 }
 
 function combat(characterEnemy) {
+    if (currentElement == POWERS.Defense) {
+        const character =
+            currentTurn == TURN.Player
+                ? objectCurrentCharacterPlayer
+                : objectCurrentCharacterEnemy;
+        character.defense;
+
+        character.defenseIncrease(0.5);
+    }
+
     let weaknessEnemy = characterEnemy.powers[0].name;
 
-    let multiplier = getMultiplierFactor(weaknessEnemy);
-
-    characterEnemy.changeLife(getNetDamage(characterEnemy, multiplier));
-
-    ChangeLifeUI(characterEnemy);
+    if (currentElement != POWERS.Defense) {
+        let multiplier = getMultiplierFactor(weaknessEnemy);
+        characterEnemy.changeLife(getNetDamage(characterEnemy, multiplier));
+        ChangeLifeUI(characterEnemy);
+    }
 
     checkLives();
 
@@ -818,15 +823,16 @@ function getNetDamage(characterEnemy, multiplier) {
 
     if (getNetDamage < 0) getNetDamage = 0;
 
+    if (characterEnemy.timesDefenseIncrease >= 1)
+        characterEnemy.defenseDecrease();
     return getNetDamage;
 }
 
 function checkLives() {
-    if (
-        objectCurrentCharacterPlayer.life <= 0 ||
-        objectCurrentCharacterEnemy.life <= 0
-    ) {
-        alert('GameOver');
+    if (objectCurrentCharacterPlayer.life <= 0) {
+        alert('GameOver Player');
+    } else if (objectCurrentCharacterEnemy.life <= 0) {
+        alert('GameOver Enemy');
     }
 }
 
@@ -859,5 +865,7 @@ function colorEnemyTurn() {
     labelEnemy.style.backgroundColor = colorTurn;
     containerPowers.style.display = 'none';
 }
+
+function setDefense() {}
 
 window.addEventListener('load', startGame);

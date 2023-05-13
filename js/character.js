@@ -1,10 +1,13 @@
 export class Character {
+    timesDefenseIncrease = 0;
+
     constructor(name, life, damage, defense, photo, face, x = 5, y = 295) {
         this.name = name;
         this.maxLife = life;
         this.life = this.maxLife;
         this.damage = damage;
-        this.defense = defense;
+        this.defaultDefense = defense;
+        this.defense = this.defaultDefense;
         this.photo = photo;
         this.face = face;
         this.powers = [];
@@ -31,5 +34,16 @@ export class Character {
 
     changeLife(amount) {
         this.life -= amount;
+    }
+
+    defenseIncrease(percentage) {
+        if (!this.timesDefenseIncrease >= 1)
+            this.defense = this.defense + this.defense * percentage;
+        this.timesDefenseIncrease += 2;
+    }
+
+    defenseDecrease() {
+        this.timesDefenseIncrease--;
+        if (this.timesDefenseIncrease <= 0) this.defense = this.defaultDefense;
     }
 }
