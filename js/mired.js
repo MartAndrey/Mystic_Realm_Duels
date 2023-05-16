@@ -61,6 +61,14 @@ buttonMoveRight.addEventListener('mouseup', stopMovement);
 const sectionSeeMap = document.getElementById('see-map');
 const map = document.getElementById('map');
 
+const colorTurn = '#bdc2be';
+const colorNormal = '#444444';
+
+const colorDamageCritical = 'rgba(255, 0, 0, 0.7)';
+const colorDamageStrong = 'rgba(255, 175, 1, 0.7)';
+const colorDamageImmune = 'rgba(1, 255, 1, 0.7)';
+const colorDamageNormal = 'rgba(238, 255, 0, 0.7)';
+
 let buttonRestart;
 
 let inputBlaze;
@@ -88,10 +96,12 @@ let barLifeEnemy;
 let labelPlayer;
 let labelEnemy;
 
-let currentTurn;
+let informationDamagePlayer;
+let informationDamageEnemy;
 
-let colorTurn = '#bdc2be';
-let colorNormal = '#444444';
+let colorInformationDamage;
+
+let currentTurn;
 
 let canvas = map.getContext('2d');
 
@@ -675,6 +685,15 @@ function startBattle() {
     labelPlayer = document.getElementById('p-player');
     labelEnemy = document.getElementById('p-enemy');
 
+    informationDamagePlayer = document.getElementById(
+        'information-damage-player'
+    );
+    informationDamagePlayer.style.display = 'none';
+    informationDamageEnemy = document.getElementById(
+        'information-damage-enemy'
+    );
+    informationDamageEnemy.style.display = 'none';
+
     buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
             let power = e.target.textContent.trim();
@@ -775,14 +794,21 @@ function combat(characterEnemy) {
             currentTurn == TURN.Player
                 ? objectCurrentCharacterPlayer
                 : objectCurrentCharacterEnemy;
-        character.defense;
-
         character.defenseIncrease(0.5);
+
+        if (currentTurn == TURN.Player) {
+            informationDamagePlayer.style.display = 'flex';
+            informationDamagePlayer.style.backgroundColor = colorDamageNormal;
+            informationDamagePlayer.innerHTML = `Defense <br> +50%`;
+        } else {
+            informationDamageEnemy.style.display = 'flex';
+            informationDamageEnemy.style.backgroundColor = colorDamageNormal;
+            informationDamageEnemy.innerHTML = `Defense <br> +50%`;
+        }
     }
 
-    let weaknessEnemy = characterEnemy.powers[0].name;
-
     if (currentElement != POWERS.Defense) {
+        let weaknessEnemy = characterEnemy.powers[0].name;
         let multiplier = getMultiplierFactor(weaknessEnemy);
         characterEnemy.changeLife(getNetDamage(characterEnemy, multiplier));
         ChangeLifeUI(characterEnemy);
@@ -825,7 +851,36 @@ function getNetDamage(characterEnemy, multiplier) {
 
     if (characterEnemy.timesDefenseIncrease >= 1)
         characterEnemy.defenseDecrease();
+
+    if (currentTurn == TURN.Enemy) {
+        let textMultiplier = getMultiplierText(multiplier);
+        informationDamagePlayer.style.display = 'flex';
+        informationDamagePlayer.style.backgroundColor = colorInformationDamage;
+        informationDamagePlayer.innerHTML = `${textMultiplier} <br> ${getNetDamage}`;
+    } else {
+        let textMultiplier = getMultiplierText(multiplier);
+        informationDamageEnemy.style.display = 'flex';
+        informationDamageEnemy.style.backgroundColor = colorInformationDamage;
+        informationDamageEnemy.innerHTML = `${textMultiplier} <br> ${getNetDamage}`;
+    }
+
     return getNetDamage;
+}
+
+function getMultiplierText(multiplier) {
+    if (multiplier == DAMAGE_TYPE[2]) {
+        colorInformationDamage = colorDamageCritical;
+        return 'Critical';
+    } else if (multiplier == DAMAGE_TYPE['1.5']) {
+        colorInformationDamage = colorDamageStrong;
+        return 'Strong';
+    } else if (multiplier == DAMAGE_TYPE[0]) {
+        colorInformationDamage = colorDamageImmune;
+        return 'Immune';
+    } else {
+        colorInformationDamage = colorDamageNormal;
+        return '';
+    }
 }
 
 function checkLives() {
@@ -858,12 +913,16 @@ function colorPlayerTurn() {
     labelPlayer.style.backgroundColor = colorTurn;
     labelEnemy.style.backgroundColor = colorNormal;
     containerPowers.style.display = 'flex';
+    if (currentElement != POWERS.Defense)
+        informationDamageEnemy.style.display = 'none';
 }
 
 function colorEnemyTurn() {
     labelPlayer.style.backgroundColor = colorNormal;
     labelEnemy.style.backgroundColor = colorTurn;
     containerPowers.style.display = 'none';
+    if (currentElement != POWERS.Defense)
+        informationDamagePlayer.style.display = 'none';
 }
 
 function setDefense() {}

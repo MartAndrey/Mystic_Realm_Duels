@@ -252,11 +252,32 @@ input:checked + .label-container-cards {
 #character-display {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
+    grid-template-rows: 0.1fr 1fr;
     place-items: center;
     grid-area: 2;
     width: 100%;
     height: 100%;
+}
+
+#character-display > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    height: 55%;
+    border-radius: 10px;
+    text-align: center;
+    color: #EDEDED;
+}
+
+#information-damage-player {
+    grid-area: 1 / 1 / 2 / 2;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+#information-damage-enemy {
+    grid-area: 1 / 2 / 2 / 3;
 }
 
 #character-display > img {
@@ -265,11 +286,11 @@ input:checked + .label-container-cards {
 }
 
 #character-display-player {
-    grid-area: 1 / 1 / 2 / 2;
+    grid-area: 2 / 1 / 3 / 2;
 }
 
 #character-display-enemy {
-    grid-area: 1 / 2 / 2 / 3;
+    grid-area: 2 / 2 / 3 / 3;
 }
 
 #powers-container {
@@ -333,7 +354,7 @@ input:checked + .label-container-cards {
 }
 
 #map {
-    border: 2px solid white;
+    border: 2px solid #ededed;
 }
 
 #move-buttons {
