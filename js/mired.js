@@ -60,6 +60,7 @@ buttonMoveRight.addEventListener('mouseup', stopMovement);
 
 const sectionSeeMap = document.getElementById('see-map');
 const map = document.getElementById('map');
+const maxWidthMap = 600;
 
 const colorTurn = '#bdc2be';
 const colorNormal = '#444444';
@@ -110,13 +111,17 @@ let interval;
 let mapBackground = new Image();
 mapBackground.src = '/assets/map.png';
 
+adjustMap();
+
 let blaze = new Character(
     'Blaze',
     200,
     50,
     30,
     'assets/Blaze.png',
-    'assets/BlazeFace.png'
+    'assets/BlazeFace.png',
+    map.width,
+    map.height
 );
 let alexia = new Character(
     'Alexia',
@@ -124,7 +129,9 @@ let alexia = new Character(
     45,
     40,
     'assets/Alexia.png',
-    'assets/AlexiaFace.png'
+    'assets/AlexiaFace.png',
+    map.width,
+    map.height
 );
 let zarek = new Character(
     'Zarek',
@@ -132,7 +139,9 @@ let zarek = new Character(
     40,
     35,
     'assets/Zarek.png',
-    'assets/ZarekFace.png'
+    'assets/ZarekFace.png',
+    map.width,
+    map.height
 );
 let draven = new Character(
     'Draven',
@@ -140,7 +149,9 @@ let draven = new Character(
     35,
     50,
     'assets/Draven.png',
-    'assets/DravenFace.png'
+    'assets/DravenFace.png',
+    map.width,
+    map.height
 );
 let crystalia = new Character(
     'Crystalia',
@@ -148,7 +159,9 @@ let crystalia = new Character(
     60,
     30,
     'assets/Crystalia.png',
-    'assets/CrystaliaFace.png'
+    'assets/CrystaliaFace.png',
+    map.width,
+    map.height
 );
 let raiven = new Character(
     'Raiven',
@@ -156,7 +169,9 @@ let raiven = new Character(
     55,
     25,
     'assets/Raiven.png',
-    'assets/RaivenFace.png'
+    'assets/RaivenFace.png',
+    map.width,
+    map.height
 );
 
 let blazeEnemy = new Character(
@@ -166,8 +181,8 @@ let blazeEnemy = new Character(
     30,
     'assets/Blaze.png',
     'assets/BlazeFace.png',
-    40,
-    210
+    map.width,
+    map.height
 );
 let alexiaEnemy = new Character(
     'Alexia',
@@ -176,8 +191,8 @@ let alexiaEnemy = new Character(
     40,
     'assets/Alexia.png',
     'assets/AlexiaFace.png',
-    330,
-    345
+    map.width,
+    map.height
 );
 let zarekEnemy = new Character(
     'Zarek',
@@ -186,8 +201,8 @@ let zarekEnemy = new Character(
     35,
     'assets/Zarek.png',
     'assets/ZarekFace.png',
-    220,
-    115
+    map.width,
+    map.height
 );
 let dravenEnemy = new Character(
     'Draven',
@@ -196,8 +211,8 @@ let dravenEnemy = new Character(
     50,
     'assets/Draven.png',
     'assets/DravenFace.png',
-    65,
-    350
+    map.width,
+    map.height
 );
 let crystaliaEnemy = new Character(
     'Crystalia',
@@ -206,8 +221,8 @@ let crystaliaEnemy = new Character(
     30,
     'assets/Crystalia.png',
     'assets/CrystaliaFace.png',
-    495,
-    30
+    map.width,
+    map.height
 );
 let raivenEnemy = new Character(
     'Raiven',
@@ -216,8 +231,8 @@ let raivenEnemy = new Character(
     25,
     'assets/Raiven.png',
     'assets/RaivenFace.png',
-    495,
-    230
+    map.width,
+    map.height
 );
 
 blaze.powers.push(
@@ -409,6 +424,21 @@ ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Geo);
 ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Cryo);
 ELEMENT_MELEE.strengths.get(DAMAGE_TYPE['0.5']).push(POWERS.Electro);
 
+function adjustMap() {
+    let heightMap;
+    let widthMap = sectionSeeMap.getBoundingClientRect().width - 20;
+
+    heightMap = (widthMap * 600) / 800;
+
+    if (widthMap > maxWidthMap) {
+        widthMap = maxWidthMap - 20;
+        heightMap = (widthMap * 600) / 800;
+    }
+
+    map.width = widthMap;
+    map.height = heightMap;
+}
+
 function startGame() {
     sectionSelectCharacter.style.display = 'flex';
     sectionSeeMap.style.display = 'none';
@@ -553,9 +583,6 @@ function random(min, max) {
 }
 
 function startMap() {
-    map.width = 600;
-    map.height = 400;
-
     objectCurrentCharacterPlayer = findCurrentCharacter();
 
     interval = setInterval(drawCanvas, 50);
@@ -581,6 +608,9 @@ function drawCanvas() {
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
+    console.log(
+        objectCurrentCharacterPlayer.x + ' ' + objectCurrentCharacterPlayer.y
+    );
 
     blazeEnemy.drawCharacter(canvas);
     alexiaEnemy.drawCharacter(canvas);
@@ -924,7 +954,5 @@ function colorEnemyTurn() {
     if (currentElement != POWERS.Defense)
         informationDamagePlayer.style.display = 'none';
 }
-
-function setDefense() {}
 
 window.addEventListener('load', startGame);
