@@ -468,6 +468,16 @@ function startGame() {
     inputRaiven = document.getElementById('Raiven');
 
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
+
+    joinGame();
+}
+
+function joinGame() {
+    fetch('http://localhost:8080/join')
+    .then((res) => {
+        if (res.ok) res.text()
+        .then((result) => console.log(result));
+    });
 }
 
 function selectCharacterPlayer() {
