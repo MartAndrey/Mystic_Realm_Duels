@@ -72,6 +72,8 @@ const colorDamageNormal = 'rgba(238, 255, 0, 0.7)';
 
 let buttonRestart;
 
+let playerId = null;
+
 let inputBlaze;
 let inputAlexia;
 let inputZarek;
@@ -473,10 +475,12 @@ function startGame() {
 }
 
 function joinGame() {
-    fetch('http://localhost:8080/join')
-    .then((res) => {
-        if (res.ok) res.text()
-        .then((result) => console.log(result));
+    fetch('http://localhost:8080/join').then((res) => {
+        if (res.ok)
+            res.text().then((result) => {
+                playerId = result;
+                console.log(playerId);
+            });
     });
 }
 
@@ -502,7 +506,21 @@ function selectCharacterPlayer() {
         return;
     }
 
+    selectCharacter(currentCharacterPlayer);
+
     startMap();
+}
+
+function selectCharacter(characterPlayer) {
+    fetch(`http://localhost:8080/mired/${playerId}`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            character: characterPlayer,
+        }),
+    });
 }
 
 function getPowers(currentCharacterPlayer) {
@@ -618,9 +636,6 @@ function drawCanvas() {
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
-    console.log(
-        objectCurrentCharacterPlayer.x + ' ' + objectCurrentCharacterPlayer.y
-    );
 
     blazeEnemy.drawCharacter(canvas);
     alexiaEnemy.drawCharacter(canvas);
