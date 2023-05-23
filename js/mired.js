@@ -636,6 +636,7 @@ function drawCanvas() {
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
+    sendPosition(objectCurrentCharacterPlayer.x, objectCurrentCharacterPlayer.y);
 
     blazeEnemy.drawCharacter(canvas);
     alexiaEnemy.drawCharacter(canvas);
@@ -655,6 +656,19 @@ function drawCanvas() {
         checkCollision(crystaliaEnemy);
         checkCollision(raivenEnemy);
     }
+}
+
+function sendPosition(x, y) {
+    fetch(`http://localhost:8080/mired/${playerId}/position`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            x,
+            y,
+        }),
+    });
 }
 
 function moveUp() {

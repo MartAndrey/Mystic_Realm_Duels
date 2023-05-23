@@ -16,6 +16,11 @@ class Player {
     setCharacter(character) {
         this.character = character;
     }
+
+    updatePosition(x, y) {
+        this.x = x;
+        this.y = y;
+    }
 }
 
 class Character {
@@ -47,6 +52,20 @@ app.post('/mired/:playerId', (req, res) => {
 
     console.log(players);
     console.log(playerId);
+
+    res.end();
+});
+
+app.post('/mired/:playerId/position', (req, res) => {
+    const playerId = req.params.playerId || '';
+    const x = req.body.x || 0;
+    const y = req.body.y || 0;
+
+    const playerIndex = players.findIndex((player) => playerId === player.id);
+
+    if (playerId != -1) {
+        players[playerIndex].updatePosition(x, y);
+    }
 
     res.end();
 });
