@@ -1,7 +1,8 @@
 export class Character {
     timesDefenseIncrease = 0;
 
-    constructor(name, life, damage, defense, photo, face, xMap, yMap) {
+    constructor(name, life, damage, defense, photo, face, xMap, yMap, id = null) {
+        this.id = id;
         this.name = name;
         this.maxLife = life;
         this.life = this.maxLife;

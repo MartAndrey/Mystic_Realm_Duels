@@ -176,197 +176,172 @@ let raiven = new Character(
     map.height
 );
 
-let blazeEnemy = new Character(
-    'Blaze',
-    200,
-    50,
-    30,
-    'assets/Blaze.png',
-    'assets/BlazeFace.png',
-    map.width,
-    map.height
-);
-let alexiaEnemy = new Character(
-    'Alexia',
-    250,
-    45,
-    40,
-    'assets/Alexia.png',
-    'assets/AlexiaFace.png',
-    map.width,
-    map.height
-);
-let zarekEnemy = new Character(
-    'Zarek',
-    225,
-    40,
-    35,
-    'assets/Zarek.png',
-    'assets/ZarekFace.png',
-    map.width,
-    map.height
-);
-let dravenEnemy = new Character(
-    'Draven',
-    300,
-    35,
-    50,
-    'assets/Draven.png',
-    'assets/DravenFace.png',
-    map.width,
-    map.height
-);
-let crystaliaEnemy = new Character(
-    'Crystalia',
-    150,
-    60,
-    30,
-    'assets/Crystalia.png',
-    'assets/CrystaliaFace.png',
-    map.width,
-    map.height
-);
-let raivenEnemy = new Character(
-    'Raiven',
-    200,
-    55,
-    25,
-    'assets/Raiven.png',
-    'assets/RaivenFace.png',
-    map.width,
-    map.height
-);
+// let blazeEnemy = new Character(
+//     'Blaze',
+//     200,
+//     50,
+//     30,
+//     'assets/Blaze.png',
+//     'assets/BlazeFace.png',
+//     map.width,
+//     map.height
+// );
+// let alexiaEnemy = new Character(
+//     'Alexia',
+//     250,
+//     45,
+//     40,
+//     'assets/Alexia.png',
+//     'assets/AlexiaFace.png',
+//     map.width,
+//     map.height
+// );
+// let zarekEnemy = new Character(
+//     'Zarek',
+//     225,
+//     40,
+//     35,
+//     'assets/Zarek.png',
+//     'assets/ZarekFace.png',
+//     map.width,
+//     map.height
+// );
+// let dravenEnemy = new Character(
+//     'Draven',
+//     300,
+//     35,
+//     50,
+//     'assets/Draven.png',
+//     'assets/DravenFace.png',
+//     map.width,
+//     map.height
+// );
+// let crystaliaEnemy = new Character(
+//     'Crystalia',
+//     150,
+//     60,
+//     30,
+//     'assets/Crystalia.png',
+//     'assets/CrystaliaFace.png',
+//     map.width,
+//     map.height
+// );
+// let raivenEnemy = new Character(
+//     'Raiven',
+//     200,
+//     55,
+//     25,
+//     'assets/Raiven.png',
+//     'assets/RaivenFace.png',
+//     map.width,
+//     map.height
+// );
 
-blaze.powers.push(
+const BLAZE_POWERS = [
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Defense, id: 'button-defense' },
     { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-blaze.icons.push({ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro });
+    { name: POWERS.Melee, id: 'button-melee' },
+];
+const BLAZE_ICONS = [{ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro }];
 
-alexia.powers.push(
+const ALEXIA_POWERS = [
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-alexia.icons.push(
+    { name: POWERS.Melee, id: 'button-melee' },
+];
+const ALEXIA_ICONS = [
     { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
-    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro }
-);
+    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro },
+];
 
-zarek.powers.push(
+const ZAREK_POWERS = [
     { name: POWERS.Geo, id: 'button-geo' },
     { name: POWERS.Defense, id: 'button-defense' },
     { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-zarek.icons.push({ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo });
+    { name: POWERS.Melee, id: 'button-melee' },
+];
+const ZAREK_ICONS = [{ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo }];
 
-draven.powers.push(
+const DRAVEN_POWERS = [
     { name: POWERS.Geo, id: 'button-geo' },
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-draven.icons.push(
+    { name: POWERS.Melee, id: 'button-melee' },
+];
+const DRAVEN_ICONS = [
     { icon: '/assets/IconPowerGeo.png', name: POWERS.Geo },
-    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro }
-);
+    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
+];
 
-crystalia.powers.push(
+const CRYSTALIA_POWERS = [
     { name: POWERS.Hydro, id: 'button-hydro' },
     { name: POWERS.Cryo, id: 'button-cryo' },
     { name: POWERS.Hydro, id: 'button-hydro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-crystalia.icons.push(
+    { name: POWERS.Melee, id: 'button-melee' },
+];
+const CRYSTALIA_ICONS = [
     { icon: '/assets/IconPowerHydro.png', name: POWERS.Hydro },
-    { icon: '/assets/IconPowerCryo.png', name: POWERS.Cryo }
-);
+    { icon: '/assets/IconPowerCryo.png', name: POWERS.Cryo },
+];
 
-raiven.powers.push(
+const RAIVEN_POWERS = [
     { name: POWERS.Electro, id: 'button-electro' },
     { name: POWERS.Defense, id: 'button-defense' },
     { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-raiven.icons.push({
-    icon: '/assets/IconPowerElectro.png',
-    name: POWERS.Electro,
-});
+    { name: POWERS.Melee, id: 'button-melee' },
+];
+const RAIVEN_ICONS = [
+    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro },
+];
+
+blaze.powers.push(...BLAZE_POWERS);
+blaze.icons.push(...BLAZE_ICONS);
+
+alexia.powers.push(...ALEXIA_POWERS);
+alexia.icons.push(...ALEXIA_ICONS);
+
+zarek.powers.push(...ZAREK_POWERS);
+zarek.icons.push(...ZAREK_ICONS);
+
+draven.powers.push(...DRAVEN_POWERS);
+draven.icons.push(...DRAVEN_ICONS);
+
+crystalia.powers.push(...CRYSTALIA_POWERS);
+crystalia.icons.push(...CRYSTALIA_ICONS);
+
+raiven.powers.push(...RAIVEN_POWERS);
+raiven.icons.push(...RAIVEN_ICONS);
 
 characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 
-blazeEnemy.powers.push(
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Defense, id: 'button-defense' },
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-blazeEnemy.icons.push({ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro });
+// blazeEnemy.powers.push(...BLAZE_POWERS);
+// blazeEnemy.icons.push(...BLAZE_ICONS);
 
-alexiaEnemy.powers.push(
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-alexiaEnemy.icons.push(
-    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
-    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro }
-);
+// alexiaEnemy.powers.push(...ALEXIA_POWERS);
+// alexiaEnemy.icons.push(...ALEXIA_ICONS);
 
-zarekEnemy.powers.push(
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Defense, id: 'button-defense' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-zarekEnemy.icons.push({ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo });
+// zarekEnemy.powers.push(...ZAREK_POWERS);
+// zarekEnemy.icons.push(...ZAREK_ICONS);
 
-dravenEnemy.powers.push(
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Pyro, id: 'button-pyro' },
-    { name: POWERS.Geo, id: 'button-geo' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-dravenEnemy.icons.push(
-    { icon: '/assets/IconPowerGeo.png', name: POWERS.Geo },
-    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro }
-);
+// dravenEnemy.powers.push(...DRAVEN_POWERS);
+// dravenEnemy.icons.push(...DRAVEN_ICONS);
 
-crystaliaEnemy.powers.push(
-    { name: POWERS.Hydro, id: 'button-hydro' },
-    { name: POWERS.Cryo, id: 'button-cryo' },
-    { name: POWERS.Hydro, id: 'button-hydro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-crystaliaEnemy.icons.push(
-    { icon: '/assets/IconPowerHydro.png', name: POWERS.Hydro },
-    { icon: '/assets/IconPowerCryo.png', name: POWERS.Cryo }
-);
+// crystaliaEnemy.powers.push(...CRYSTALIA_POWERS);
+// crystaliaEnemy.icons.push(...CRYSTALIA_ICONS);
 
-raivenEnemy.powers.push(
-    { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Defense, id: 'button-defense' },
-    { name: POWERS.Electro, id: 'button-electro' },
-    { name: POWERS.Melee, id: 'button-melee' }
-);
-raivenEnemy.icons.push({
-    icon: '/assets/IconPowerElectro.png',
-    name: POWERS.Electro,
-});
+// raivenEnemy.powers.push(...RAIVEN_POWERS);
+// raivenEnemy.icons.push(...RAIVEN_ICONS);
 
-charactersEnemies.push(
-    blazeEnemy,
-    alexiaEnemy,
-    zarekEnemy,
-    dravenEnemy,
-    crystaliaEnemy,
-    raivenEnemy
-);
+// charactersEnemies.push(
+//     blazeEnemy,
+//     alexiaEnemy,
+//     zarekEnemy,
+//     dravenEnemy,
+//     crystaliaEnemy,
+//     raivenEnemy
+// );
 
 const ELEMENT_PYRO = new Element([
     DAMAGE_TYPE[2],
@@ -636,14 +611,21 @@ function drawCanvas() {
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
-    sendPosition(objectCurrentCharacterPlayer.x, objectCurrentCharacterPlayer.y);
+    sendPosition(
+        objectCurrentCharacterPlayer.x,
+        objectCurrentCharacterPlayer.y
+    );
 
-    blazeEnemy.drawCharacter(canvas);
-    alexiaEnemy.drawCharacter(canvas);
-    zarekEnemy.drawCharacter(canvas);
-    dravenEnemy.drawCharacter(canvas);
-    crystaliaEnemy.drawCharacter(canvas);
-    raivenEnemy.drawCharacter(canvas);
+    charactersEnemies.forEach((enemy) => {
+        enemy.drawCharacter(canvas);
+    });
+
+    // blazeEnemy.drawCharacter(canvas);
+    // alexiaEnemy.drawCharacter(canvas);
+    // zarekEnemy.drawCharacter(canvas);
+    // dravenEnemy.drawCharacter(canvas);
+    // crystaliaEnemy.drawCharacter(canvas);
+    // raivenEnemy.drawCharacter(canvas);
 
     if (
         objectCurrentCharacterPlayer.speedX !== 0 ||
@@ -668,6 +650,99 @@ function sendPosition(x, y) {
             x,
             y,
         }),
+    }).then((res) => {
+        if (res.ok) {
+            res.json().then(({ enemies }) => {
+                showEnemiesToMap(enemies);
+            });
+        }
+    });
+}
+
+function showEnemiesToMap(enemies) {
+    charactersEnemies = enemies.map((enemy) => {
+        let characterEnemy = null;
+        const characterName = enemy.character.name || '';
+
+        switch (characterName) {
+            case CHARACTER.Blaze:
+                characterEnemy = new Character(
+                    'Blaze',
+                    200,
+                    50,
+                    30,
+                    'assets/Blaze.png',
+                    'assets/BlazeFace.png',
+                    map.width,
+                    map.height
+                );
+                break;
+            case CHARACTER.Alexia:
+                characterEnemy = new Character(
+                    'Alexia',
+                    250,
+                    45,
+                    40,
+                    'assets/Alexia.png',
+                    'assets/AlexiaFace.png',
+                    map.width,
+                    map.height
+                );
+                break;
+            case CHARACTER.Zarek:
+                characterEnemy = new Character(
+                    'Zarek',
+                    225,
+                    40,
+                    35,
+                    'assets/Zarek.png',
+                    'assets/ZarekFace.png',
+                    map.width,
+                    map.height
+                );
+                break;
+            case CHARACTER.Draven:
+                characterEnemy = new Character(
+                    'Draven',
+                    300,
+                    35,
+                    50,
+                    'assets/Draven.png',
+                    'assets/DravenFace.png',
+                    map.width,
+                    map.height
+                );
+                break;
+            case CHARACTER.Crystalia:
+                characterEnemy = new Character(
+                    'Crystalia',
+                    150,
+                    60,
+                    30,
+                    'assets/Crystalia.png',
+                    'assets/CrystaliaFace.png',
+                    map.width,
+                    map.height
+                );
+                break;
+            case CHARACTER.Raiven:
+                characterEnemy = new Character(
+                    'Raiven',
+                    200,
+                    55,
+                    25,
+                    'assets/Raiven.png',
+                    'assets/RaivenFace.png',
+                    map.width,
+                    map.height
+                );
+                break;
+        }
+
+        characterEnemy.x = enemy.x;
+        characterEnemy.y = enemy.y;
+
+        return characterEnemy;
     });
 }
 
