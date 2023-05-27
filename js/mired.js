@@ -176,66 +176,66 @@ let raiven = new Character(
     map.height
 );
 
-// let blazeEnemy = new Character(
-//     'Blaze',
-//     200,
-//     50,
-//     30,
-//     'assets/Blaze.png',
-//     'assets/BlazeFace.png',
-//     map.width,
-//     map.height
-// );
-// let alexiaEnemy = new Character(
-//     'Alexia',
-//     250,
-//     45,
-//     40,
-//     'assets/Alexia.png',
-//     'assets/AlexiaFace.png',
-//     map.width,
-//     map.height
-// );
-// let zarekEnemy = new Character(
-//     'Zarek',
-//     225,
-//     40,
-//     35,
-//     'assets/Zarek.png',
-//     'assets/ZarekFace.png',
-//     map.width,
-//     map.height
-// );
-// let dravenEnemy = new Character(
-//     'Draven',
-//     300,
-//     35,
-//     50,
-//     'assets/Draven.png',
-//     'assets/DravenFace.png',
-//     map.width,
-//     map.height
-// );
-// let crystaliaEnemy = new Character(
-//     'Crystalia',
-//     150,
-//     60,
-//     30,
-//     'assets/Crystalia.png',
-//     'assets/CrystaliaFace.png',
-//     map.width,
-//     map.height
-// );
-// let raivenEnemy = new Character(
-//     'Raiven',
-//     200,
-//     55,
-//     25,
-//     'assets/Raiven.png',
-//     'assets/RaivenFace.png',
-//     map.width,
-//     map.height
-// );
+let blazeEnemy = new Character(
+    'Blaze',
+    200,
+    50,
+    30,
+    'assets/Blaze.png',
+    'assets/BlazeFace.png',
+    map.width,
+    map.height
+);
+let alexiaEnemy = new Character(
+    'Alexia',
+    250,
+    45,
+    40,
+    'assets/Alexia.png',
+    'assets/AlexiaFace.png',
+    map.width,
+    map.height
+);
+let zarekEnemy = new Character(
+    'Zarek',
+    225,
+    40,
+    35,
+    'assets/Zarek.png',
+    'assets/ZarekFace.png',
+    map.width,
+    map.height
+);
+let dravenEnemy = new Character(
+    'Draven',
+    300,
+    35,
+    50,
+    'assets/Draven.png',
+    'assets/DravenFace.png',
+    map.width,
+    map.height
+);
+let crystaliaEnemy = new Character(
+    'Crystalia',
+    150,
+    60,
+    30,
+    'assets/Crystalia.png',
+    'assets/CrystaliaFace.png',
+    map.width,
+    map.height
+);
+let raivenEnemy = new Character(
+    'Raiven',
+    200,
+    55,
+    25,
+    'assets/Raiven.png',
+    'assets/RaivenFace.png',
+    map.width,
+    map.height
+);
 
 const BLAZE_POWERS = [
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -316,32 +316,32 @@ raiven.icons.push(...RAIVEN_ICONS);
 
 characters.push(blaze, alexia, zarek, draven, crystalia, raiven);
 
-// blazeEnemy.powers.push(...BLAZE_POWERS);
-// blazeEnemy.icons.push(...BLAZE_ICONS);
+blazeEnemy.powers.push(...BLAZE_POWERS);
+blazeEnemy.icons.push(...BLAZE_ICONS);
 
-// alexiaEnemy.powers.push(...ALEXIA_POWERS);
-// alexiaEnemy.icons.push(...ALEXIA_ICONS);
+alexiaEnemy.powers.push(...ALEXIA_POWERS);
+alexiaEnemy.icons.push(...ALEXIA_ICONS);
 
-// zarekEnemy.powers.push(...ZAREK_POWERS);
-// zarekEnemy.icons.push(...ZAREK_ICONS);
+zarekEnemy.powers.push(...ZAREK_POWERS);
+zarekEnemy.icons.push(...ZAREK_ICONS);
 
-// dravenEnemy.powers.push(...DRAVEN_POWERS);
-// dravenEnemy.icons.push(...DRAVEN_ICONS);
+dravenEnemy.powers.push(...DRAVEN_POWERS);
+dravenEnemy.icons.push(...DRAVEN_ICONS);
 
-// crystaliaEnemy.powers.push(...CRYSTALIA_POWERS);
-// crystaliaEnemy.icons.push(...CRYSTALIA_ICONS);
+crystaliaEnemy.powers.push(...CRYSTALIA_POWERS);
+crystaliaEnemy.icons.push(...CRYSTALIA_ICONS);
 
-// raivenEnemy.powers.push(...RAIVEN_POWERS);
-// raivenEnemy.icons.push(...RAIVEN_ICONS);
+raivenEnemy.powers.push(...RAIVEN_POWERS);
+raivenEnemy.icons.push(...RAIVEN_ICONS);
 
-// charactersEnemies.push(
-//     blazeEnemy,
-//     alexiaEnemy,
-//     zarekEnemy,
-//     dravenEnemy,
-//     crystaliaEnemy,
-//     raivenEnemy
-// );
+charactersEnemies.push(
+    blazeEnemy,
+    alexiaEnemy,
+    zarekEnemy,
+    dravenEnemy,
+    crystaliaEnemy,
+    raivenEnemy
+);
 
 const ELEMENT_PYRO = new Element([
     DAMAGE_TYPE[2],
@@ -446,57 +446,46 @@ function startGame() {
 
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
 
-    joinGame();
+    // joinGame();
 }
 
-function joinGame() {
-    fetch('http://localhost:8080/join').then((res) => {
-        if (res.ok)
-            res.text().then((result) => {
-                playerId = result;
-                console.log(playerId);
-            });
-    });
-}
+// function joinGame() {
+//     fetch('http://localhost:8080/join').then((res) => {
+//         if (res.ok)
+//             res.text().then((result) => {
+//                 playerId = result;
+//                 console.log(playerId);
+//             });
+//     });
+// }
 
 function selectCharacterPlayer() {
-    sectionSelectCharacter.style.display = 'none';
-    sectionSelectPower.style.display = 'none';
-    sectionSeeMap.style.display = 'flex';
-
     if (inputBlaze.checked) currentCharacterPlayer = CHARACTER.Blaze;
     else if (inputAlexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
     else if (inputZarek.checked) currentCharacterPlayer = CHARACTER.Zarek;
     else if (inputDraven.checked) currentCharacterPlayer = CHARACTER.Draven;
-    else if (inputCrystalia.checked)
-        currentCharacterPlayer = CHARACTER.Crystalia;
+    else if (inputCrystalia.checked)currentCharacterPlayer = CHARACTER.Crystalia;
     else if (inputRaiven.checked) currentCharacterPlayer = CHARACTER.Raiven;
     else {
-        currentCharacterPlayer = null;
         alert('You must select a character ');
-    }
-
-    if (currentCharacterPlayer == null) {
-        startGame();
         return;
     }
-
-    selectCharacter(currentCharacterPlayer);
+    // selectCharacter(currentCharacterPlayer);
 
     startMap();
 }
 
-function selectCharacter(characterPlayer) {
-    fetch(`http://localhost:8080/mired/${playerId}`, {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            character: characterPlayer,
-        }),
-    });
-}
+// function selectCharacter(characterPlayer) {
+//     fetch(`http://localhost:8080/mired/${playerId}`, {
+//         method: 'post',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//             character: characterPlayer,
+//         }),
+//     });
+// }
 
 function getPowers(currentCharacterPlayer) {
     let powers;
@@ -586,6 +575,9 @@ function random(min, max) {
 }
 
 function startMap() {
+    sectionSelectCharacter.style.display = 'none';
+    sectionSeeMap.style.display = 'flex';
+
     objectCurrentCharacterPlayer = findCurrentCharacter();
 
     interval = setInterval(drawCanvas, 50);
@@ -611,21 +603,22 @@ function drawCanvas() {
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
-    sendPosition(
-        objectCurrentCharacterPlayer.x,
-        objectCurrentCharacterPlayer.y
-    );
+    // sendPosition(
+    //     objectCurrentCharacterPlayer.x,
+    //     objectCurrentCharacterPlayer.y
+    // );
 
-    charactersEnemies.forEach((enemy) => {
-        enemy.drawCharacter(canvas);
-    });
+    // charactersEnemies.forEach((character) => {
+    //     character.drawCharacter(canvas);
+    //     checkCollision(character);
+    // });
 
-    // blazeEnemy.drawCharacter(canvas);
-    // alexiaEnemy.drawCharacter(canvas);
-    // zarekEnemy.drawCharacter(canvas);
-    // dravenEnemy.drawCharacter(canvas);
-    // crystaliaEnemy.drawCharacter(canvas);
-    // raivenEnemy.drawCharacter(canvas);
+    blazeEnemy.drawCharacter(canvas);
+    alexiaEnemy.drawCharacter(canvas);
+    zarekEnemy.drawCharacter(canvas);
+    dravenEnemy.drawCharacter(canvas);
+    crystaliaEnemy.drawCharacter(canvas);
+    raivenEnemy.drawCharacter(canvas);
 
     if (
         objectCurrentCharacterPlayer.speedX !== 0 ||
@@ -640,111 +633,111 @@ function drawCanvas() {
     }
 }
 
-function sendPosition(x, y) {
-    fetch(`http://localhost:8080/mired/${playerId}/position`, {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            x,
-            y,
-        }),
-    }).then((res) => {
-        if (res.ok) {
-            res.json().then(({ enemies }) => {
-                showEnemiesToMap(enemies);
-            });
-        }
-    });
-}
+// function sendPosition(x, y) {
+//     fetch(`http://localhost:8080/mired/${playerId}/position`, {
+//         method: 'post',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//             x,
+//             y,
+//         }),
+//     }).then((res) => {
+//         if (res.ok) {
+//             res.json().then(({ enemies }) => {
+//                 showEnemiesToMap(enemies);
+//             });
+//         }
+//     });
+// }
 
-function showEnemiesToMap(enemies) {
-    charactersEnemies = enemies.map((enemy) => {
-        let characterEnemy = null;
-        const characterName = enemy.character.name || '';
+// function showEnemiesToMap(enemies) {
+//     charactersEnemies = enemies.map((enemy) => {
+//         let characterEnemy = null;
+//         const characterName = enemy.character.name || '';
 
-        switch (characterName) {
-            case CHARACTER.Blaze:
-                characterEnemy = new Character(
-                    'Blaze',
-                    200,
-                    50,
-                    30,
-                    'assets/Blaze.png',
-                    'assets/BlazeFace.png',
-                    map.width,
-                    map.height
-                );
-                break;
-            case CHARACTER.Alexia:
-                characterEnemy = new Character(
-                    'Alexia',
-                    250,
-                    45,
-                    40,
-                    'assets/Alexia.png',
-                    'assets/AlexiaFace.png',
-                    map.width,
-                    map.height
-                );
-                break;
-            case CHARACTER.Zarek:
-                characterEnemy = new Character(
-                    'Zarek',
-                    225,
-                    40,
-                    35,
-                    'assets/Zarek.png',
-                    'assets/ZarekFace.png',
-                    map.width,
-                    map.height
-                );
-                break;
-            case CHARACTER.Draven:
-                characterEnemy = new Character(
-                    'Draven',
-                    300,
-                    35,
-                    50,
-                    'assets/Draven.png',
-                    'assets/DravenFace.png',
-                    map.width,
-                    map.height
-                );
-                break;
-            case CHARACTER.Crystalia:
-                characterEnemy = new Character(
-                    'Crystalia',
-                    150,
-                    60,
-                    30,
-                    'assets/Crystalia.png',
-                    'assets/CrystaliaFace.png',
-                    map.width,
-                    map.height
-                );
-                break;
-            case CHARACTER.Raiven:
-                characterEnemy = new Character(
-                    'Raiven',
-                    200,
-                    55,
-                    25,
-                    'assets/Raiven.png',
-                    'assets/RaivenFace.png',
-                    map.width,
-                    map.height
-                );
-                break;
-        }
+//         switch (characterName) {
+//             case CHARACTER.Blaze:
+//                 characterEnemy = new Character(
+//                     'Blaze',
+//                     200,
+//                     50,
+//                     30,
+//                     'assets/Blaze.png',
+//                     'assets/BlazeFace.png',
+//                     map.width,
+//                     map.height
+//                 );
+//                 break;
+//             case CHARACTER.Alexia:
+//                 characterEnemy = new Character(
+//                     'Alexia',
+//                     250,
+//                     45,
+//                     40,
+//                     'assets/Alexia.png',
+//                     'assets/AlexiaFace.png',
+//                     map.width,
+//                     map.height
+//                 );
+//                 break;
+//             case CHARACTER.Zarek:
+//                 characterEnemy = new Character(
+//                     'Zarek',
+//                     225,
+//                     40,
+//                     35,
+//                     'assets/Zarek.png',
+//                     'assets/ZarekFace.png',
+//                     map.width,
+//                     map.height
+//                 );
+//                 break;
+//             case CHARACTER.Draven:
+//                 characterEnemy = new Character(
+//                     'Draven',
+//                     300,
+//                     35,
+//                     50,
+//                     'assets/Draven.png',
+//                     'assets/DravenFace.png',
+//                     map.width,
+//                     map.height
+//                 );
+//                 break;
+//             case CHARACTER.Crystalia:
+//                 characterEnemy = new Character(
+//                     'Crystalia',
+//                     150,
+//                     60,
+//                     30,
+//                     'assets/Crystalia.png',
+//                     'assets/CrystaliaFace.png',
+//                     map.width,
+//                     map.height
+//                 );
+//                 break;
+//             case CHARACTER.Raiven:
+//                 characterEnemy = new Character(
+//                     'Raiven',
+//                     200,
+//                     55,
+//                     25,
+//                     'assets/Raiven.png',
+//                     'assets/RaivenFace.png',
+//                     map.width,
+//                     map.height
+//                 );
+//                 break;
+//         }
 
-        characterEnemy.x = enemy.x;
-        characterEnemy.y = enemy.y;
+//         characterEnemy.x = enemy.x;
+//         characterEnemy.y = enemy.y;
 
-        return characterEnemy;
-    });
-}
+//         return characterEnemy;
+//     });
+// }
 
 function moveUp() {
     objectCurrentCharacterPlayer.speedY = -5;
