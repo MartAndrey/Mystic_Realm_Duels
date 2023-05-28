@@ -32,6 +32,13 @@ const TURN = {
     Enemy: 'Enemy',
 };
 
+const NUMBER_PLAYER = {
+    P1: '/assets/P1.png',
+    P2: '/assets/P2.png',
+    P3: '/assets/P3.png',
+    P4: '/assets/P4.png',
+};
+
 const sectionSelectCharacter = document.getElementById('select-character');
 const sectionSelectPower = document.getElementById('select-power');
 const buttonCharacterPlayer = document.getElementById('button-character');
@@ -72,7 +79,7 @@ const colorDamageNormal = 'rgba(238, 255, 0, 0.7)';
 
 let buttonRestart;
 
-let playerId = null;
+// let playerId = null;
 
 let inputBlaze;
 let inputAlexia;
@@ -464,7 +471,8 @@ function selectCharacterPlayer() {
     else if (inputAlexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
     else if (inputZarek.checked) currentCharacterPlayer = CHARACTER.Zarek;
     else if (inputDraven.checked) currentCharacterPlayer = CHARACTER.Draven;
-    else if (inputCrystalia.checked)currentCharacterPlayer = CHARACTER.Crystalia;
+    else if (inputCrystalia.checked)
+        currentCharacterPlayer = CHARACTER.Crystalia;
     else if (inputRaiven.checked) currentCharacterPlayer = CHARACTER.Raiven;
     else {
         alert('You must select a character ');
@@ -579,6 +587,7 @@ function startMap() {
     sectionSeeMap.style.display = 'flex';
 
     objectCurrentCharacterPlayer = findCurrentCharacter();
+    objectCurrentCharacterPlayer.setNumberPlayer(NUMBER_PLAYER.P1);
 
     interval = setInterval(drawCanvas, 50);
 
@@ -603,6 +612,7 @@ function drawCanvas() {
     canvas.drawImage(mapBackground, 0, 0, map.width, map.height);
 
     objectCurrentCharacterPlayer.drawCharacter(canvas);
+    objectCurrentCharacterPlayer.drawNumberPlayer(canvas);
     // sendPosition(
     //     objectCurrentCharacterPlayer.x,
     //     objectCurrentCharacterPlayer.y

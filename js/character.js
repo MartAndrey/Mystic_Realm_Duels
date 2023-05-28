@@ -23,6 +23,11 @@ export class Character {
         this.speedY = 0;
     }
 
+    setNumberPlayer(numberPlayer){
+        this.imageNumberPlayer = new Image(this.width - 20, this.height - 20);
+        this.imageNumberPlayer.src = numberPlayer;
+    }
+
     drawCharacter(canvas) {
         canvas.drawImage(
             this.mapPhoto,
@@ -30,6 +35,16 @@ export class Character {
             this.y,
             this.width,
             this.height
+        );
+    }
+
+    drawNumberPlayer(canvas){
+        canvas.drawImage(
+            this.imageNumberPlayer,
+            this.x - this.imageNumberPlayer.width / -2,
+            this.y - this.imageNumberPlayer.height,
+            this.width - 20,
+            this.height - 20
         );
     }
 
