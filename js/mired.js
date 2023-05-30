@@ -530,15 +530,17 @@ function showDisplayBattle(powers) {
 
 function showCharacterInfo(character, nameCharacter) {
     let labelCharacterInfo = `
-    <label id="label-character-${nameCharacter}" class="label-character">
-    <div class="character-photo">
+                    <label id="label-character-${nameCharacter}" class="label-character">
+                    <div class="character-photo">
+                    
                     <img class="frame" src=${frameCharacter} alt="Frame" />
                     <img class="character-img"  src=${character.face} alt="Character" />
+                    
                     </div>
                     <div id="character-name-${nameCharacter}" class="character-name">
-                    <p id="p-${nameCharacter}" >${character.name}
+                    <span id="span-${nameCharacter}" >${character.name}
                     <label id="label-powers-${nameCharacter}" ></label>
-                    </p>
+                    </span>
                     <div class="bar-container">
                     <div id="bar-life-${nameCharacter}" class="fill-life"></div>
                     </div>
@@ -623,23 +625,13 @@ function drawCanvas() {
     //     checkCollision(character);
     // });
 
-    blazeEnemy.drawCharacter(canvas);
-    alexiaEnemy.drawCharacter(canvas);
-    zarekEnemy.drawCharacter(canvas);
-    dravenEnemy.drawCharacter(canvas);
-    crystaliaEnemy.drawCharacter(canvas);
-    raivenEnemy.drawCharacter(canvas);
+    charactersEnemies.forEach(enemy => enemy.drawCharacter(canvas))
 
     if (
         objectCurrentCharacterPlayer.speedX !== 0 ||
         objectCurrentCharacterPlayer.speedY !== 0
     ) {
-        checkCollision(blazeEnemy);
-        checkCollision(alexiaEnemy);
-        checkCollision(zarekEnemy);
-        checkCollision(dravenEnemy);
-        checkCollision(crystaliaEnemy);
-        checkCollision(raivenEnemy);
+        charactersEnemies.forEach(enemy => checkCollision(enemy))
     }
 }
 
@@ -829,8 +821,8 @@ function startBattle() {
     barLifePlayer = document.getElementById('bar-life-player');
     barLifeEnemy = document.getElementById('bar-life-enemy');
 
-    labelPlayer = document.getElementById('p-player');
-    labelEnemy = document.getElementById('p-enemy');
+    labelPlayer = document.getElementById('span-player');
+    labelEnemy = document.getElementById('span-enemy');
 
     informationDamagePlayer = document.getElementById(
         'information-damage-player'
@@ -1031,11 +1023,8 @@ function getMultiplierText(multiplier) {
 }
 
 function checkLives() {
-    if (objectCurrentCharacterPlayer.life <= 0) {
-        alert('GameOver Player');
-    } else if (objectCurrentCharacterEnemy.life <= 0) {
-        alert('GameOver Enemy');
-    }
+    if (objectCurrentCharacterPlayer.life <= 0) lose();
+    else if (objectCurrentCharacterEnemy.life <= 0) win();
 }
 
 function ChangeLifeUI(character) {
@@ -1071,5 +1060,16 @@ function colorEnemyTurn() {
     if (currentElement != POWERS.Defense)
         informationDamagePlayer.style.display = 'none';
 }
+
+function win() {
+    sectionSelectPower.style.display = 'none';
+    console.log(charactersEnemies);
+    const indexEnemy = charactersEnemies.findIndex(enemy=> enemy.name == objectCurrentCharacterEnemy.name)
+    charactersEnemies.splice(indexEnemy, 1)
+    console.log("");
+    console.log(charactersEnemies);
+    // startMap();
+}
+function lose() {}
 
 window.addEventListener('load', startGame);

@@ -127,17 +127,42 @@ input:checked + .label-container-cards {
 
 #character-info {
     display: grid;
-    grid-template-columns: minmax(100px, 1fr) minmax(50px, 0.3fr) minmax(
-            100px,
-            1fr
-        );
-    grid-template-rows: minmax(100px, 1fr);
+    grid-template-columns: minmax(100px, 1fr) minmax(50px, 0.3fr) minmax(100px,1fr);
     grid-area: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.label-character {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.character-photo {
+    display: flex;
+    align-items: center;
+    width: 23%;
+    height: 100%;
+}
+
+.character-photo img {
+    width: 100%;
+    height: auto;
+}
+
+.character-photo .character-img {
+    transform: scale(0.8) translate(-140%, -10%);
+}
+
+.character-name {
+    display: flex;
+    flex-direction: column;
+    width: 77%;
+    height: 100%;
 }
 
 #label-character-player {
-    width: 100%;
-    height: 100%;
     grid-area: 1;
 }
 
@@ -157,8 +182,6 @@ input:checked + .label-container-cards {
 #label-character-enemy {
     display: flex;
     flex-direction: row-reverse;
-    width: 100%;
-    height: 100%;
     grid-area: 1 / 3;
 }
 
@@ -166,43 +189,13 @@ input:checked + .label-container-cards {
     align-items: flex-end;
 }
 
-.label-character {
-    display: flex;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-}
-
-.character-photo {
-    width: 23%;
-    height: 100%;
-}
-
-.character-photo > img {
-    margin-left: 20px;
-    margin-top: 10px;
-    width: 120px;
-    height: auto;
-}
-
-.character-photo .character-img {
-    transform: scale(0.6) translateY(-210%);
-}
-
-.character-name {
-    display: flex;
-    flex-direction: column;
-    width: 77%;
-    height: 100%;
-}
-
-.character-name p {
+.character-name span {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 80%;
     height: 60%;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     padding-left: 15px;
     margin: 10px 0px 2px;
     border-radius: 20px;
@@ -211,7 +204,7 @@ input:checked + .label-container-cards {
     font-size: 30px;
 }
 
-#p-enemy {
+#span-enemy {
     align-items: flex-end;
     padding-right: 15px;
 }
@@ -283,7 +276,7 @@ input:checked + .label-container-cards {
 }
 
 #character-display > img {
-    width: 40%;
+    width: 37%;
     height: auto;
 }
 
@@ -350,6 +343,7 @@ input:checked + .label-container-cards {
 }
 
 #see-map {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
