@@ -78,6 +78,8 @@ const colorDamageImmune = 'rgba(1, 255, 1, 0.7)';
 const colorDamageNormal = 'rgba(238, 255, 0, 0.7)';
 
 let buttonRestart;
+let endBattle = false;
+let allInputCharacters = [];
 
 // let playerId = null;
 
@@ -431,7 +433,7 @@ function startGame() {
     characters.forEach((character) => {
         optionCharacter = `
         <li  class="cards-container ">
-        <input type="radio" name="pets" id=${character.name} />
+        <input type="radio" name="character" id=${character.name} />
         <label class="label-container-cards" for=${character.name}>
             <p>${character.name}</p>
             <img
@@ -452,6 +454,15 @@ function startGame() {
     inputRaiven = document.getElementById('Raiven');
 
     buttonCharacterPlayer.addEventListener('click', selectCharacterPlayer);
+
+    allInputCharacters.push(
+        inputBlaze,
+        inputAlexia,
+        inputZarek,
+        inputDraven,
+        inputCrystalia,
+        inputRaiven
+    );
 
     // joinGame();
 }
@@ -585,6 +596,7 @@ function random(min, max) {
 }
 
 function startMap() {
+    endBattle = false;
     sectionSelectCharacter.style.display = 'none';
     sectionSeeMap.style.display = 'flex';
 
@@ -625,13 +637,13 @@ function drawCanvas() {
     //     checkCollision(character);
     // });
 
-    charactersEnemies.forEach(enemy => enemy.drawCharacter(canvas))
+    charactersEnemies.forEach((enemy) => enemy.drawCharacter(canvas));
 
     if (
         objectCurrentCharacterPlayer.speedX !== 0 ||
         objectCurrentCharacterPlayer.speedY !== 0
     ) {
-        charactersEnemies.forEach(enemy => checkCollision(enemy))
+        charactersEnemies.forEach((enemy) => checkCollision(enemy));
     }
 }
 
@@ -928,6 +940,8 @@ function setPowerEnemy() {
 }
 
 function combat(characterEnemy) {
+    if (endBattle === true) return;
+
     if (currentElement == POWERS.Defense) {
         const character =
             currentTurn == TURN.Player
@@ -1023,8 +1037,8 @@ function getMultiplierText(multiplier) {
 }
 
 function checkLives() {
-    if (objectCurrentCharacterPlayer.life <= 0) lose();
-    else if (objectCurrentCharacterEnemy.life <= 0) win();
+    if (objectCurrentCharacterPlayer.life <= 0) youLose();
+    else if (objectCurrentCharacterEnemy.life <= 0) youWin();
 }
 
 function ChangeLifeUI(character) {
@@ -1061,15 +1075,41 @@ function colorEnemyTurn() {
         informationDamagePlayer.style.display = 'none';
 }
 
-function win() {
+function youWin() {
+    console.log("Win");
+    endBattle = true;
     sectionSelectPower.style.display = 'none';
-    console.log(charactersEnemies);
-    const indexEnemy = charactersEnemies.findIndex(enemy=> enemy.name == objectCurrentCharacterEnemy.name)
-    charactersEnemies.splice(indexEnemy, 1)
-    console.log("");
-    console.log(charactersEnemies);
-    // startMap();
+    const indexEnemy = charactersEnemies.findIndex(
+        (enemy) => enemy.name == objectCurrentCharacterEnemy.name
+    );
+    charactersEnemies.splice(indexEnemy, 1);
+
+    // containerPowers.innerHTML = '';
+    // let labelPlayer = document.getElementById('label-character-player');
+    // let labelEnemy = document.getElementById('label-character-enemy');
+    // let imagePlayer = document.getElementById('character-display-player');
+    // let imageEnemy = document.getElementById('character-display-enemy');
+
+    // labelPlayer.remove();
+    // labelEnemy.remove();
+    // imagePlayer.remove();
+    // imageEnemy.remove();
+
+    startMap();
 }
-function lose() {}
+function youLose() {
+    endBattle = true;
+    let input = allInputCharacters.find(
+        (input) => input.id == objectCurrentCharacterPlayer.name
+    );
+
+    input.checked = false;
+    input.disabled = true;
+    input.labels[0].style.pointerEvents = 'none';
+    input.labels[0].querySelector('p').style.backgroundColor = '#444444';
+
+    sectionSelectCharacter.style.display = 'flex';
+    sectionSelectPower.style.display = 'none';
+}
 
 window.addEventListener('load', startGame);
