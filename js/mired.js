@@ -820,6 +820,7 @@ function checkCollision(enemy) {
     ) {
         return;
     }
+
     stopMovement();
     clearInterval(interval);
     sectionSelectPower.style.display = 'grid';
@@ -851,6 +852,9 @@ function startBattle() {
             checkTurn(power);
         });
     });
+
+    ChangeLifeUI(objectCurrentCharacterPlayer, barLifePlayer);
+    ChangeLifeUI(objectCurrentCharacterEnemy, barLifeEnemy);
 
     setTimeout(() => {
         getTurnRandom();
@@ -964,12 +968,11 @@ function combat(characterEnemy) {
         let weaknessEnemy = characterEnemy.powers[0].name;
         let multiplier = getMultiplierFactor(weaknessEnemy);
         characterEnemy.changeLife(getNetDamage(characterEnemy, multiplier));
-        ChangeLifeUI(characterEnemy);
+        let barLife = currentTurn == TURN.Player ? barLifeEnemy : barLifePlayer;
+        ChangeLifeUI(characterEnemy, barLife);
     }
 
     checkLives();
-
-    changeTurn();
 }
 
 function getMultiplierFactor(weaknessEnemy) {
@@ -1037,13 +1040,18 @@ function getMultiplierText(multiplier) {
 }
 
 function checkLives() {
-    if (objectCurrentCharacterPlayer.life <= 0) youLose();
-    else if (objectCurrentCharacterEnemy.life <= 0) youWin();
+    if (objectCurrentCharacterPlayer.life <= 0) {
+        youLose();
+        return;
+    } else if (objectCurrentCharacterEnemy.life <= 0) {
+        youWin();
+        return;
+    }
+
+    changeTurn();
 }
 
-function ChangeLifeUI(character) {
-    let barLife = currentTurn == TURN.Player ? barLifeEnemy : barLifePlayer;
-
+function ChangeLifeUI(character, barLife) {
     let scale = character.life / character.maxLife;
 
     barLife.style.transform = `scaleX(${scale})`;
@@ -1076,7 +1084,7 @@ function colorEnemyTurn() {
 }
 
 function youWin() {
-    console.log("Win");
+    console.log('Win');
     endBattle = true;
     sectionSelectPower.style.display = 'none';
     const indexEnemy = charactersEnemies.findIndex(
@@ -1084,16 +1092,12 @@ function youWin() {
     );
     charactersEnemies.splice(indexEnemy, 1);
 
-    // containerPowers.innerHTML = '';
-    // let labelPlayer = document.getElementById('label-character-player');
-    // let labelEnemy = document.getElementById('label-character-enemy');
-    // let imagePlayer = document.getElementById('character-display-player');
-    // let imageEnemy = document.getElementById('character-display-enemy');
+    if (charactersEnemies.length <= 0) {
+        restartGame();
+        return;
+    }
 
-    // labelPlayer.remove();
-    // labelEnemy.remove();
-    // imagePlayer.remove();
-    // imageEnemy.remove();
+    cleanDisplayBattle();
 
     startMap();
 }
@@ -1108,8 +1112,33 @@ function youLose() {
     input.labels[0].style.pointerEvents = 'none';
     input.labels[0].querySelector('p').style.backgroundColor = '#444444';
 
+    const indexCharacter = characters.findIndex(
+        (character) => character.name == objectCurrentCharacterPlayer.name
+    );
+    characters.splice(indexCharacter, 1);
+
+    if (characters.length <= 0) {
+        restartGame();
+        return;
+    }
+
     sectionSelectCharacter.style.display = 'flex';
     sectionSelectPower.style.display = 'none';
+
+    cleanDisplayBattle();
+}
+
+function cleanDisplayBattle() {
+    containerPowers.innerHTML = '';
+    let labelPlayer = document.getElementById('label-character-player');
+    let labelEnemy = document.getElementById('label-character-enemy');
+    let imagePlayer = document.getElementById('character-display-player');
+    let imageEnemy = document.getElementById('character-display-enemy');
+
+    labelPlayer.remove();
+    labelEnemy.remove();
+    imagePlayer.remove();
+    imageEnemy.remove();
 }
 
 window.addEventListener('load', startGame);
