@@ -109,16 +109,47 @@ input:checked + .label-container-cards {
     cursor: grab;
 }
 
+#buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 #button-character {
-    background-color: #da0037;
+    background-color: #171717;
     border-radius: 100px;
     width: 150px;
     height: 50px;
     color: #ededed;
     border: transparent;
     font-size: 25px;
+    box-shadow: 0px 5px 20px rgb(218, 0, 55)
+} 
+
+#buttons-feedback {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0 20px;
+    width: 90%;
 }
 
+#buttons-feedback > button {
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    color: #ededed;
+}
+
+#button-stats {
+    background-color: #444444;
+}
+
+#button-element-table {
+    background-color: #da0037;
+}
 #select-power {
     grid-template-rows: minmax(100px, 1fr) 3fr minmax(100px, 1fr);
     width: 100vw;
