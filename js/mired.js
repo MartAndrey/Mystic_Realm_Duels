@@ -55,6 +55,10 @@ const buttonMoveLeft = document.getElementById('button-move-left');
 const buttonMoveDown = document.getElementById('button-move-down');
 const buttonMoveRight = document.getElementById('button-move-right');
 
+const buttonTableElement = document.getElementById('button-element-table');
+const modalTableElement = document.getElementById('modal');
+const spanModalClose = document.getElementsByClassName('close')[0];
+
 buttonMoveUp.addEventListener('mousedown', moveUp);
 buttonMoveLeft.addEventListener('mousedown', moveLeft);
 buttonMoveDown.addEventListener('mousedown', moveDown);
@@ -64,6 +68,19 @@ buttonMoveUp.addEventListener('mouseup', stopMovement);
 buttonMoveLeft.addEventListener('mouseup', stopMovement);
 buttonMoveDown.addEventListener('mouseup', stopMovement);
 buttonMoveRight.addEventListener('mouseup', stopMovement);
+
+buttonTableElement.addEventListener('click', () => {
+    modalTableElement.style.display = 'flex';
+});
+
+modalTableElement.addEventListener('click', (event) => {
+    if (event.target == modalTableElement)
+        modalTableElement.style.display = 'none';
+});
+
+spanModalClose.onclick = () => {
+    modal.style.display = 'none';
+};
 
 const sectionSeeMap = document.getElementById('see-map');
 const map = document.getElementById('map');
