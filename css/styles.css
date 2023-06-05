@@ -195,27 +195,42 @@ input:checked + .label-container-cards {
     }
 }
 
-#modal-header {
-    padding: 2px 16px;
-    background-color: #da0037;
-}
-
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+    position: fixed;
+    color: #ededed;
+    transform: translate(-339%, 70%);
+    font-size: 40px;
     font-weight: bold;
+    z-index: 1;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #da0037;
     text-decoration: none;
     cursor: pointer;
 }
 
+#modal-header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 2px 10px;
+    background-color: #da0037;
+}
+
+#modal-header > h2 {
+    margin: 10px;
+}
+
 #modal-body {
+    display: flex;
+    flex-direction: column;
     padding: 2px 16px;
+}
+
+#modal-body > img {
+    align-self: center;
 }
 
 #modal-footer {
