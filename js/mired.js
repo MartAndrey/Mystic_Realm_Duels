@@ -59,6 +59,9 @@ const buttonTableElement = document.getElementById('button-element-table');
 const modalTableElement = document.getElementById('modal');
 const spanModalClose = document.getElementsByClassName('close')[0];
 
+const buttonCharacterStats = document.getElementById('button-stats');
+let stateCharacterStats = false;
+
 buttonMoveUp.addEventListener('mousedown', moveUp);
 buttonMoveLeft.addEventListener('mousedown', moveLeft);
 buttonMoveDown.addEventListener('mousedown', moveDown);
@@ -93,6 +96,8 @@ const colorDamageCritical = 'rgba(255, 0, 0, 0.7)';
 const colorDamageStrong = 'rgba(255, 175, 1, 0.7)';
 const colorDamageImmune = 'rgba(1, 255, 1, 0.7)';
 const colorDamageNormal = 'rgba(238, 255, 0, 0.7)';
+
+let displayCharacterStats = [];
 
 let buttonRestart;
 let endBattle = false;
@@ -452,7 +457,23 @@ function startGame() {
         <li  class="cards-container ">
         <input type="radio" name="character" id=${character.name} />
         <label class="label-container-cards" for=${character.name}>
-            <p>${character.name}</p>
+            <span class="name-character">
+                <p>${character.name}<p>
+                <div class="character-stats">
+                    <div class="stats">
+                        <img src="/assets/sword.png" alt=""/>
+                        <p>${character.damage}</p>
+                    </div>
+                    <div class="stats">
+                        <img src="/assets/shield.png" alt=""/>
+                        <p>${character.defense}</p>
+                    </div>
+                    <div class="stats">
+                        <img src="/assets/heart.png" alt=""/>
+                        <p>${character.maxLife}</p>
+                    </div>
+                </div>
+            </span>
             <img
                 src=${character.photo}
                 alt=${character.name}
@@ -480,6 +501,16 @@ function startGame() {
         inputCrystalia,
         inputRaiven
     );
+
+    displayCharacterStats = [...document.getElementsByClassName('character-stats')];
+
+    buttonCharacterStats.addEventListener('click', () => {
+        let display = stateCharacterStats ? 'none' : 'flex';
+        stateCharacterStats = !stateCharacterStats;
+        displayCharacterStats.forEach((stat) => {
+            stat.style.display = display;
+        });
+    });
 
     // joinGame();
 }
@@ -1127,7 +1158,7 @@ function youLose() {
     input.checked = false;
     input.disabled = true;
     input.labels[0].style.pointerEvents = 'none';
-    input.labels[0].querySelector('p').style.backgroundColor = '#444444';
+    input.labels[0].querySelector('span').style.backgroundColor = '#444444';
 
     const indexCharacter = characters.findIndex(
         (character) => character.name == objectCurrentCharacterPlayer.name
