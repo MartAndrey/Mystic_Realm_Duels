@@ -73,15 +73,19 @@ buttonMoveDown.addEventListener('mouseup', stopMovement);
 buttonMoveRight.addEventListener('mouseup', stopMovement);
 
 buttonTableElement.addEventListener('click', () => {
+    popIn.play();
     modalTableElement.style.display = 'flex';
 });
 
 modalTableElement.addEventListener('click', (event) => {
-    if (event.target == modalTableElement)
+    if (event.target == modalTableElement) {
+        popIn.play();
         modalTableElement.style.display = 'none';
+    }
 });
 
 spanModalClose.onclick = () => {
+    popIn.play();
     modal.style.display = 'none';
 };
 
@@ -96,6 +100,18 @@ const colorDamageCritical = 'rgba(255, 0, 0, 0.7)';
 const colorDamageStrong = 'rgba(255, 175, 1, 0.7)';
 const colorDamageImmune = 'rgba(1, 255, 1, 0.7)';
 const colorDamageNormal = 'rgba(238, 255, 0, 0.7)';
+
+const popIn = document.getElementById('pop-in');
+const buttonMusicBackground = document.getElementById(
+    'button-music-background'
+);
+const musicBackground = document.getElementById('music-background');
+
+buttonMusicBackground.onclick = () => {
+    popIn.play();
+    if (musicBackground.paused) musicBackground.play();
+    else musicBackground.pause();
+};
 
 let displayCharacterStats = [];
 
@@ -448,6 +464,7 @@ function adjustMap() {
 }
 
 function startGame() {
+    musicBackground.volume = 0.8;
     sectionSelectCharacter.style.display = 'flex';
     sectionSeeMap.style.display = 'none';
     sectionSelectPower.style.display = 'none';
@@ -502,9 +519,12 @@ function startGame() {
         inputRaiven
     );
 
-    displayCharacterStats = [...document.getElementsByClassName('character-stats')];
+    displayCharacterStats = [
+        ...document.getElementsByClassName('character-stats'),
+    ];
 
     buttonCharacterStats.addEventListener('click', () => {
+        popIn.play();
         let display = stateCharacterStats ? 'none' : 'flex';
         stateCharacterStats = !stateCharacterStats;
         displayCharacterStats.forEach((stat) => {
@@ -526,6 +546,7 @@ function startGame() {
 // }
 
 function selectCharacterPlayer() {
+    popIn.play();
     if (inputBlaze.checked) currentCharacterPlayer = CHARACTER.Blaze;
     else if (inputAlexia.checked) currentCharacterPlayer = CHARACTER.Alexia;
     else if (inputZarek.checked) currentCharacterPlayer = CHARACTER.Zarek;
@@ -636,6 +657,7 @@ function showPowers(powers) {
 }
 
 function restartGame() {
+    popIn.play();
     location.reload();
 }
 
@@ -879,6 +901,7 @@ function checkCollision(enemy) {
 }
 
 function startBattle() {
+    musicBackground.volume = 0.5;
     barLifePlayer = document.getElementById('bar-life-player');
     barLifeEnemy = document.getElementById('bar-life-enemy');
 
@@ -928,6 +951,7 @@ function checkTurn(power) {
 }
 
 function getPowerToCharacter(power) {
+    if (currentTurn == TURN.Player) popIn.play();
     if (power === POWERS.Pyro) {
         powerPyro();
     } else if (power === POWERS.Hydro) {

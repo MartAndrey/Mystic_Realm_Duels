@@ -13,6 +13,25 @@ body {
     background: linear-gradient(to right, #444444, #171717);  */
 }
 
+#button-audio{
+    display: flex;
+    justify-content: center;
+    width: 10%;
+}
+
+#button-audio > button {
+    background-color: #DA0037;
+    color: #EDEDED;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
 button {
     font-family: 'Skranji', cursive;
 }
@@ -100,7 +119,7 @@ button:hover {
     justify-content: space-between;
     width: 85%;
     height: 30%;
-    transform: translate(-3% ,90%);
+    transform: translate(-3%, 90%);
     box-sizing: border-box;
 }
 
@@ -172,12 +191,20 @@ input:checked + .label-container-cards {
 
 #buttons-feedback {
     display: flex;
-    justify-content: flex-end;
     gap: 0 20px;
-    width: 90%;
+    width: 100%;
 }
 
-#buttons-feedback > button {
+#feedback {
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    height: 100%;
+    gap: 0px 20px;
+    margin-right: 50px;
+}
+
+#feedback > button {
     border-radius: 10px;
     width: 130px;
     height: 40px;

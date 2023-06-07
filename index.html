@@ -19,8 +19,13 @@
             <div id="buttons">
                 <button id="button-character">SELECT</button>
                 <div id="buttons-feedback">
-                    <button id="button-stats">CHARACTER STATS</button>
-                    <button id="button-element-table">ELEMENT TABLE</button>
+                    <div id="button-audio">
+                        <button id="button-music-background">MUSIC BACKGROUND</button>
+                    </div>
+                    <div id="feedback">
+                        <button id="button-stats">CHARACTER STATS</button>
+                        <button id="button-element-table">ELEMENT TABLE</button>
+                    </div>
                 </div>
             </div>
 
@@ -101,6 +106,8 @@
 
             <div id="powers-container" class="button-powers"></div>
         </section>
+        <audio id="music-background" src="/assets/Background music.mp3" onvolumechange="1" autoplay loop></audio>
+        <audio id="pop-in" src="/assets/UI Popup In.mp3"></audio>
         <script type="module" src="js/mired.js"></script>
         <script type="module" src="/js/character.js"></script>
         <script type="module" src="/js/elements.js"></script>
