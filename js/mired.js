@@ -465,7 +465,7 @@ function adjustMap() {
 
 function startGame() {
     musicBackground.volume = 0.8;
-    sectionSelectCharacter.style.display = 'flex';
+    sectionSelectCharacter.style.display = 'grid';
     sectionSeeMap.style.display = 'none';
     sectionSelectPower.style.display = 'none';
 
@@ -1194,7 +1194,7 @@ function youLose() {
         return;
     }
 
-    sectionSelectCharacter.style.display = 'flex';
+    sectionSelectCharacter.style.display = 'grid';
     sectionSelectPower.style.display = 'none';
 
     cleanDisplayBattle();

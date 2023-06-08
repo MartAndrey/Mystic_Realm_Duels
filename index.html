@@ -9,8 +9,10 @@
     </head>
     <body>
         <section id="select-character">
-            <h1 class="title">Mystic Realm Duels</h1>
-            <h2 class="caption">Choose your character:</h2>
+            <div id="title">
+                <h1 class="title">Mystic Realm Duels</h1>
+                <h2 class="caption">Choose your character:</h2>
+            </div>
 
             <div id="cards">
                 <ul id="container-cards" class="mired-card"></ul>
@@ -106,7 +108,7 @@
 
             <div id="powers-container" class="button-powers"></div>
         </section>
-        <audio id="music-background" src="/assets/Background music.mp3" onvolumechange="1" autoplay loop></audio>
+        <audio id="music-background" src="/assets/Background music.mp3" onvolumechange="1" <!----> autoplay --> loop></audio>
         <audio id="pop-in" src="/assets/UI Popup In.mp3"></audio>
         <script type="module" src="js/mired.js"></script>
         <script type="module" src="/js/character.js"></script>
