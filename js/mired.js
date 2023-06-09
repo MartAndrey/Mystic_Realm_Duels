@@ -901,6 +901,7 @@ function checkCollision(enemy) {
 }
 
 function startBattle() {
+    lockOrientation();
     musicBackground.volume = 0.5;
     barLifePlayer = document.getElementById('bar-life-player');
     barLifeEnemy = document.getElementById('bar-life-enemy');
@@ -1211,6 +1212,32 @@ function cleanDisplayBattle() {
     labelEnemy.remove();
     imagePlayer.remove();
     imageEnemy.remove();
+}
+
+function lockOrientation() {
+    if (typeof screen.orientation !== 'undefined' && screen.orientation.lock) {
+        screen.orientation
+            .lock('landscape')
+            .then(function () {
+                document.body.classList.add('locked-orientation');
+            })
+            .catch(function (error) {
+                console.log('No se pudo bloquear la orientación:', error);
+            });
+    } else {
+        var mediaQuery = window.matchMedia('(orientation: portrait)');
+        var handleOrientationChange = function (event) {
+            if (event.matches) {
+                document.body.classList.add('locked-orientation');
+            } else {
+                document.body.classList.remove('locked-orientation');
+            }
+        };
+
+        handleOrientationChange(mediaQuery);
+
+        mediaQuery.addEventListener('change', handleOrientationChange);
+    }
 }
 
 window.addEventListener('load', startGame);

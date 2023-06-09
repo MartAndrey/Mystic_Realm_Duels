@@ -13,7 +13,7 @@ body {
     background: linear-gradient(to right, #444444, #171717);  */
 }
 
-#button-audio{
+#button-audio {
     display: flex;
     justify-content: flex-start;
     width: 25%;
@@ -22,8 +22,8 @@ body {
 }
 
 #button-audio > button {
-    background-color: #DA0037;
-    color: #EDEDED;
+    background-color: #da0037;
+    color: #ededed;
     border: none;
     border-radius: 4px;
     font-size: 14px;
@@ -77,6 +77,11 @@ button:hover {
     height: 100%;
     overflow-x: scroll;
     white-space: nowrap;
+}
+
+#cards > ul {
+    width: 100%;
+    height: 100%;
 }
 
 #cards::-webkit-scrollbar {
@@ -186,6 +191,7 @@ input:checked + .label-container-cards {
     display: grid;
     grid-template-rows: 1fr 1fr;
     place-items: center;
+    align-items: start;
     width: 100%;
     height: 100%;
 }
@@ -547,13 +553,20 @@ input:checked + .label-container-cards {
 
 #see-map {
     display: flex;
+    width: 100vw;
+    height: 100vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+#see-map > h1 {
+    text-align: center;
+}
+
 #map {
     border: 2px solid #ededed;
+    margin-bottom: 10px;
 }
 
 #move-buttons {
@@ -595,8 +608,67 @@ input:checked + .label-container-cards {
     background-image: url('/assets/buttonRight.png');
 }
 
-/* @media (max-width: 420px) {
-    #cards {
-        max-width: 400px;
+@media (max-width: 420px) {
+    #select-character {
+        grid-template-rows: 0.4fr 1fr 0.6fr;
+        align-items: flex-start;
     }
-} */
+    #title > h1,
+    h2 {
+        margin: 2px;
+    }
+
+    #cards {
+        transform: translateY(-10%);
+    }
+
+    #buttons {
+        transform: translateY(-20%);
+    }
+
+    #buttons-feedback {
+        flex-direction: column-reverse;
+        justify-content: space-around;
+        transform: translateY(-50%);
+        width: 70%;
+    }
+
+    #button-audio {
+        justify-content: center;
+        width: 90%;
+        height: 30%;
+    }
+
+    #feedback {
+        justify-content: space-around;
+        width: 100%;
+        height: 35%;
+    }
+
+    #select-power {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vh;
+        height: 100vw;
+        transform: rotate(90deg);
+        transform-origin: top left;
+    }
+
+    body.locked-orientation {
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 800px) {
+    #cards > ul {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 800px) {
+    #modal-content {
+        width: 100%;
+    }
+}
