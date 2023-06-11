@@ -82,6 +82,7 @@ button:hover {
 #cards > ul {
     width: 100%;
     height: 100%;
+    margin: 0;
 }
 
 #cards::-webkit-scrollbar {
@@ -97,6 +98,7 @@ button:hover {
     width: 12.5rem;
     height: 25rem;
     margin: 0 15px;
+    transform: translateY(5%);
 }
 
 .mired-card .label-container-cards {
@@ -346,22 +348,27 @@ input:checked + .label-container-cards {
     display: flex;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .character-photo {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     width: 23%;
     height: 100%;
 }
 
-.character-photo img {
-    width: 100%;
+.character-photo .frame {
+    width: 90%;
     height: auto;
 }
 
 .character-photo .character-img {
-    transform: scale(0.8) translate(-140%, -10%);
+    width: 50%;
+    height: auto;
+    transform: translate(-125%, -10%);
 }
 
 .character-name {
@@ -369,6 +376,7 @@ input:checked + .label-container-cards {
     flex-direction: column;
     width: 77%;
     height: 100%;
+    justify-content: center;
 }
 
 #label-character-player {
@@ -378,6 +386,7 @@ input:checked + .label-container-cards {
 #button-restart {
     place-self: center;
     width: 40%;
+    min-width: 80px;
     height: 30%;
     grid-area: 1 / 2;
     background-color: #da0037;
@@ -404,13 +413,14 @@ input:checked + .label-container-cards {
     justify-content: center;
     width: 80%;
     height: 60%;
-    /* box-sizing: border-box; */
+    max-height: 80px;
     padding-left: 15px;
     margin: 10px 0px 2px;
     border-radius: 20px;
     background-color: #444444;
     color: #ededed;
     font-size: 30px;
+    box-sizing: border-box;
 }
 
 #span-enemy {
@@ -513,6 +523,7 @@ input:checked + .label-container-cards {
 
 .button-power {
     box-sizing: border-box;
+    max-width: 300px;
     width: 15%;
     height: 40%;
     padding: 0px;
@@ -608,6 +619,24 @@ input:checked + .label-container-cards {
     background-image: url('/assets/buttonRight.png');
 }
 
+#see-map > p {
+    display: none;
+}
+
+@media (max-height: 500px) {
+    #select-power {
+        transform: scale(0.92) translateY(-7%);
+    }
+
+    #character-display {
+        transform: translateY(-4%);
+    }
+
+    #powers-container {
+        transform: translateY(-48%);
+    }
+}
+
 @media (max-width: 420px) {
     #select-character {
         grid-template-rows: 0.4fr 1fr 0.6fr;
@@ -660,6 +689,19 @@ input:checked + .label-container-cards {
     }
 }
 
+@media (max-width: 800px) {
+    #modal-content {
+        width: 100%;
+    }
+
+    #see-map > p {
+        display: flex;
+        color: #ededed;
+        text-align: center;
+        margin: 30px 15px;
+    }
+}
+
 @media (min-width: 800px) {
     #cards > ul {
         justify-content: center;
@@ -667,8 +709,34 @@ input:checked + .label-container-cards {
     }
 }
 
-@media (max-width: 800px) {
-    #modal-content {
-        width: 100%;
+@media (max-width: 1500px) {
+    .character-photo .character-img {
+        width: 55%;
+        height: auto;
+        transform: translate(-130%, -10%);
+    }
+}
+
+@media screen and (min-width: 750px) and (max-width: 1500px) {
+    #label-character-player .character-photo {
+        transform: translateX(10%);
+    }
+}
+
+@media screen and (min-width: 1500px) and (max-width: 2000px) {
+    #label-character-player .character-photo {
+        transform: translateX(25%);
+    }
+}
+
+@media (min-width: 2000px) {
+    .character-photo .character-img {
+        width: 40%;
+        height: auto;
+        transform: translate(-127%, -10%);
+    }
+
+    #label-character-player .character-photo {
+        transform: translateX(40%);
     }
 }

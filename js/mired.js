@@ -1222,7 +1222,7 @@ function lockOrientation() {
                 document.body.classList.add('locked-orientation');
             })
             .catch(function (error) {
-                console.log('No se pudo bloquear la orientación:', error);
+                console.log('Failed to lock orientation:', error);
             });
     } else {
         var mediaQuery = window.matchMedia('(orientation: portrait)');
