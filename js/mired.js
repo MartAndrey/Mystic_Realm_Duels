@@ -33,17 +33,17 @@ const TURN = {
 };
 
 const NUMBER_PLAYER = {
-    P1: '/assets/P1.png',
-    P2: '/assets/P2.png',
-    P3: '/assets/P3.png',
-    P4: '/assets/P4.png',
+    P1: 'assets/P1.png',
+    P2: 'assets/P2.png',
+    P3: 'assets/P3.png',
+    P4: 'assets/P4.png',
 };
 
 const sectionSelectCharacter = document.getElementById('select-character');
 const sectionSelectPower = document.getElementById('select-power');
 const buttonCharacterPlayer = document.getElementById('button-character');
 
-const frameCharacter = '/assets/Frame.png';
+const frameCharacter = 'assets/Frame.png';
 
 const containerCards = document.getElementById('container-cards');
 const containerCharacterInfo = document.getElementById('character-info');
@@ -158,7 +158,7 @@ let canvas = map.getContext('2d');
 let interval;
 
 let mapBackground = new Image();
-mapBackground.src = '/assets/map.png';
+mapBackground.src = 'assets/map.png';
 
 adjustMap();
 
@@ -290,7 +290,7 @@ const BLAZE_POWERS = [
     { name: POWERS.Pyro, id: 'button-pyro' },
     { name: POWERS.Melee, id: 'button-melee' },
 ];
-const BLAZE_ICONS = [{ icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro }];
+const BLAZE_ICONS = [{ icon: 'assets/IconPowerPyro.png', name: POWERS.Pyro }];
 
 const ALEXIA_POWERS = [
     { name: POWERS.Pyro, id: 'button-pyro' },
@@ -299,8 +299,8 @@ const ALEXIA_POWERS = [
     { name: POWERS.Melee, id: 'button-melee' },
 ];
 const ALEXIA_ICONS = [
-    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
-    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro },
+    { icon: 'assets/IconPowerPyro.png', name: POWERS.Pyro },
+    { icon: 'assets/IconPowerElectro.png', name: POWERS.Electro },
 ];
 
 const ZAREK_POWERS = [
@@ -309,7 +309,7 @@ const ZAREK_POWERS = [
     { name: POWERS.Geo, id: 'button-geo' },
     { name: POWERS.Melee, id: 'button-melee' },
 ];
-const ZAREK_ICONS = [{ icon: '/assets/IconPowerGeo.png', name: POWERS.Geo }];
+const ZAREK_ICONS = [{ icon: 'assets/IconPowerGeo.png', name: POWERS.Geo }];
 
 const DRAVEN_POWERS = [
     { name: POWERS.Geo, id: 'button-geo' },
@@ -318,8 +318,8 @@ const DRAVEN_POWERS = [
     { name: POWERS.Melee, id: 'button-melee' },
 ];
 const DRAVEN_ICONS = [
-    { icon: '/assets/IconPowerGeo.png', name: POWERS.Geo },
-    { icon: '/assets/IconPowerPyro.png', name: POWERS.Pyro },
+    { icon: 'assets/IconPowerGeo.png', name: POWERS.Geo },
+    { icon: 'assets/IconPowerPyro.png', name: POWERS.Pyro },
 ];
 
 const CRYSTALIA_POWERS = [
@@ -329,8 +329,8 @@ const CRYSTALIA_POWERS = [
     { name: POWERS.Melee, id: 'button-melee' },
 ];
 const CRYSTALIA_ICONS = [
-    { icon: '/assets/IconPowerHydro.png', name: POWERS.Hydro },
-    { icon: '/assets/IconPowerCryo.png', name: POWERS.Cryo },
+    { icon: 'assets/IconPowerHydro.png', name: POWERS.Hydro },
+    { icon: 'assets/IconPowerCryo.png', name: POWERS.Cryo },
 ];
 
 const RAIVEN_POWERS = [
@@ -340,7 +340,7 @@ const RAIVEN_POWERS = [
     { name: POWERS.Melee, id: 'button-melee' },
 ];
 const RAIVEN_ICONS = [
-    { icon: '/assets/IconPowerElectro.png', name: POWERS.Electro },
+    { icon: 'assets/IconPowerElectro.png', name: POWERS.Electro },
 ];
 
 blaze.powers.push(...BLAZE_POWERS);
@@ -478,15 +478,15 @@ function startGame() {
                 <p>${character.name}<p>
                 <div class="character-stats">
                     <div class="stats">
-                        <img src="/assets/sword.png" alt=""/>
+                        <img src="assets/sword.png" alt=""/>
                         <p>${character.damage}</p>
                     </div>
                     <div class="stats">
-                        <img src="/assets/shield.png" alt=""/>
+                        <img src="assets/shield.png" alt=""/>
                         <p>${character.defense}</p>
                     </div>
                     <div class="stats">
-                        <img src="/assets/heart.png" alt=""/>
+                        <img src="assets/heart.png" alt=""/>
                         <p>${character.maxLife}</p>
                     </div>
                 </div>
