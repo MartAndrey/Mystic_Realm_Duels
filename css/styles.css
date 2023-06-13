@@ -3,7 +3,7 @@
 body {
     font-family: 'Skranji', cursive;
     margin: 0px;
-    background-image: url(assets/Background.jpg);
+    background-image: url("../assets/Background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -601,22 +601,22 @@ input:checked + .label-container-cards {
 
 #button-move-up {
     grid-area: 1 / 2;
-    background-image: url('/assets/buttonUp.png');
+    background-image: url("../assets/buttonUp.png");
 }
 
 #button-move-left {
     grid-area: 2 / 1;
-    background-image: url('/assets/buttonLeft.png');
+    background-image: url("../assets/buttonLeft.png");
 }
 
 #button-move-down {
     grid-area: 2 / 2;
-    background-image: url('/assets/buttonDown.png');
+    background-image: url("../assets/buttonDown.png");
 }
 
 #button-move-right {
     grid-area: 2 / 3;
-    background-image: url('/assets/buttonRight.png');
+    background-image: url("../assets/buttonRight.png");
 }
 
 #see-map > p {

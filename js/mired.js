@@ -62,15 +62,15 @@ const spanModalClose = document.getElementsByClassName('close')[0];
 const buttonCharacterStats = document.getElementById('button-stats');
 let stateCharacterStats = false;
 
-buttonMoveUp.addEventListener('mousedown', moveUp);
-buttonMoveLeft.addEventListener('mousedown', moveLeft);
-buttonMoveDown.addEventListener('mousedown', moveDown);
-buttonMoveRight.addEventListener('mousedown', moveRight);
+buttonMoveUp.addEventListener('pointerdown', moveUp);
+buttonMoveLeft.addEventListener('pointerdown', moveLeft);
+buttonMoveDown.addEventListener('pointerdown', moveDown);
+buttonMoveRight.addEventListener('pointerdown', moveRight);
 
-buttonMoveUp.addEventListener('mouseup', stopMovement);
-buttonMoveLeft.addEventListener('mouseup', stopMovement);
-buttonMoveDown.addEventListener('mouseup', stopMovement);
-buttonMoveRight.addEventListener('mouseup', stopMovement);
+buttonMoveUp.addEventListener('pointerup', stopMovement);
+buttonMoveLeft.addEventListener('pointerup', stopMovement);
+buttonMoveDown.addEventListener('pointerup', stopMovement);
+buttonMoveRight.addEventListener('pointerup', stopMovement);
 
 buttonTableElement.addEventListener('click', () => {
     popIn.play();
