@@ -4,7 +4,7 @@
     <img src="https://i.postimg.cc/GhBr5Dk8/Screenshot-2023-06-13-124150.png" alt="Screenshot" />
 </div>
 
-Mired is a turn-based fantasy video game where each character has its main element as well as each element has its weaknesses and strengths, you can play with a total of 6 characters where your elements can be pyro, hydro, geo, cryo or electro, choose well who you want to fight against you can see the statistics of each player and thus be able to make a good decision
+Ace Master of Sky is a turn-based fantasy video game where each character possesses a unique elemental power. In this game, strategic decision-making is key as each element has its own strengths and weaknesses. Choose your team wisely and engage in thrilling battles!
 
 Note: This project was created with the intention of showing and testing web development skills. You can play it by clicking [here](https://martandrey.github.io/Mystic_Realm_Duels/)
 
@@ -23,7 +23,11 @@ Note: This project was created with the intention of showing and testing web dev
 
 Here're some of the project's best feature:
 
--   Responsive design
+-   Responsive design, ensuring an enjoyable experience across different devices.
+-   Engaging turn-based gameplay with a fantasy theme.
+-   Detailed statistics for each character, allowing players to make informed decisions.
+-   Six playable characters, each aligned with a specific element (pyro, hydro, geo, cryo, electro).
+
 
 ### **Built with**
 
