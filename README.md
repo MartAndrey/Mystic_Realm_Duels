@@ -1,10 +1,10 @@
-<h1 align="center" id="title">Ace Master of Sky</h1>
+<h1 align="center" id="title">Mystic Realm Duels</h1>
 
 <div style="text-align:center">
     <img src="https://i.postimg.cc/GhBr5Dk8/Screenshot-2023-06-13-124150.png" alt="Screenshot" />
 </div>
 
-Ace Master of Sky is a turn-based fantasy video game where each character possesses a unique elemental power. In this game, strategic decision-making is key as each element has its own strengths and weaknesses. Choose your team wisely and engage in thrilling battles!
+Mystic Realm Duels is a turn-based fantasy video game where each character possesses a unique elemental power. In this game, strategic decision-making is key as each element has its own strengths and weaknesses. Choose your team wisely and engage in thrilling battles!
 
 Note: This project was created with the intention of showing and testing web development skills. You can play it by clicking [here](https://martandrey.github.io/Mystic_Realm_Duels/)
 
